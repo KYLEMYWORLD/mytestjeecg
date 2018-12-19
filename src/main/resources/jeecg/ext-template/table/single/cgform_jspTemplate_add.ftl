@@ -166,7 +166,7 @@
 							<#-- update--end--author:zhangjiaqiangDate:20170509 for:修订生成代码不美观 -->
 							<#elseif po.showType=='radio' || po.showType=='select' || po.showType=='checkbox' || po.showType=='list'>	 
 							  <#-- update--begin--author:zhangjiaqiangDate:20170509 for:修订生成代码不美观 -->
-							  <t:dictSelect field="${po.fieldName}" type="${po.showType?if_exists?html}" <@datatype inputCheck="2" validType="${po.fieldValidType!''}" isNull="${po.isNull}" type="${po.type}" mustInput="${po.fieldMustInput!''}" isNull="${po.isNull}"/><@dictInfo dictTable="${po.dictTable}" dictField="${po.dictField}" dictText="${po.dictText}" /> defaultVal="${'$'}{${entityName?uncap_first}Page.${po.fieldName}}" hasLabel="false"  title="${po.content}" ></t:dictSelect>     
+							  <t:dictSelect id="${po.fieldName}" field="${po.fieldName}" type="${po.showType?if_exists?html}" <@datatype inputCheck="2" validType="${po.fieldValidType!''}" isNull="${po.isNull}" type="${po.type}" mustInput="${po.fieldMustInput!''}" isNull="${po.isNull}"/><@dictInfo dictTable="${po.dictTable}" dictField="${po.dictField}" dictText="${po.dictText}" /> defaultVal="${'$'}{${entityName?uncap_first}Page.${po.fieldName}}" hasLabel="false"  title="${po.content}" ></t:dictSelect>
 								<#-- update--end--author:zhangjiaqiangDate:20170509 for:修订生成代码不美观 -->
 							<#elseif po.showType=='date'>
 							   <#-- update--begin--author:zhangjiaqiangDate:20170509 for:修订生成代码不美观 -->

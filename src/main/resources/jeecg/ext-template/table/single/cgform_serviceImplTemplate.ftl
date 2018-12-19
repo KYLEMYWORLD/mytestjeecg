@@ -64,7 +64,7 @@ public class ${entityName}ServiceImpl extends CommonServiceImpl implements ${ent
 	<#if btn.optType=='action'>
  	/**
 	 * 自定义按钮-[${btn.buttonName}]业务处理
-	 * @param id
+	 * @param t
 	 * @return
 	 */
 	 public void do${btn.buttonCode?cap_first}Bus(${entityName}Entity t) throws Exception{
@@ -137,7 +137,7 @@ public class ${entityName}ServiceImpl extends CommonServiceImpl implements ${ent
  	}
  	/**
 	 * 删除操作增强业务
-	 * @param id
+	 * @param t
 	 * @return
 	 */
 	private void doDelBus(${entityName}Entity t) throws Exception{

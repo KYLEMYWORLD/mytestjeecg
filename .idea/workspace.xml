@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="jeecg:war" />
+      <artifact name="jeecg:war exploded" />
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
@@ -13,6 +13,12 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/mytestjeecg$Tomcat_6_0_9.ic" NAME="Tomcat 6.0.9 Coverage Results" MODIFIED="1544776788302" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="268" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -28,142 +34,160 @@
     <expand />
     <select />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="mytestjeecg" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/cgform/controller/autolist/CgAutoListController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="200" column="23" selection-start-line="200" selection-start-column="23" selection-end-line="200" selection-end-column="23" />
-              <folding>
-                <element signature="e#8084#8102#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/system/pojo/base/TSDataRule.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecg/jform_plan/controller/JformPlanController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1592">
-              <caret line="22" column="20" lean-forward="true" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/core/util/JeecgDataAutorUtils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="59" column="32" selection-start-line="59" selection-start-column="32" selection-end-line="59" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/core/util/ContextHolderUtils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/javax/servlet/javax.servlet-api/3.0.1/javax.servlet-api-3.0.1-sources.jar!/javax/servlet/ServletRequest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="109" column="18" selection-start-line="109" selection-start-column="18" selection-end-line="109" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-test/4.0.9.RELEASE/spring-test-4.0.9.RELEASE-sources.jar!/org/springframework/mock/web/MockHttpServletRequest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="312" column="18" selection-start-line="312" selection-start-column="18" selection-end-line="312" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/core/constant/Globals.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="111" column="85" selection-start-line="111" selection-start-column="60" selection-end-line="111" selection-end-column="85" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/tag/core/easyui/DataGridTag.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="4369" column="29" selection-start-line="4369" selection-start-column="23" selection-end-line="4369" selection-end-column="29" />
+            <state relative-caret-position="375">
+              <caret line="483" column="54" selection-start-line="483" selection-start-column="54" selection-end-line="483" selection-end-column="54" />
               <folding>
-                <element signature="e#5064#5065#0" expanded="true" />
-                <element signature="e#5083#5084#0" expanded="true" />
-                <element signature="e#5324#5325#0" expanded="true" />
-                <element signature="e#5355#5356#0" expanded="true" />
+                <element signature="method#goUpdate#0;class#JformPlanController#0" />
+                <element signature="method#upload#0;class#JformPlanController#0" />
+                <element signature="method#exportXls#0;class#JformPlanController#0" />
+                <element signature="method#exportXlsByT#0;class#JformPlanController#0" />
+                <element signature="method#importExcel#0;class#JformPlanController#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/tag/core/easyui/DataGridDelOptTag.java">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_plan/jformPlan-approve.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="44" selection-start-line="44" selection-end-line="44" />
+            <state relative-caret-position="575">
+              <caret line="23" column="51" lean-forward="true" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/system/dataRule/ruleDataList.jsp">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecg/ConstSetBA.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
+            <state relative-caret-position="850">
+              <caret line="34" column="22" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecg/jform_plan/entity/JformPlanEntity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="8600">
+              <caret line="426" selection-start-line="426" selection-end-line="426" />
+              <folding>
+                <element signature="e#9715#9716#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_plan/jformPlanList.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3400">
+              <caret line="136" column="60" selection-start-line="136" selection-start-column="60" selection-end-line="136" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/plug-in/tools/curdtools.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3825">
+              <caret line="153" column="51" selection-start-line="153" selection-start-column="38" selection-end-line="153" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/core/util/StringUtil.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="43025">
+              <caret line="1750" column="28" selection-start-line="1750" selection-start-column="28" selection-end-line="1750" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/system/controller/core/CommonController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3850">
+              <caret line="192" column="88" selection-start-line="192" selection-start-column="88" selection-end-line="192" selection-end-column="88" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/core/common/service/impl/CommonServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7175">
+              <caret line="349" column="19" selection-start-line="349" selection-start-column="19" selection-end-line="349" selection-end-column="19" />
+              <folding>
+                <element signature="e#1875#1876#0" expanded="true" />
+                <element signature="e#1911#1912#0" expanded="true" />
+                <element signature="e#4158#4159#0" expanded="true" />
+                <element signature="e#4204#4205#0" expanded="true" />
+                <element signature="e#4305#4306#0" expanded="true" />
+                <element signature="e#4351#4352#0" expanded="true" />
+                <element signature="e#4510#4511#0" expanded="true" />
+                <element signature="e#4554#4555#0" expanded="true" />
+                <element signature="e#9859#9860#0" expanded="true" />
+                <element signature="e#9903#9904#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>jformProjectList</find>
-      <find>jformProjectPage</find>
+      <find>fmtype</find>
+      <find>szqm</find>
+      <find>createwindow</find>
+      <find>goCheck</find>
+      <find>doCheck</find>
+      <find>goapp</find>
+      <find>window</find>
+      <find>window(</find>
+      <find>getDataGrid</find>
+      <find>treegrid('getData')</find>
+      <find>treegrid(</find>
+      <find>tip</find>
+      <find>doApprove</find>
+      <find>extendJson</find>
+      <find>goA</find>
       <find>goAdd</find>
-      <find>login</find>
-      <find>tom</find>
-      <find>tomcat</find>
-      <find>JEECG 微云快速开发平台</find>
-      <find>移动设备访问请扫描以下二维码：</find>
-      <find>最高气温</find>
-      <find>首页风格</find>
-      <find>onclick=&quot;window.open('http://yun.jeecg.org')&quot;&gt;云应用中心 &lt;/div&gt;</find>
-      <find>common.query.statistics</find>
-      <find>云应用</find>
-      <find>云应用中心</find>
-      <find>init.jsp</find>
-      <find>plug-in/login/images/jeecg-aceplus.png</find>
-      <find>快速开发平台</find>
-      <find>loginController</find>
-      <find>loginController.do?login</find>
-      <find>easyui</find>
-      <find>cgFormHeadController</find>
-      <find>BeforeSubmit</find>
-      <find>formvalid</find>
-      <find>userco</find>
-      <find>&quot;list&quot;</find>
-      <find>dategrid</find>
-      <find>datagrid</find>
-      <find>filter</find>
-      <find>data_rule</find>
-      <find>过滤</find>
+      <find>doSendA</find>
+      <find>updat</find>
+      <find>up</find>
+      <find>update</find>
+      <find>doAp</find>
+      <find>获取</find>
+      <find>getSelections</find>
+      <find>find</find>
+      <find>pop(</find>
+      <find>pop</find>
+      <find>Update</find>
+      <find>下发细分</find>
+      <find>审批</find>
+      <find>goApp</find>
     </findStrings>
+    <replaceStrings>
+      <replace>appendLine(sb,</replace>
+      <replace>appendLine(nsb</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -171,26 +195,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/dbconfig.properties" />
-        <option value="$PROJECT_DIR$/src/main/resources/jeecg/jeecg_database.properties" />
-        <option value="$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/project/jformProject-add.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/webpage/login/login.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/webpage/main/acehome.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/webpage/main/fineui_home.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/webpage/main/hplushome.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/plug-in/mutiLang/zh-cn.js" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/webpage/main/adminlte_home.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/webpage/main/ace_main.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/webpage/main/sliding_main.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/webpage/main/shortcut_main.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/webpage/login/goResetPwdMail.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/webpage/login/resetPwd.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/webpage/main/fineui_main.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/webpage/main/hplus_main.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/webpage/main/adminlte_main.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/org/jeecgframework/tag/core/easyui/MutiLangTag.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecg/jform_project/service/JformProjectServiceI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/jeecgframework/tag/core/easyui/TagUtil.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/jeecgframework/web/cgform/controller/autolist/CgAutoListController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/jeecgframework/web/system/controller/core/UserController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_project2/jformProjectList.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/demo/jeecgDemoList.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/org/jeecgframework/tag/core/easyui/FormValidationTag.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/jeecgframework/tag/vo/easyui/DataGridColumn.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/jeecg/ext-template/ace/single/cgform_controllerTemplate.ftl" />
+        <option value="$PROJECT_DIR$/src/main/resources/jeecg/ext-template/ace/single/cgform_serviceITemplate.ftl" />
+        <option value="$PROJECT_DIR$/src/main/resources/jeecg/ext-common-template/table/single/java/${bussiPackage}/${entityPackage}/service/${entityName}ServiceI.javai" />
+        <option value="$PROJECT_DIR$/src/main/resources/jeecg/ext-template/table/single/cgform_serviceImplTemplate.ftl" />
+        <option value="$PROJECT_DIR$/src/main/resources/jeecg/ext-template/table/single/cgform_controllerTemplate.ftl" />
+        <option value="$PROJECT_DIR$/src/main/resources/jeecg/ext-template/table/single/cgform_serviceITemplate.ftl" />
+        <option value="$PROJECT_DIR$/src/main/resources/jeecg/ext-template/table/single/cgform_jspListTemplate.ftl" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecg/jform_project/controller/JformProjectController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecg/jform_plan/entity/JformPlanEntity.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/jeecg/ext-template/table/single/cgform_jspTemplate_add.ftl" />
+        <option value="$PROJECT_DIR$/src/main/resources/jeecg/ext-template/table/single/cgform_jspTemplate_update.ftl" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpage/main/bootstrap_main.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/org/jeecgframework/web/system/controller/core/LoginController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpage/main/keda_home.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecg/demo/controller/JeecgListDemoController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecg/jform_plan2/service/JformPlanServiceI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecg/jform_plan2/service/impl/JformPlanServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecg/jform_plan2/controller/JformPlanController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_plan2/jformPlanList.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/org/jeecgframework/tag/core/easyui/DataGridTag.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/jeecgframework/tag/vo/datatable/SortDirection.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/jeecgframework/web/system/service/SystemService.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_plan/jformPlan-update.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_plan/jformPlan-addfirst.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_plan/jformPlan-updatefirst.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_task/jformTask-add.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_project/jformProjectList.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecg/jform_project/entity/JformProjectEntity.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecg/jform_project/service/impl/JformProjectServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_project/jformProject-update.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_plan/jformPlan-add.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecg/ConstSetBA.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_task/jformTask-update.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecg/jform_task/controller/JformTaskController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_task/jformTaskList.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecg/jform_plan/service/impl/JformPlanServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecg/jform_plan/service/JformPlanServiceI.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_project/jformProject-add.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_plan/jformPlanList.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/jeecg/jform_plan/controller/JformPlanController.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_plan/jformPlan-approve.jsp" />
       </list>
     </option>
   </component>
@@ -221,12 +276,17 @@
           <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
           <item name="jeecg" type="9519ce18:MavenProjectsStructure$ProjectNode" />
         </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="jeecg" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Plugins" type="7aea1407:MavenProjectsStructure$PluginsNode" />
+        </path>
       </expand>
       <select />
     </treeState>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="953" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-7" />
     <option name="width" value="974" />
     <option name="height" value="1057" />
   </component>
@@ -243,6 +303,160 @@
               <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
               <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jeecg" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="jform_plan" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="jform_plan" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="jform_plan" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jeecgframework" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jeecgframework" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="plug-in" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="plug-in" type="462c0819:PsiDirectoryNode" />
+              <item name="echart" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="plug-in" type="462c0819:PsiDirectoryNode" />
+              <item name="tools" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="webpage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="webpage" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="webpage" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="jeecg" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="webpage" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="jeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="jform_plan" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="mytestjeecg" type="b2602c69:ProjectViewProjectNode" />
+              <item name="mytestjeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="webpage" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="jeecg" type="462c0819:PsiDirectoryNode" />
+              <item name="jform_project" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -254,14 +468,29 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543916512394" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1545125589547" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\GitHub\mytestjeecg\src\main\webapp\webpage\com\jeecg\jform_plan" />
+      <recent name="F:\GitHub\mytestjeecg\src\main\java\com\jeecg\jform_plan" />
+      <recent name="F:\GitHub\mytestjeecg\src\main\webapp\webpage\main" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.jeecg.jform_plan.entity" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\GitHub\mytestjeecg\src\main\webapp\webpage\com\jeecg\jform_plan" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -301,14 +530,12 @@
     </configuration>
     <configuration name="Tomcat 6.0.9" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 6.0.9" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="1.8" nameIsGenerated="true">
       <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
-      <option name="COMMON_VM_ARGUMENTS" value="-server -XX:PermSize=128M -XX:MaxPermSize=256m" />
       <option name="UPDATE_ON_FRAME_DEACTIVATION" value="true" />
-      <option name="HOT_SWAP_CLASSES_ON_FRAME_DEACTIVATION" value="true" />
-      <option name="UPDATING_POLICY" value="hot-swap-classes" />
+      <option name="UPDATING_POLICY" value="update-resources" />
       <deployment>
-        <artifact name="jeecg:war">
+        <artifact name="jeecg:war exploded">
           <settings>
-            <option name="CONTEXT_PATH" value="/jeecg_war" />
+            <option name="CONTEXT_PATH" value="/jeecg" />
           </settings>
         </artifact>
       </deployment>
@@ -371,7 +598,7 @@
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="jeecg:war" />
+          <artifact name="jeecg:war exploded" />
         </option>
       </method>
     </configuration>
@@ -549,12 +776,27 @@
       <workItem from="1543901772492" duration="6064000" />
       <workItem from="1543968776657" duration="2131000" />
       <workItem from="1543976366392" duration="3813000" />
-      <workItem from="1543988221228" duration="5243000" />
+      <workItem from="1543988221228" duration="12100000" />
+      <workItem from="1544054709414" duration="11563000" />
+      <workItem from="1544092021644" duration="6104000" />
+      <workItem from="1544141180814" duration="21040000" />
+      <workItem from="1544192121004" duration="8989000" />
+      <workItem from="1544233784900" duration="5958000" />
+      <workItem from="1544332401368" duration="12565000" />
+      <workItem from="1544400522906" duration="18989000" />
+      <workItem from="1544457147090" duration="1593000" />
+      <workItem from="1544486775334" duration="22787000" />
+      <workItem from="1544746323024" duration="3354000" />
+      <workItem from="1544766547419" duration="7294000" />
+      <workItem from="1544832383087" duration="12528000" />
+      <workItem from="1545027454027" duration="9422000" />
+      <workItem from="1545091894761" duration="23410000" />
+      <workItem from="1545180560919" duration="223000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63151000" />
+    <option name="totallyTimeSpent" value="235860000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -566,43 +808,44 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17270789" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4994641" visible="true" weight="0.122068234" />
+      <window_info id="Structure" order="1" sideWeight="0.5005359" side_tool="true" weight="0.22068231" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="UI Designer" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Favorites" order="6" sideWeight="0.5005359" side_tool="true" weight="0.22068231" />
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3397642" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39871383" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49520257" weight="0.3397642" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.48880598" weight="0.3504823" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.3290461" />
-      <window_info anchor="bottom" id="Application Servers" order="7" weight="0.3290461" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49520257" weight="0.3290461" />
+      <window_info anchor="bottom" id="Application Servers" order="7" sideWeight="0.4968017" weight="0.3290461" />
       <window_info anchor="bottom" id="Spring" order="8" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.3290461" />
       <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.3290461" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50053304" side_tool="true" weight="0.56055737" />
+      <window_info anchor="bottom" x="1" y="430" width="1876" height="307" id="Messages" order="12" sideWeight="0.51119405" side_tool="true" weight="0.28617364" />
       <window_info anchor="bottom" id="Java Enterprise" order="13" weight="0.3290461" />
       <window_info anchor="bottom" id="Database Changes" order="14" />
       <window_info anchor="bottom" id="Version Control" order="15" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" visible="true" weight="0.09221748" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.09168444" />
+      <window_info anchor="right" id="Maven" order="3" weight="0.19616205" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
-      <window_info anchor="right" id="Database" order="6" weight="0.32995737" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info anchor="right" id="Bean Validation" order="9" weight="0.32995737" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Theme Preview" order="7" />
+      <window_info anchor="right" id="Bean Validation" order="8" weight="0.32995737" />
+      <window_info anchor="right" id="Coverage" order="9" side_tool="true" weight="0.30597016" />
+      <window_info anchor="right" id="Database" order="10" weight="0.32995737" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -616,378 +859,450 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/org/jeecgframework/test/demo/DynamicDBTest.java</url>
           <line>29</line>
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint type="java-line">
           <url>jar://$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.27/mysql-connector-java-5.1.27-sources.jar!/com/mysql/jdbc/ConnectionImpl.java</url>
           <line>1067</line>
           <properties />
           <option name="timeStamp" value="6" />
         </line-breakpoint>
+        <line-breakpoint type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/jeecgframework/core/online/util/FreemarkerHelper.java</url>
+          <line>59</line>
+          <properties />
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/jeecgframework/tag/core/easyui/DataGridTag.java</url>
-          <line>4369</line>
+          <line>4473</line>
           <properties />
-          <option name="timeStamp" value="15" />
+          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
+        <watch expression="t.getPlanStatus()!= ConstSetBA.PlanStatus_Draft &amp;&amp; t.getPlanStatus() !=ConstSetBA.PlanStatus_Disapprove" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3">
-          <caret line="648" column="26" lean-forward="true" selection-start-line="648" selection-start-column="26" selection-end-line="648" selection-end-column="26" />
-          <folding>
-            <element signature="n#plugin#3;n#plugins#0;n#build#0;n#project#0;n#!!top" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/main/ace_main.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="397" column="36" lean-forward="true" selection-start-line="397" selection-start-column="36" selection-end-line="397" selection-end-column="36" />
-          <folding>
-            <element signature="n#style#0;n#iframe#0;n#!!top" expanded="true" />
-            <element signature="e#0#6#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/main/fineui_main.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-555">
-          <caret line="152" column="22" lean-forward="true" selection-start-line="152" selection-start-column="22" selection-end-line="152" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/images/favicon.ico">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/plug-in/login/js/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1400">
-          <caret line="211" column="12" lean-forward="true" selection-start-line="211" selection-start-column="12" selection-end-line="211" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="4" column="19" selection-start-line="4" selection-start-column="19" selection-end-line="4" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/login/login.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="23" column="53" selection-start-line="23" selection-start-column="47" selection-end-line="23" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/jeecg/cgform/template/cgformTemplate-add.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="5" column="29" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/jeecg/cgform/template/cgformTemplate-update.jsp">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/jeecg/cgform/template/cgformTemplateList.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecg/jform_project/service/JformProjectServiceI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/jeecg/cgform/template/cgformTemplate.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/redis.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/ehcache.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/chat_config.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/sysConfig.properties">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecg/jform_project/controller/JformProjectController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1313" />
+        <state relative-caret-position="1">
+          <caret line="287" column="7" lean-forward="true" selection-start-line="287" selection-start-column="7" selection-end-line="287" selection-end-column="7" />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/jeecg/template/controllerTemplate.ftl">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecg/jform_project/entity/JformProjectEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5451" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/export/mail/password_reset.ftl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="-4732">
+          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#785#812#0" expanded="true" />
+            <element signature="e#6158#6159#0" expanded="true" />
+            <element signature="e#6195#6196#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/context/layui.jsp">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/context/mytags.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/cgform/enhance/CgformJavaInterDemo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="8" column="39" lean-forward="true" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+        <state relative-caret-position="400">
+          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaEE/lib/javaee-impl.jar!/standardSchemas/web-jsptaglibrary_1_2.dtd">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/cgform/enhance/CgformEnhanceJavaInter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="427" column="10" selection-start-line="427" selection-start-column="10" selection-end-line="427" selection-end-column="10" />
+        <state relative-caret-position="375">
+          <caret line="17" column="16" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="16" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar!/javax/servlet/jsp/tagext/TagSupport.class">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecg/jform_project/service/impl/JformProjectServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        <state relative-caret-position="725">
+          <caret line="55" column="48" lean-forward="true" selection-start-line="55" selection-start-column="48" selection-end-line="55" selection-end-column="48" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/jeecg_3.8_sqlserver2008.sql">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_project/jformProject-update.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="22191" column="369" selection-start-line="22191" selection-start-column="369" selection-end-line="22191" selection-end-column="369" />
+        <state relative-caret-position="550">
+          <caret line="92" column="24" selection-start-line="92" selection-start-column="24" selection-end-line="92" selection-end-column="24" />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#td#1;n#tr#1;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/tag/core/easyui/MutiLangTag.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_task/jformTask-add.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="750">
-          <caret line="37" column="17" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
+        <state relative-caret-position="584">
+          <caret line="36" column="59" selection-start-line="36" selection-start-column="51" selection-end-line="36" selection-end-column="59" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/login/init.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_task/jformTask-update.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+        <state relative-caret-position="248">
+          <caret line="83" column="90" selection-start-line="83" selection-start-column="90" selection-end-line="83" selection-end-column="90" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/system/controller/core/UserController.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-orm/4.0.9.RELEASE/spring-orm-4.0.9.RELEASE-sources.jar!/org/springframework/orm/hibernate4/support/OpenSessionInViewFilter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="111" column="10" selection-start-line="111" selection-start-column="10" selection-end-line="111" selection-end-column="10" />
+        <state relative-caret-position="171">
+          <caret line="149" selection-start-line="149" selection-end-line="149" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/jeecg/cgform/config/cgFormHead.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_task/jformTaskList.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        <state relative-caret-position="375">
+          <caret line="15" column="72" selection-start-line="15" selection-start-column="72" selection-end-line="15" selection-end-column="72" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/cgform/controller/config/CgFormHeadController.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.0.9.RELEASE/spring-web-4.0.9.RELEASE-sources.jar!/org/springframework/web/method/support/InvocableHandlerMethod.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2450">
-          <caret line="150" column="26" selection-start-line="150" selection-start-column="26" selection-end-line="150" selection-end-column="26" />
+        <state relative-caret-position="171">
+          <caret line="220" selection-start-line="220" selection-end-line="220" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/plug-in/tools/easycurd.js">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecg/jform_task/controller/JformTaskController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/tag/core/easyui/FormValidationTag.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7850">
-          <caret line="349" column="58" selection-start-line="349" selection-start-column="58" selection-end-line="349" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/system/pojo/base/TSUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="28" column="37" selection-start-line="28" selection-start-column="37" selection-end-line="28" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/system/controller/core/OrganzationController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-300">
-          <caret line="111" column="7" lean-forward="true" selection-start-line="111" selection-start-column="7" selection-end-line="111" selection-end-column="7" />
+        <state relative-caret-position="-1010">
+          <caret line="247" column="42" selection-start-line="247" selection-start-column="42" selection-end-line="247" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/4.0.9.RELEASE/spring-aop-4.0.9.RELEASE-sources.jar!/org/springframework/aop/framework/JdkDynamicAopProxy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="154" selection-start-line="154" selection-end-line="154" />
+        <state relative-caret-position="371">
+          <caret line="162" selection-start-line="162" selection-end-line="162" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/cgform/util/PublicUtil.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/4.0.9.RELEASE/spring-aop-4.0.9.RELEASE-sources.jar!/org/springframework/aop/support/AopUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="89" selection-start-line="89" selection-end-line="89" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/4.1.0.Final/hibernate-core-4.1.0.Final-sources.jar!/org/hibernate/collection/internal/PersistentBag.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="265" selection-start-line="265" selection-end-line="265" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/cgform/service/autolist/ConfigServiceI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="17" column="30" selection-start-line="17" selection-start-column="30" selection-end-line="17" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/cgform/common/CgAutoListConstant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="12" column="31" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/cgform/service/impl/autolist/ConfigServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="64" column="43" selection-start-line="64" selection-start-column="43" selection-end-line="64" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/4.0.9.RELEASE/spring-webmvc-4.0.9.RELEASE-sources.jar!/org/springframework/web/servlet/ModelAndView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="71" column="11" selection-start-line="71" selection-start-column="11" selection-end-line="71" selection-end-column="11" />
+        <state relative-caret-position="171">
+          <caret line="132" selection-start-line="132" selection-end-line="132" />
           <folding>
-            <element signature="e#2366#2367#0" expanded="true" />
-            <element signature="e#2393#2394#0" expanded="true" />
+            <element signature="e#4894#4895#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/system/controller/core/FunctionController.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/4.0.9.RELEASE/spring-core-4.0.9.RELEASE-sources.jar!/org/springframework/util/ReflectionUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="366" selection-start-line="366" selection-end-line="366" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecg/jform_task/entity/JformTaskEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="464">
+          <caret line="367" selection-start-line="367" selection-end-line="367" />
+          <folding>
+            <element signature="e#8407#8408#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/core/util/ResourceUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="165" selection-start-line="165" selection-end-line="165" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-orm/4.0.9.RELEASE/spring-orm-4.0.9.RELEASE-sources.jar!/org/springframework/orm/hibernate4/HibernateTransactionManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="558" selection-start-line="558" selection-end-line="558" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/system/sms/util/TuiSongMsgUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="68" selection-start-line="68" selection-end-line="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/core/common/model/json/AjaxJson.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-410">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/demo/jeecgDemoList.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="73" column="13" lean-forward="true" selection-start-line="73" selection-start-column="13" selection-end-line="73" selection-end-column="13" />
+          <folding>
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecg/demo/controller/JeecgListDemoController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="733" column="5" lean-forward="true" selection-start-line="733" selection-start-column="5" selection-end-line="733" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_project/jformProject-add.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="515">
+          <caret line="72" column="55" lean-forward="true" selection-start-line="72" selection-start-column="55" selection-end-line="72" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_plan/jformPlan-update.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-600">
+          <caret line="75" column="99" selection-start-line="75" selection-start-column="86" selection-end-line="75" selection-end-column="99" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/demo/jeecgDemo-check.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
-          <caret line="84" column="4" lean-forward="true" selection-start-line="84" selection-start-column="4" selection-end-line="84" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/system/function/functionList.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+          <caret line="6" column="47" selection-start-line="6" selection-start-column="47" selection-end-line="6" selection-end-column="47" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#td#1;n#tr#0;n#table#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/tld/easyui.tld">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_plan/jformPlan-add.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="49" column="55" lean-forward="true" selection-start-line="49" selection-start-column="55" selection-end-line="49" selection-end-column="55" />
+        <state relative-caret-position="-1059">
+          <caret line="70" column="134" selection-start-line="70" selection-start-column="116" selection-end-line="70" selection-end-column="134" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_project/jformProjectList.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-76">
+          <caret line="25" column="35" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecg/jform_plan/service/impl/JformPlanServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="60" column="17" selection-start-line="60" selection-start-column="17" selection-end-line="60" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/core/common/dao/IGenericBaseCommonDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="144" column="15" selection-start-line="144" selection-start-column="15" selection-end-line="144" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/cgform/entity/upload/CgUploadEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="579">
+          <caret line="39" column="21" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
           <folding>
-            <element signature="e#37629#37772#0" />
+            <element signature="e#992#993#0" expanded="true" />
+            <element signature="e#1016#1017#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/tag/core/easyui/DataGridDelOptTag.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/cgform/controller/upload/CgUploadController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="44" selection-start-line="44" selection-end-line="44" />
+        <state relative-caret-position="426">
+          <caret line="129" column="83" lean-forward="true" selection-start-line="129" selection-start-column="83" selection-end-line="129" selection-end-column="83" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/system/dataRule/ruleDataList.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecg/jform_plan/service/JformPlanServiceI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        <state relative-caret-position="75">
+          <caret line="6" column="47" lean-forward="true" selection-start-line="6" selection-start-column="47" selection-end-line="6" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/tag/core/easyui/DataGridTag.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/4.1.0.Final/hibernate-core-4.1.0.Final-sources.jar!/org/hibernate/internal/AbstractSessionImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="4369" column="29" selection-start-line="4369" selection-start-column="23" selection-end-line="4369" selection-end-column="29" />
+        <state relative-caret-position="151">
+          <caret line="205" column="18" selection-start-line="205" selection-start-column="18" selection-end-line="205" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/4.1.0.Final/hibernate-core-4.1.0.Final-sources.jar!/org/hibernate/internal/SessionImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="1654" column="28" selection-start-line="1654" selection-start-column="28" selection-end-line="1654" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/hibernate/hibernate-core/4.1.0.Final/hibernate-core-4.1.0.Final-sources.jar!/org/hibernate/SharedSessionContract.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="84" column="20" selection-start-line="84" selection-start-column="20" selection-end-line="84" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/system/service/SystemService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3972">
+          <caret line="19" column="17" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/core/common/service/CommonService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="278" column="23" selection-start-line="278" selection-start-column="23" selection-end-line="278" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/core/common/dao/impl/GenericBaseCommonDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1862">
+          <caret line="393" selection-start-line="393" selection-end-line="393" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/plug-in/easyui/jquery.easyui.min.1.3.2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1530">
+          <caret line="9453" column="4" selection-start-line="9453" selection-start-column="4" selection-end-line="9453" selection-end-column="4" />
           <folding>
-            <element signature="e#5064#5065#0" expanded="true" />
-            <element signature="e#5083#5084#0" expanded="true" />
-            <element signature="e#5324#5325#0" expanded="true" />
-            <element signature="e#5355#5356#0" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-test/4.0.9.RELEASE/spring-test-4.0.9.RELEASE-sources.jar!/org/springframework/mock/web/MockHttpServletRequest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/plug-in/echart/echarts.min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="312" column="18" selection-start-line="312" selection-start-column="18" selection-end-line="312" selection-end-column="18" />
+        <state relative-caret-position="475">
+          <caret line="19" column="6" lean-forward="true" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/javax/servlet/javax.servlet-api/3.0.1/javax.servlet-api-3.0.1-sources.jar!/javax/servlet/ServletRequest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/plug-in/echart/echarts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="109" column="18" selection-start-line="109" selection-start-column="18" selection-end-line="109" selection-end-column="18" />
+        <state relative-caret-position="-350">
+          <caret line="46" column="22" lean-forward="true" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/core/util/ContextHolderUtils.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecg/ConstSetBA.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+        <state relative-caret-position="850">
+          <caret line="34" column="22" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/core/util/JeecgDataAutorUtils.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecg/jform_plan/entity/JformPlanEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="59" column="32" selection-start-line="59" selection-start-column="32" selection-end-line="59" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/core/constant/Globals.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="111" column="85" selection-start-line="111" selection-start-column="60" selection-end-line="111" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/cgform/controller/autolist/CgAutoListController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="200" column="23" selection-start-line="200" selection-start-column="23" selection-end-line="200" selection-end-column="23" />
+        <state relative-caret-position="8600">
+          <caret line="426" selection-start-line="426" selection-end-line="426" />
           <folding>
-            <element signature="e#8084#8102#0" expanded="true" />
+            <element signature="e#9715#9716#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/system/pojo/base/TSDataRule.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_plan/jformPlanList.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1592">
-          <caret line="22" column="20" lean-forward="true" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
+        <state relative-caret-position="3400">
+          <caret line="136" column="60" selection-start-line="136" selection-start-column="60" selection-end-line="136" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/plug-in/tools/curdtools.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3825">
+          <caret line="153" column="51" selection-start-line="153" selection-start-column="38" selection-end-line="153" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/core/util/StringUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="43025">
+          <caret line="1750" column="28" selection-start-line="1750" selection-start-column="28" selection-end-line="1750" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/web/system/controller/core/CommonController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3850">
+          <caret line="192" column="88" selection-start-line="192" selection-start-column="88" selection-end-line="192" selection-end-column="88" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/jeecgframework/core/common/service/impl/CommonServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7175">
+          <caret line="349" column="19" selection-start-line="349" selection-start-column="19" selection-end-line="349" selection-end-column="19" />
+          <folding>
+            <element signature="e#1875#1876#0" expanded="true" />
+            <element signature="e#1911#1912#0" expanded="true" />
+            <element signature="e#4158#4159#0" expanded="true" />
+            <element signature="e#4204#4205#0" expanded="true" />
+            <element signature="e#4305#4306#0" expanded="true" />
+            <element signature="e#4351#4352#0" expanded="true" />
+            <element signature="e#4510#4511#0" expanded="true" />
+            <element signature="e#4554#4555#0" expanded="true" />
+            <element signature="e#9859#9860#0" expanded="true" />
+            <element signature="e#9903#9904#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/webpage/com/jeecg/jform_plan/jformPlan-approve.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="23" column="51" lean-forward="true" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/jeecg/jform_plan/controller/JformPlanController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="483" column="54" selection-start-line="483" selection-start-column="54" selection-end-line="483" selection-end-column="54" />
+          <folding>
+            <element signature="method#goUpdate#0;class#JformPlanController#0" />
+            <element signature="method#upload#0;class#JformPlanController#0" />
+            <element signature="method#exportXls#0;class#JformPlanController#0" />
+            <element signature="method#exportXlsByT#0;class#JformPlanController#0" />
+            <element signature="method#importExcel#0;class#JformPlanController#0" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -997,7 +1312,7 @@
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
           <artifact-editor />
-          <last-edited>jeecg:war</last-edited>
+          <last-edited>jeecg:war exploded</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1045,7 +1360,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>Spring|jeecg</last-edited>
+          <last-edited>Web|jeecg</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

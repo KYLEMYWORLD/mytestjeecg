@@ -35,24 +35,24 @@
    <t:dgToolBar title="录入" icon="icon-add" url="${entityName?uncap_first}Controller.do?goAdd" funname="add"></t:dgToolBar>
    <#--//update-begin--Author:gj_shaojc  Date:20180330 for：TASK #2606 【代码生成器】树形列表生成，多选处理(table风格，树形列表生成代码，编辑，删除，查看) -->
    <#if cgformConfig.cgFormHead.isTree == 'Y'>
-   <t:dgToolBar title="编辑" icon="icon-edit" url="${entityName?uncap_first}Controller.do?goUpdate" funname="updatetree" width="100%" height="100%"></t:dgToolBar>
-   <t:dgToolBar title="批量删除"  icon="icon-remove" url="${entityName?uncap_first}Controller.do?doBatchDel" funname="deleteALLSelecttree"></t:dgToolBar>
-   <t:dgToolBar title="查看" icon="icon-search" url="${entityName?uncap_first}Controller.do?goUpdate" funname="detailtree" width="100%" height="100%"></t:dgToolBar>
+   <t:dgToolBar title="编辑" icon="icon-edit" url="${entityName?uncap_first}Controller.do?goUpdate" funname="updatetree" width="100%" height="100%" id="updatetree"></t:dgToolBar>
+   <t:dgToolBar title="批量删除"  icon="icon-remove" url="${entityName?uncap_first}Controller.do?doBatchDel" funname="deleteALLSelecttree" id="deleteselecttree"></t:dgToolBar>
+   <t:dgToolBar title="查看" icon="icon-search" url="${entityName?uncap_first}Controller.do?goUpdate" funname="detailtree" width="100%" height="100%" id="detailtree"></t:dgToolBar>
    <#else>
-	<t:dgToolBar title="编辑" icon="icon-edit" url="${entityName?uncap_first}Controller.do?goUpdate" funname="update"></t:dgToolBar>
-   <t:dgToolBar title="批量删除"  icon="icon-remove" url="${entityName?uncap_first}Controller.do?doBatchDel" funname="deleteALLSelect"></t:dgToolBar>
-   <t:dgToolBar title="查看" icon="icon-search" url="${entityName?uncap_first}Controller.do?goUpdate" funname="detail"></t:dgToolBar>
+	<t:dgToolBar title="编辑" icon="icon-edit" url="${entityName?uncap_first}Controller.do?goUpdate" funname="update" id="update"></t:dgToolBar>
+   <t:dgToolBar title="批量删除"  icon="icon-remove" url="${entityName?uncap_first}Controller.do?doBatchDel" funname="deleteALLSelect" id="deleteselect"></t:dgToolBar>
+   <t:dgToolBar title="查看" icon="icon-search" url="${entityName?uncap_first}Controller.do?goUpdate" funname="detail" id="detail"></t:dgToolBar>
    </#if>
    <#--//update-end--Author:gj_shaojc  Date:20180330 for：TASK #2606 【代码生成器】树形列表生成，多选处理(table风格，树形列表生成代码，编辑，删除，查看) -->
-   <t:dgToolBar title="导入" icon="icon-put" funname="ImportXls"></t:dgToolBar>
-   <t:dgToolBar title="导出" icon="icon-putout" funname="ExportXls"></t:dgToolBar>
-   <t:dgToolBar title="模板下载" icon="icon-putout" funname="ExportXlsByT"></t:dgToolBar>
+   <t:dgToolBar title="导入" icon="icon-put" funname="ImportXls" id="import"></t:dgToolBar>
+   <t:dgToolBar title="导出" icon="icon-putout" funname="ExportXls" id="export"></t:dgToolBar>
+   <t:dgToolBar title="模板下载" icon="icon-putout" funname="ExportXlsByT" id="excel"></t:dgToolBar>
    <#list buttons as btn>
     <#if btn.buttonStyle =='button' && btn.buttonStatus == '1'>
     <#if btn.optType == 'action'>
-     	<t:dgToolBar title="${btn.buttonName}" icon="${btn.buttonIcon}" <#if btn.optType=='action'> url="${entityName?uncap_first}Controller.do?do${btn.buttonCode?cap_first}" funname="do${btn.buttonCode?cap_first}"<#else> funname="${btn.buttonCode}"</#if> ></t:dgToolBar>
+     	<t:dgToolBar title="${btn.buttonName}" icon="${btn.buttonIcon}" <#if btn.optType=='action'> url="${entityName?uncap_first}Controller.do?do${btn.buttonCode?cap_first}" funname="do${btn.buttonCode?cap_first}" id="${btn.buttonCode?cap_first}" <#else> funname="${btn.buttonCode}" id="${btn.buttonCode}"</#if> ></t:dgToolBar>
 	<#else>
-		<t:dgToolBar title="${btn.buttonName}" icon="${btn.buttonIcon}" funname="do${btn.buttonCode?cap_first}"></t:dgToolBar>
+		<t:dgToolBar title="${btn.buttonName}" icon="${btn.buttonIcon}" funname="do${btn.buttonCode?cap_first}" id="${btn.buttonCode?cap_first}"></t:dgToolBar>
 	</#if>
    	</#if>
    </#list> 

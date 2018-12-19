@@ -142,7 +142,7 @@ public class ${entityName}Controller extends BaseController {
 
 	/**
 	 * ${ftl_description}列表 页面跳转
-	 * 
+	* @param request
 	 * @return
 	 */
 	@RequestMapping(params = "list")
@@ -152,11 +152,10 @@ public class ${entityName}Controller extends BaseController {
 
 	/**
 	 * easyui AJAX请求数据
-	 * 
+	 * @param ${entityName?uncap_first} 实体类
 	 * @param request
 	 * @param response
 	 * @param dataGrid
-	 * @param user
 	 */
 
 	@RequestMapping(params = "datagrid")
@@ -283,8 +282,8 @@ public class ${entityName}Controller extends BaseController {
 	
 	/**
 	 * 更新${ftl_description}
-	 * 
-	 * @param ids
+	 * @param ${entityName?uncap_first} 实体类
+	 * @param request
 	 * @return
 	 */
 	@RequestMapping(params = "doUpdate")
@@ -316,7 +315,8 @@ public class ${entityName}Controller extends BaseController {
  	<#if btn.optType=='action'>
  	/**
 	 * 自定义按钮-[${btn.buttonName}]业务
-	 * @param ids
+	 * @param ${entityName?uncap_first} 实体类
+	 * @param request
 	 * @return
 	 */
 	@RequestMapping(params = "do${btn.buttonCode?cap_first}")

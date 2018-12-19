@@ -11,8 +11,7 @@ import org.jeecgframework.core.util.StringUtil;
 */
 public enum SortDirection {
 	asc, // 升序
-	desc;
-	// 降序
+	desc;// 降序
 	
 	public static SortDirection toEnum(String order) {
 		if (StringUtil.isEmpty(order)) {

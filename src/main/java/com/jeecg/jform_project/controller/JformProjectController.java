@@ -1,6 +1,7 @@
-package com.jeecg.project.controller;
-import com.jeecg.project.entity.JformProjectEntity;
-import com.jeecg.project.service.JformProjectServiceI;
+package com.jeecg.jform_project.controller;
+import com.jeecg.ConstSetBA;
+import com.jeecg.jform_project.entity.JformProjectEntity;
+import com.jeecg.jform_project.service.JformProjectServiceI;
 import java.util.ArrayList;
 import java.util.List;
 import java.text.SimpleDateFormat;
@@ -51,9 +52,9 @@ import org.jeecgframework.core.util.ExceptionUtil;
 
 /**   
  * @Title: Controller  
- * @Description: 项目表
+ * @Description: 项目信息表
  * @author onlineGenerator
- * @date 2018-11-29 11:16:25
+ * @date 2018-12-05 16:45:59
  * @version V1.0   
  *
  */
@@ -66,17 +67,15 @@ public class JformProjectController extends BaseController {
 	private JformProjectServiceI jformProjectService;
 	@Autowired
 	private SystemService systemService;
-	
-
 
 	/**
-	 * 项目表列表 页面跳转
+	 * 项目信息表列表 页面跳转
 	 * 
 	 * @return
 	 */
 	@RequestMapping(params = "list")
 	public ModelAndView list(HttpServletRequest request) {
-		return new ModelAndView("com/jeecg/project/jformProjectList");
+		return new ModelAndView("com/jeecg/jform_project/jformProjectList");
 	}
 
 	/**
@@ -85,7 +84,6 @@ public class JformProjectController extends BaseController {
 	 * @param request
 	 * @param response
 	 * @param dataGrid
-	 * @param user
 	 */
 
 	@RequestMapping(params = "datagrid")
@@ -104,7 +102,7 @@ public class JformProjectController extends BaseController {
 	}
 	
 	/**
-	 * 删除项目表
+	 * 删除项目信息表
 	 * 
 	 * @return
 	 */
@@ -114,21 +112,26 @@ public class JformProjectController extends BaseController {
 		String message = null;
 		AjaxJson j = new AjaxJson();
 		jformProject = systemService.getEntity(JformProjectEntity.class, jformProject.getId());
-		message = "项目表删除成功";
-		try{
-			jformProjectService.delete(jformProject);
-			systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
-		}catch(Exception e){
-			e.printStackTrace();
-			message = "项目表删除失败";
-			throw new BusinessException(e.getMessage());
+		message = "项目信息表删除成功";
+		if(jformProject.getProjectStatus()== ConstSetBA.ProjectStatus_Activate) {
+			message = "项目信息已激活，不能删除！";
+			throw new BusinessException("项目信息已激活，不能删除！");
+		}else{
+			try{
+				jformProjectService.delete(jformProject);
+				systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
+			}catch(Exception e){
+				e.printStackTrace();
+				message = "项目信息表删除失败";
+				throw new BusinessException(e.getMessage());
+			}
 		}
 		j.setMsg(message);
 		return j;
 	}
 	
 	/**
-	 * 批量删除项目表
+	 * 批量删除项目信息表
 	 * 
 	 * @return
 	 */
@@ -137,18 +140,20 @@ public class JformProjectController extends BaseController {
 	public AjaxJson doBatchDel(String ids,HttpServletRequest request){
 		String message = null;
 		AjaxJson j = new AjaxJson();
-		message = "项目表删除成功";
+		message = "项目信息表删除成功";
 		try{
 			for(String id:ids.split(",")){
-				JformProjectEntity jformProject = systemService.getEntity(JformProjectEntity.class, 
-				Integer.parseInt(id)
-				);
+				JformProjectEntity jformProject = systemService.getEntity(JformProjectEntity.class,id);
+				if(jformProject.getProjectStatus()==ConstSetBA.ProjectStatus_Activate){
+					systemService.addLog(jformProject.getProjectName()+"已经激活不能删除！", Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
+					continue;
+				}
 				jformProjectService.delete(jformProject);
 				systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			message = "项目表删除失败";
+			message = "项目信息表删除失败";
 			throw new BusinessException(e.getMessage());
 		}
 		j.setMsg(message);
@@ -156,10 +161,8 @@ public class JformProjectController extends BaseController {
 	}
 
 
-	/**
-	 * 添加项目表
-	 * 
-	 * @param ids
+	/***
+	 * 添加项目信息表
 	 * @return
 	 */
 	@RequestMapping(params = "doAdd")
@@ -167,23 +170,22 @@ public class JformProjectController extends BaseController {
 	public AjaxJson doAdd(JformProjectEntity jformProject, HttpServletRequest request) {
 		String message = null;
 		AjaxJson j = new AjaxJson();
-		message = "项目表添加成功";
+		message = "项目信息表添加成功";
 		try{
+			jformProject.setProjectStatus(ConstSetBA.ProjectStatus_Unactivate);
 			jformProjectService.save(jformProject);
 			systemService.addLog(message, Globals.Log_Type_INSERT, Globals.Log_Leavel_INFO);
 		}catch(Exception e){
 			e.printStackTrace();
-			message = "项目表添加失败";
+			message = "项目信息表添加失败";
 			throw new BusinessException(e.getMessage());
 		}
 		j.setMsg(message);
 		return j;
 	}
 	
-	/**
-	 * 更新项目表
-	 * 
-	 * @param ids
+	/***
+	 * 更新项目信息表
 	 * @return
 	 */
 	@RequestMapping(params = "doUpdate")
@@ -191,24 +193,57 @@ public class JformProjectController extends BaseController {
 	public AjaxJson doUpdate(JformProjectEntity jformProject, HttpServletRequest request) {
 		String message = null;
 		AjaxJson j = new AjaxJson();
-		message = "项目表更新成功";
+		message = "项目信息表更新成功";
 		JformProjectEntity t = jformProjectService.get(JformProjectEntity.class, jformProject.getId());
-		try {
-			MyBeanUtils.copyBeanNotNull2Bean(jformProject, t);
-			jformProjectService.saveOrUpdate(t);
-			systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);
-		} catch (Exception e) {
+//		if(t.getProjectStatus()==ConstSetBA.ProjectStatus_Activate){
+//			message = "项目信息已激活不能更改";
+//			throw new BusinessException("项目信息已激活不能更改");
+//		}else{
+			try {
+				MyBeanUtils.copyBeanNotNull2Bean(jformProject, t);
+				jformProjectService.saveOrUpdate(t);
+				systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);
+			} catch (Exception e) {
+				e.printStackTrace();
+				message = "项目信息表更新失败";
+				throw new BusinessException(e.getMessage());
+			}
+//		}
+		j.setMsg(message);
+		return j;
+	}
+
+	/***
+	 * 自定义按钮-[激活]业务
+	 * @param jformProject
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(params = "doActivate")
+	@ResponseBody
+	public AjaxJson doActivate(JformProjectEntity jformProject, HttpServletRequest request) {
+		String message = null;
+		AjaxJson j = new AjaxJson();
+		message = "激活成功";
+		JformProjectEntity t = jformProjectService.get(JformProjectEntity.class, jformProject.getId());
+		try{
+			if(t.getProjectStatus()==ConstSetBA.ProjectStatus_Unactivate){
+				t.setProjectStatus(ConstSetBA.ProjectStatus_Activate);
+				jformProjectService.doActivateBus(t);
+				systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);
+			}else{
+				message = "项目已经激活！";
+			}
+		}catch(Exception e){
 			e.printStackTrace();
-			message = "项目表更新失败";
-			throw new BusinessException(e.getMessage());
+			message = "激活失败";
 		}
 		j.setMsg(message);
 		return j;
 	}
-	
 
 	/**
-	 * 项目表新增页面跳转
+	 * 项目信息表新增页面跳转
 	 * 
 	 * @return
 	 */
@@ -218,10 +253,10 @@ public class JformProjectController extends BaseController {
 			jformProject = jformProjectService.getEntity(JformProjectEntity.class, jformProject.getId());
 			req.setAttribute("jformProjectPage", jformProject);
 		}
-		return new ModelAndView("com/jeecg/project/jformProject-add");
+		return new ModelAndView("com/jeecg/jform_project/jformProject-add");
 	}
 	/**
-	 * 项目表编辑页面跳转
+	 * 项目信息表编辑页面跳转
 	 * 
 	 * @return
 	 */
@@ -231,7 +266,7 @@ public class JformProjectController extends BaseController {
 			jformProject = jformProjectService.getEntity(JformProjectEntity.class, jformProject.getId());
 			req.setAttribute("jformProjectPage", jformProject);
 		}
-		return new ModelAndView("com/jeecg/project/jformProject-update");
+		return new ModelAndView("com/jeecg/jform_project/jformProject-update");
 	}
 	
 	/**
@@ -257,9 +292,9 @@ public class JformProjectController extends BaseController {
 		CriteriaQuery cq = new CriteriaQuery(JformProjectEntity.class, dataGrid);
 		org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, jformProject, request.getParameterMap());
 		List<JformProjectEntity> jformProjects = this.jformProjectService.getListByCriteriaQuery(cq,false);
-		modelMap.put(NormalExcelConstants.FILE_NAME,"项目表");
+		modelMap.put(NormalExcelConstants.FILE_NAME,"项目信息表");
 		modelMap.put(NormalExcelConstants.CLASS,JformProjectEntity.class);
-		modelMap.put(NormalExcelConstants.PARAMS,new ExportParams("项目表列表", "导出人:"+ResourceUtil.getSessionUser().getRealName(),
+		modelMap.put(NormalExcelConstants.PARAMS,new ExportParams("项目信息表列表", "导出人:"+ResourceUtil.getSessionUser().getRealName(),
 			"导出信息"));
 		modelMap.put(NormalExcelConstants.DATA_LIST,jformProjects);
 		return NormalExcelConstants.JEECG_EXCEL_VIEW;
@@ -273,9 +308,9 @@ public class JformProjectController extends BaseController {
 	@RequestMapping(params = "exportXlsByT")
 	public String exportXlsByT(JformProjectEntity jformProject,HttpServletRequest request,HttpServletResponse response
 			, DataGrid dataGrid,ModelMap modelMap) {
-    	modelMap.put(NormalExcelConstants.FILE_NAME,"项目表");
+    	modelMap.put(NormalExcelConstants.FILE_NAME,"项目信息表");
     	modelMap.put(NormalExcelConstants.CLASS,JformProjectEntity.class);
-    	modelMap.put(NormalExcelConstants.PARAMS,new ExportParams("项目表列表", "导出人:"+ResourceUtil.getSessionUser().getRealName(),
+    	modelMap.put(NormalExcelConstants.PARAMS,new ExportParams("项目信息表列表", "导出人:"+ResourceUtil.getSessionUser().getRealName(),
     	"导出信息"));
     	modelMap.put(NormalExcelConstants.DATA_LIST,new ArrayList());
     	return NormalExcelConstants.JEECG_EXCEL_VIEW;

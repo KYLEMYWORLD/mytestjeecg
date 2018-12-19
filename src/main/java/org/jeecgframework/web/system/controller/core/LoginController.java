@@ -236,7 +236,9 @@ public class LoginController extends BaseController{
             //用户当前登录机构
             modelMap.put("currentOrgName", clientManager.getClient().getUser().getCurrentDepart().getDepartname());
 			
-			SysThemesEnum sysTheme = SysThemesUtil.getSysTheme(request);
+			//SysThemesEnum sysTheme = SysThemesUtil.getSysTheme(request);
+			//kyle 2018.12.07 固定样式为acele
+			SysThemesEnum sysTheme = SysThemesEnum.toEnum("acele");
 			if("fineui".equals(sysTheme.getStyle())|| "ace".equals(sysTheme.getStyle())||"diy".equals(sysTheme.getStyle())||"acele".equals(sysTheme.getStyle())||"hplus".equals(sysTheme.getStyle()) || "adminlte".equals(sysTheme.getStyle())){
 				request.setAttribute("menuMap", userService.getFunctionMap(user.getId()));
 			}
@@ -580,7 +582,7 @@ public class LoginController extends BaseController{
 	 */
 	@RequestMapping(params = "hplushome")
 	public ModelAndView hplushome(HttpServletRequest request) {
-		return new ModelAndView("main/hplushome");
+		return new ModelAndView("main/keda_home");
 	}
 	
 	/**

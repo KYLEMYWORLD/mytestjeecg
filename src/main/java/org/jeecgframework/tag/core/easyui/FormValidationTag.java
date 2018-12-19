@@ -107,21 +107,19 @@ public class FormValidationTag extends TagSupport {
 //			}
 			if(cssTheme==null||"default".equals(cssTheme))cssTheme="";*/
 			if ("div".equals(layout)) {
-				sb.append("<div id=\"content\">");
+				appendLine(sb,"<div id=\"content\">");
+				appendLine(sb,"<div id=\"wrapper\" style=\"border-left:1px solid #ddd;\">");
 
-				sb.append("<div id=\"wrapper\" style=\"border-left:1px solid #ddd;\">");
-
-				sb.append("<div id=\"steps\">");
+				appendLine(sb,"<div id=\"steps\">");
 			}
 			sb.append("<form id=\"" + formid + "\" " );
 
 			if(this.getStyleClass()!=null){
 				sb.append("class=\""+this.getStyleClass()+"\" ");
 			}
-
-					sb.append(" action=\"" + action + "\" name=\"" + formid + "\" method=\"post\">");
+			appendLine(sb," action=\"" + action + "\" name=\"" + formid + "\" method=\"post\">");
 			if ("btn_sub".equals(btnsub) && dialog)
-				sb.append("<input type=\"hidden\" id=\"" + btnsub + "\" class=\"" + btnsub + "\"/>");
+				appendLine(sb,"<input type=\"hidden\" id=\"" + btnsub + "\" class=\"" + btnsub + "\"/>");
 			
 			out.print(sb.toString());
 			out.flush();
@@ -202,46 +200,42 @@ public class FormValidationTag extends TagSupport {
 				}
 			}
 
-			sb.append("<script src=\"plug-in/layer/layer.js\"></script>");
+			appendLine(sb,"<script src=\"plug-in/layer/layer.js\"></script>");
 
-			sb.append("<script type=\"text/javascript\">");
+			appendLine(sb,"<script type=\"text/javascript\">");
 
-			sb.append("var subDlgIndex = null;");
+			appendLine(sb,"		var subDlgIndex = null;");
 
-			sb.append("$(function(){");
-			sb.append("$(\"#" + formid + "\").Validform({");
+			appendLine(sb,"		$(function(){");
+			appendLine(sb,"			$(\"#" + formid + "\").Validform({");
 			if(this.getTiptype()!=null && !"".equals(this.getTiptype())){	
 
 				if(tiptype.equals("1")){
-					sb.append("tiptype:function(msg,o,cssctl){");
-					sb.append("if(o.type == 3){");
-					sb.append("layer.open({");
-					sb.append("title:'提示信息',");
-
-					sb.append("content:msg,icon:5,shift:6,btn:false,shade:false,time:5000,");
-
-					sb.append("cancel:function(index){o.obj.focus();layer.close(index);},");
-
-					sb.append("yes:function(index){o.obj.focus();layer.close(index);}");
-
-					sb.append("})");
-					sb.append("}},");
+					appendLine(sb,"			tiptype:function(msg,o,cssctl){");
+					appendLine(sb,"				if(o.type == 3){");
+					appendLine(sb,"				layer.open({");
+					appendLine(sb,"					title:'提示信息',");
+					appendLine(sb,"					content:msg,icon:5,shift:6,btn:false,shade:false,time:5000,");
+					appendLine(sb,"					cancel:function(index){o.obj.focus();layer.close(index);},");
+					appendLine(sb,"					yes:function(index){o.obj.focus();layer.close(index);}");
+					appendLine(sb,"				})");
+					appendLine(sb,"			}},");
 
 				}else if("6".equals(tiptype)){
-					sb.append("tiptype:function(msg,o,cssctl){");
-					sb.append("if(o.type==3){");
-					sb.append(" ValidationMessage(o.obj,msg);");
-					sb.append("}else{");
-					sb.append("removeMessage(o.obj);");
-					sb.append("}");
-					sb.append("},");
+					appendLine(sb,"		tiptype:function(msg,o,cssctl){");
+					appendLine(sb,"			if(o.type==3){");
+					appendLine(sb," 			ValidationMessage(o.obj,msg);");
+					appendLine(sb,"			}else{");
+					appendLine(sb,"				removeMessage(o.obj);");
+					appendLine(sb,"			}");
+					appendLine(sb,"		},");
 
 				}else{
-					sb.append("tiptype:"+this.getTiptype()+",");
+					appendLine(sb,"				tiptype:"+this.getTiptype()+",");
 				}
 
 			}else{
-				sb.append("tiptype:1,");
+				appendLine(sb,"		tiptype:1,");
 			}
 //			sb.append("tiptype:function(msg,o,cssctl){");
 //			sb.append("if(!o.obj.is(\"form\")){");
@@ -265,26 +259,27 @@ public class FormValidationTag extends TagSupport {
 //			sb.append("	}");
 //			sb.append("}");
 //			sb.append("},");
-			sb.append("btnSubmit:\"#" + btnsub + "\",");
-			sb.append("btnReset:\"#" + btnreset + "\",");
-			sb.append("ajaxPost:true,");
+			appendLine(sb,"				btnSubmit:\"#" + btnsub + "\",");
+			appendLine(sb,"				btnReset:\"#" + btnreset + "\",");
+			appendLine(sb,"				ajaxPost:true,");
 			if (beforeSubmit != null) {
-				sb.append("beforeSubmit:function(curform){var tag=true;");
+				appendLine(sb,"				beforeSubmit:function(curform){var tag=true;");
 
-				sb.append("tag = " + beforeSubmit );
+				appendLine(sb,"					tag = " + beforeSubmit );
 				if(beforeSubmit.indexOf("(") < 0){
-					sb.append("(curform);");
+					appendLine(sb,"					(curform);");
 				}else if(!beforeSubmit.endsWith(";")){
-					sb.append(";");
+					appendLine(sb,"	;");
 				}
-				sb.append("if(tag || tag!=false){");
+				appendLine(sb,"				if(tag || tag!=false){");
 
 				submitLoading(sb);
 
-				sb.append("}else{ return false;}");
+				appendLine(sb,"			}else{ return false;}");
 
 			}else{
-				sb.append("beforeSubmit:function(curform){var tag=false;");
+				appendLine(sb,"				beforeSubmit:function(curform){");
+				appendLine(sb,"					var tag=false;");
 				submitLoading(sb);
 			}
 			sb.append("},");
@@ -292,23 +287,23 @@ public class FormValidationTag extends TagSupport {
 			if (usePlugin != null) {
 				StringBuffer passsb = new StringBuffer();
 				if (usePlugin.indexOf("password") >= 0) {
-					passsb.append("passwordstrength:{");
-					passsb.append("minLen:6,");
-					passsb.append("maxLen:18,");
-					passsb.append("trigger:function(obj,error)");
-					passsb.append("{");
-					passsb.append("if(error)");
-					passsb.append("{");
-					passsb.append("obj.parent().next().find(\".Validform_checktip\").show();");
-					passsb.append("obj.find(\".passwordStrength\").hide();");
-					passsb.append("}");
-					passsb.append("else");
-					passsb.append("{");
-					passsb.append("$(\".passwordStrength\").show();");
-					passsb.append("obj.parent().next().find(\".Validform_checktip\").hide();");
-					passsb.append("}");
-					passsb.append("}");// trigger结尾
-					passsb.append("}");// passwordstrength结尾
+					appendLine(passsb,"passwordstrength:{");
+					appendLine(passsb,"	minLen:6,");
+					appendLine(passsb,"	maxLen:18,");
+					appendLine(passsb,"	trigger:function(obj,error)");
+					appendLine(passsb,"	{");
+					appendLine(passsb,"		if(error)");
+					appendLine(passsb,"		{");
+					appendLine(passsb,"			obj.parent().next().find(\".Validform_checktip\").show();");
+					appendLine(passsb,"			obj.find(\".passwordStrength\").hide();");
+					appendLine(passsb,"		}");
+					appendLine(passsb,"		else");
+					appendLine(passsb,"		{");
+					appendLine(passsb,"			$(\".passwordStrength\").show();");
+					appendLine(passsb,"			obj.parent().next().find(\".Validform_checktip\").hide();");
+					appendLine(passsb,"		}");
+					appendLine(passsb,"	}");// trigger结尾
+					appendLine(passsb,"}");// passwordstrength结尾
 				}
 
 				sb.append("usePlugin:{");
@@ -326,54 +321,72 @@ public class FormValidationTag extends TagSupport {
 				if (usePlugin.indexOf("jqtransform") >= 0) {
 					sb.append(jqsb);
 				}
-				sb.append("},");
+				appendLine(sb,"},");
 			}
-			sb.append("callback:function(data){");
+			appendLine(sb,"callback:function(data){");
 
-			sb.append("if(subDlgIndex && subDlgIndex != null){");
-			sb.append("$('#infoTable-loading').hide();");
-			sb.append("subDlgIndex.close();");
-			sb.append("}");
+			appendLine(sb,"		if(subDlgIndex && subDlgIndex != null){");
+			appendLine(sb,"			$('#infoTable-loading').hide();");
+			appendLine(sb,"			subDlgIndex.close();");
+			appendLine(sb,"		}");
 
 			if (dialog) {
 				if(callback!=null&&callback.contains("@Override")){//复写默认callback
 					sb.append(callback.replaceAll("@Override", "") + "(data);");
 				}else{
-					sb.append("var win = frameElement.api.opener;");
+					appendLine(sb,"		var win = frameElement.api.opener;");
 					//先判断是否成功，成功再刷新父页面，否则return false    
 					// 如果不成功，返回值接受使用data.msg. 原有的data.responseText会报null 
-					sb.append("if(data.success==true){frameElement.api.close();win.tip(data.msg);}else{if(data.responseText==''||data.responseText==undefined){$.messager.alert('错误', data.msg);$.Hidemsg();}else{try{var emsg = data.responseText.substring(data.responseText.indexOf('错误描述'),data.responseText.indexOf('错误信息')); $.messager.alert('错误',emsg);$.Hidemsg();}catch(ex){$.messager.alert('错误',data.responseText+\"\");$.Hidemsg();}} return false;}");
+					appendLine(sb,"if(data.success==true)");
+					appendLine(sb,"{" );
+					appendLine(sb,"		frameElement.api.close();" );
+					appendLine(sb,"		win.tip(data.msg);" );
+					appendLine(sb,"}else{	" );
+					appendLine(sb,"		if(data.responseText==''||data.responseText==undefined)" );
+					appendLine(sb,"		{	" );
+					appendLine(sb,"			$.messager.alert('错误', data.msg);" );
+					appendLine(sb,"			$.Hidemsg();" );
+					appendLine(sb,"		}else{" );
+					appendLine(sb,"			try{" );
+					appendLine(sb,"				var emsg = data.responseText.substring(data.responseText.indexOf('错误描述'),data.responseText.indexOf('错误信息')); " );
+					appendLine(sb,"				$.messager.alert('错误',emsg);$.Hidemsg();");
+					appendLine(sb,"			}catch(ex){" );
+					appendLine(sb,"				$.messager.alert('错误',data.responseText+\"\");" );
+					appendLine(sb,"				$.Hidemsg();" );
+					appendLine(sb,"			}" );
+					appendLine(sb,"		} " );
+					appendLine(sb,"return false;" );
+					appendLine(sb,"}");
 					//
 					if (refresh) {
-						sb.append("win.reloadTable();");
+						appendLine(sb,"win.reloadTable();");
 					}
 					if (StringUtil.isNotEmpty(callback)) {
-						sb.append("win."+ callback + "(data);");
+						appendLine(sb,"win."+ callback + "(data);");
 					}
 				}
 				//失败tip不提示
 				//sb.append("win.tip(data.msg);");
 			} else {
-				sb.append("" + callback + "(data);");
+				appendLine(sb,"" + callback + "(data);");
 			}
-			sb.append("}" + "});" + "});" + "</script>");
-			sb.append("");
-			sb.append("</form>");
+			appendLine(sb,"}" + "});" + "});" + "</script>");
+			appendLine(sb,"</form>");
 			if ("div".equals(layout)) {
-				sb.append("</div>");
+				appendLine(sb,"</div>");
 				if (tabtitle != null) {
 					String[] tabtitles = tabtitle.split(",");
-					sb.append("<div id=\"navigation\" style=\"display: none;\">");
-					sb.append("<ul>");
+					appendLine(sb,"<div id=\"navigation\" style=\"display: none;\">");
+					appendLine(sb,"		<ul>");
 					for (String string : tabtitles) {
-						sb.append("<li>");
-						sb.append("<a href=\"#\">" + string + "</a>");
-						sb.append("</li>");
+						appendLine(sb,"			<li>");
+						appendLine(sb,"				<a href=\"#\">" + string + "</a>");
+						appendLine(sb,"			</li>");
 					}
-					sb.append("</ul>");
-					sb.append("</div>");
+					appendLine(sb,"		</ul>");
+					appendLine(sb,"</div>");
 				}
-				sb.append("</div></div>");
+				appendLine(sb,"</div></div>");
 			}
 			out.print(sb.toString());
 			out.flush();
@@ -389,11 +402,16 @@ public class FormValidationTag extends TagSupport {
 			} catch (Exception e2) {
 			}
 		}
-		
+
 		//long end = System.currentTimeMillis();
 		//logger.debug("==============Form=====doEndTag=================结束时间:" + sdf.format(new Date()) + "==============================");
 		//logger.debug("===============Form=====doEndTag=================耗时:" + (end - start) + "ms==============================");
 		return EVAL_PAGE;
+	}
+
+	private void appendLine(StringBuffer sb,String str) {
+		String format = "\r\n"; //调试  格式化
+		sb.append(str).append(format);
 	}
 
 	/**
@@ -401,20 +419,19 @@ public class FormValidationTag extends TagSupport {
 	 * @param sb
 	 */
 	private void submitLoading(StringBuffer sb) {
-		sb.append("subDlgIndex = $.dialog({");
-		sb.append("content: '正在加载中'");
-		sb.append(",zIndex:19910320");
-		sb.append(",lock:true");
-		sb.append(",width:100");
-		sb.append(",height:50");
-		sb.append(",opacity:0.3");
-		sb.append(",title:'提示'");
-		sb.append(",cache:false");
-		sb.append("");
-		sb.append("});");
-		sb.append("var infoTable = subDlgIndex.DOM.t.parent().parent().parent();");
-		sb.append("infoTable.parent().append('<div id=\"infoTable-loading\" style=\"text-align:center;\"><img src=\"plug-in/layer/skin/default/loading-0.gif\"/></div>');");
-		sb.append("infoTable.css('display','none');");
+		appendLine(sb,"			subDlgIndex = $.dialog({");
+		appendLine(sb,"				content: '正在加载中'");
+		appendLine(sb,"				,zIndex:19910320");
+		appendLine(sb,"				,lock:true");
+		appendLine(sb,"				,width:100");
+		appendLine(sb,"				,height:50");
+		appendLine(sb,"				,opacity:0.3");
+		appendLine(sb,"				,title:'提示'");
+		appendLine(sb,"				,cache:false");
+		appendLine(sb,"			});");
+		appendLine(sb,"			var infoTable = subDlgIndex.DOM.t.parent().parent().parent();");
+		appendLine(sb,"			infoTable.parent().append('<div id=\"infoTable-loading\" style=\"text-align:center;\"><img src=\"plug-in/layer/skin/default/loading-0.gif\"/></div>');");
+		appendLine(sb,"			infoTable.css('display','none');");
 	}
 
 	public void setUsePlugin(String usePlugin) {

@@ -42,7 +42,7 @@
    <t:dgToolBar title="模板下载" inGroup="true" icon="icon-putout" funname="ExportXlsByT"></t:dgToolBar>
    <t:dgToolBar operationCode="print" title="打印" inGroup="true" icon="icon-print" url="jeecgListDemoController.do?print" funname="detail" width="610" height="330"></t:dgToolBar>
    <t:dgToolBar  title="加载百度" inGroup="true" icon="icon-print" url="#" funname="testReloadPage"></t:dgToolBar>
-    <%-- <t:dgToolBar  title="加载新页面" icon="icon-print" funname="addNewPage(id)"></t:dgToolBar> --%>
+   <t:dgToolBar  title="加载新页面" icon="icon-print" funname="addNewPage(id)"></t:dgToolBar>
   </t:datagrid>
   </div>
  </div>
@@ -67,7 +67,7 @@
 	    }
 	    return s3
 	}
- function testReloadPage(){
+    function testReloadPage(){
 		document.location = "http://www.baidu.com"; 
 	}
 	function szqm(id) {

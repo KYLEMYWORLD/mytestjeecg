@@ -591,6 +591,7 @@ public class CgAutoListController extends BaseController{
 	 * @param request
 	 */
 	private void loadAuth(Map<String, Object> paras, HttpServletRequest request) {
+		//TODO 表单控制列表链接按钮权限
 		List<TSOperation>  nolist = (List<TSOperation>) request.getAttribute(Globals.NOAUTO_OPERATIONCODES);
 		if(ResourceUtil.getSessionUser().getUserName().equals("admin")|| !Globals.BUTTON_AUTHORITY_CHECK){
 			nolist = null;

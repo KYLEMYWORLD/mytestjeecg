@@ -52,8 +52,11 @@
 <div class="nav-no-collapse bootstrap-menu">
 
 <ul class="nav pull-right usernav">
-	<li style="line-height: 43px;"><span style="color: #CC33FF"><t:mutiLang langKey="common.user"/>:</span><span style="color: #666633">(${userName })</span> <span style="color: #CC33FF"><t:mutiLang langKey="common.role"/></span>:<span style="color: #666633">${roleName
-	}</span></li>
+	<li style="line-height: 43px;">
+		<span style="color: #CC33FF"><t:mutiLang langKey="common.user"/>:</span>
+		<span style="color: #666633">(${userName })</span>
+		<span style="color: #CC33FF"><t:mutiLang langKey="common.role"/></span>:<span style="color: #666633">${roleName}</span>
+	</li>
 	<li class="dropdown"><a href="#" class="dropdown-toggle avatar" data-toggle="dropdown"> <i class="icon-wrench"></i> <span class="txt"><t:mutiLang langKey="common.control.panel"/></span> <b class="caret"></b> </a>
 	<ul class="dropdown-menu">
 		<li onclick="openwindow('<t:mutiLang langKey="common.profile"/>','userController.do?userinfo')"><a href="javascript:;"><i class="icon-user"></i> <t:mutiLang langKey="common.profile"/></a></li>

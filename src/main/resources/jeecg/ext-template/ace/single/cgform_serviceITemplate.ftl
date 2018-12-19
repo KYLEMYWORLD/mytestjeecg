@@ -21,7 +21,7 @@ public interface ${entityName}ServiceI extends CommonService{
  	<#if btn.optType=='action'>
  	/**
 	 * 自定义按钮-[${btn.buttonName}]业务处理
-	 * @param id
+	 * @param t 实体类 ext-template
 	 * @return
 	 */
 	 public void do${btn.buttonCode?cap_first}Bus(${entityName}Entity t) throws Exception;
