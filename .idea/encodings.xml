@@ -3,6 +3,7 @@
   <component name="Encoding" addBOMForNewFiles="with NO BOM">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/docs/数据库说明.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/plug-in/echart/user/echarts.min.js" charset="GBK" />
     <file url="PROJECT" charset="GBK" />
   </component>
 </project>

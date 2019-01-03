@@ -132,7 +132,7 @@ function ExportXlsByT() {
  }
  //自定义按钮-查看审批信息
  function doApproveMsg(_id,index){
-  debugger;
+  //debugger;
   // var rowdate = $('#jformPlanList').treegrid('getData');
   // var row = rowdate.find(function(x) {return x.id = _id;});
   var row=$('#jformPlanList').treegrid("find",_id);

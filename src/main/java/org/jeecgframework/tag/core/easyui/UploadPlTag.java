@@ -26,7 +26,7 @@ import org.jeecgframework.tag.core.JeecgTag;
 public class UploadPlTag extends JeecgTag {
 	private static final long serialVersionUID = -9022815118906773203L;
 	/**通用文件后缀*/
-	private static final String ALL_COMMON_FILE = "doc,docx,txt,ppt,xls,xlsx,html,htm";
+	private static final String ALL_COMMON_FILE = "doc,docx,txt,ppt,xls,xlsx,html,htm,rar,zip";
 	/**图片文件后缀*/
 	private static final String ALL_IMG_FILE = "jpg,jpeg,png,gif,bmp,ico,tif";
 	protected String id;// ID
@@ -47,7 +47,7 @@ public class UploadPlTag extends JeecgTag {
 	private String onUploadStart;//上传开始处理函数
 	private String height="18";//自定义上传按钮高度
 	private String width="80";//自定义上传按钮宽度
-	private String fileSizeLimit = "15MB";//上传文件大小设置
+	private String fileSizeLimit = "100MB";//上传文件大小设置
 	private String onFileAdded;//文件添加时触发方法
 	private String onFilesRemoved;//文件移除时触发方法
 	
