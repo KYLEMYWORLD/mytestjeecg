@@ -87,6 +87,7 @@ public class JformEchartController extends BaseController {
 		Map map = new HashMap();
 		map.put("data",list);
 		map.put("project",result);
+		return map;
 	}
 	/**
 	 * 获取激活的项目数量
