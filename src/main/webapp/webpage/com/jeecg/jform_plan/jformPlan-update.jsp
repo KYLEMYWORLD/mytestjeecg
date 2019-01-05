@@ -57,14 +57,14 @@
 	  //编写自定义JS代码
 	  $(document).ready(function(){
 		  var status ='${jformPlanPage.planStatus}';
-		  if(status!="0" || status!="1" ||status!="2"){
+		  if(status!='0' && status!='1' && status!='2'){
 		  	$("#planName").attr("disabled","disabled");
 		  	$("#planId").attr("disabled","disabled");
 		  	$("#startDate").attr("readonly","readonly");
 		  	$("#planResponder").attr("disabled","disabled");
 		  	$("#planInfo").attr("disabled","disabled");
+		  	$("#finishDate").attr("disabled","disabled");
 		  }
-		  $("#finishDate").attr("disabled","disabled");
 		  $(".combo-arrow").off("click");
 	  });
 
@@ -158,7 +158,7 @@
 							</label>
 						</td>
 						<td class="value">
-							<input id="startDate" name="startDate" type="text" style="width: 150px"  class="Wdate" onClick="WdatePicker()"  ignore="ignore" value='<fmt:formatDate value='${jformPlanPage.startDate}' type="date" pattern="yyyy-MM-dd"/>'/>
+							<input id="startDate" name="startDate" readonly type="text" style="width: 150px"  class="Wdate" onClick="WdatePicker()"  ignore="ignore" value='<fmt:formatDate value='${jformPlanPage.startDate}' type="date" pattern="yyyy-MM-dd"/>'/>
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">任务开始时间</label>
 						</td>
@@ -168,7 +168,7 @@
 							</label>
 						</td>
 						<td class="value">
-							<input id="finishDate" name="finishDate" type="text" style="width: 150px"  class="Wdate" onClick="WdatePicker()"  ignore="ignore" value='<fmt:formatDate value='${jformPlanPage.finishDate}' type="date" pattern="yyyy-MM-dd"/>'/>
+							<input id="finishDate" name="finishDate" readonly type="text" style="width: 150px"  class="Wdate" onClick="WdatePicker()"  ignore="ignore" value='<fmt:formatDate value='${jformPlanPage.finishDate}' type="date" pattern="yyyy-MM-dd"/>'/>
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">任务完成时间</label>
 						</td>

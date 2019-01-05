@@ -1,5 +1,6 @@
 package com.jeecg.jform_project.controller;
 import com.jeecg.ConstSetBA;
+import com.jeecg.jform_echart.entity.JformEchartEntity;
 import com.jeecg.jform_project.entity.JformProjectEntity;
 import com.jeecg.jform_project.service.JformProjectServiceI;
 import java.util.ArrayList;
@@ -230,6 +231,32 @@ public class JformProjectController extends BaseController {
 			if(t.getProjectStatus()==ConstSetBA.ProjectStatus_Unactivate){
 				t.setProjectStatus(ConstSetBA.ProjectStatus_Activate);
 				jformProjectService.doActivateBus(t);
+				JformEchartEntity e_begin = new JformEchartEntity();
+				e_begin.setProjectId(t.getId());
+				e_begin.setTaskId(t.getId());
+				e_begin.setTaskLevel(1);
+				e_begin.setAlertStatus(1);
+				e_begin.setTaskStatus(1);//任务状态
+				e_begin.setTaskName("项目开始");
+				e_begin.setTaskShortname("项目开始");
+				e_begin.setStartDate(t.getStartDate());
+				e_begin.setFinishDate(t.getStartDate());
+				e_begin.setRfinishDate(t.getStartDate());
+
+				JformEchartEntity e_end = new JformEchartEntity();
+				e_end.setProjectId(t.getId());
+				e_end.setTaskId(t.getId());
+				e_end.setTaskLevel(1);
+				e_end.setAlertStatus(1);
+				e_end.setTaskStatus(0);//任务状态
+				e_end.setTaskName("项目结束");
+				e_end.setTaskShortname("项目结束");
+				e_end.setStartDate(t.getFinishDate());
+				e_end.setFinishDate(t.getFinishDate());
+				e_end.setRfinishDate(t.getFinishDate());
+
+				systemService.save(e_begin);
+				systemService.save(e_end);
 				systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);
 			}else{
 				message = "项目已经激活！";
@@ -241,6 +268,7 @@ public class JformProjectController extends BaseController {
 		j.setMsg(message);
 		return j;
 	}
+
 
 	/**
 	 * 项目信息表新增页面跳转

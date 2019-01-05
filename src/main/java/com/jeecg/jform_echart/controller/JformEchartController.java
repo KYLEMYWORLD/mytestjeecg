@@ -81,12 +81,28 @@ public class JformEchartController extends BaseController {
 		// 查询条件组装器
 		org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq,jformEchart, request.getParameterMap());
 		list = this.jformEchartService.getListByCriteriaQuery(cq, false);
+		String sql = "select id,project_name name from jform_project";
+		List<Map<String, Object>> result = systemService.findForJdbc(sql);
 
 		Map map = new HashMap();
 		map.put("data",list);
+		map.put("project",result);
+	}
+	/**
+	 * 获取激活的项目数量
+	 * @param jformEchart
+	 * @param request
+	 * @param dataGrid
+	 * @return
+	 */
+	@RequestMapping(params = "GetProjectCount")
+	@ResponseBody
+	public Map GetProjectCount(JformEchartEntity jformEchart,HttpServletRequest request, DataGrid dataGrid){
+		long count = systemService.getCountForJdbc("select count(id) from jform_project where project_status = 1");
+		Map map = new HashMap();
+		map.put("count",count);
 		return map;
 	}
-
 
 
 

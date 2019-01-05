@@ -208,6 +208,9 @@ public class JformPlanController extends BaseController {
 					throw new BusinessException("该分配任务状态不是下发状态不能进行分配！");
 				}
 				systemService.save(task);
+			}else{
+				JformPlanEntity task = systemService.getEntity(JformPlanEntity.class,jformPlan.getPlanId());
+				jformPlan.setProjectId(task.getProjectId());
 			}
 			jformPlanService.save(jformPlan);
 			systemService.addLog(message, Globals.Log_Type_INSERT, Globals.Log_Leavel_INFO);
@@ -385,9 +388,42 @@ public class JformPlanController extends BaseController {
 						" set plan_status = "+status+
 						" where plan_id in (select a.id from(select p.id from jform_plan p where p.plan_id='"+id+"')a)"+
 						" or plan_id = '"+id+"'";
-		systemService.updateBySqlString(sql);
+		int count = systemService.updateBySqlString(sql);
+		systemService.addLog("审批通过添加"+count+"数据到报表中。", Globals.Log_Type_INSERT, Globals.Log_Leavel_INFO);
 	}
 
+	/**
+	 * 审批通过的时候复制审批通过的给到Echart报表数据中
+	 * @param id
+	 */
+	public void CopyPlanToEchart(String id){
+		try{
+			StringBuffer sql = new StringBuffer();
+			sql.append("INSERT INTO jform_echart (id, project_id, task_id, task_level, task_name, task_shortname,");
+			sql.append(" alert_status, alert_msg, task_status, start_date, finish_date, pretask_id )");
+			sql.append(" SELECT p.id,p.project_id,p.id,p.plan_level, p.plan_name, SUBSTRING(p.plan_name,1,4),");
+			sql.append(" p.plan_isalert, p.plan_alertmsg, p.plan_issucc, p.start_date, p.finish_date, p.plan_id");
+			sql.append(" from jform_plan p where p.id = ?");
+			sql.append(" or p.plan_id = ?");
+			sql.append(" or p.plan_id in (SELECT id from jform_plan where plan_id = ?)");
+
+			System.out.println(sql.toString());
+
+			systemService.executeSql(sql.toString(),id,id,id);
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+			throw new BusinessException(e.getMessage());
+		}
+
+	}
+
+	/***
+	 * 一级计划审批方法
+	 * @param content
+	 * @param id
+	 * @param approvetype 1 审批通过 2 审批驳回
+	 * @return
+	 */
 	@RequestMapping(params = "doApprove")
 	@ResponseBody
 	public AjaxJson doApprove(String content,String id,String approvetype) {
@@ -401,21 +437,19 @@ public class JformPlanController extends BaseController {
 			Map map = new HashMap();
 			map.put("plan_name",t.getPlanName());
 			map.put("content",content);
-			if(approvetype.equals("2")){
-				t.setPlanStatus(ConstSetBA.PlanStatus_Disapprove);
-				msgCode = "DisApprove";
-				UpdatePlanStatus(t.getId(),ConstSetBA.PlanStatus_Disapprove);
-			}else{
-				t.setPlanStatus(ConstSetBA.PlanStatus_Execution);
-				msgCode = "Approve";
-				UpdatePlanStatus(t.getId(),ConstSetBA.PlanStatus_Execution);
-			}
+			t.setPlanStatus(approvetype.equals("2")?ConstSetBA.PlanStatus_Disapprove:ConstSetBA.PlanStatus_Execution);
 			JformProjectEntity project = systemService.getEntity(JformProjectEntity.class,t.getProjectId());
-			TuiSongMsgUtil.sendMessage(msgCode,map,ResourceUtil.getSessionUser().getUserName(),project.getProjectManagerid());
 			t.setPlanRejectmsg(content);
-
 			this.jformPlanService.updateEntitie(t);
 			systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);
+			//更新当前一级菜单下面的所有计划状态
+			UpdatePlanStatus(t.getId(),approvetype.equals("2")?ConstSetBA.PlanStatus_Disapprove:ConstSetBA.PlanStatus_Execution);
+			if(approvetype.equals("1")){
+				//审批通过，将审批通过的项目信息添加到报表数据中
+				CopyPlanToEchart(t.getId());
+			}
+
+			TuiSongMsgUtil.sendMessage(approvetype.equals("2")? "DisApprove":"Approve",map,ResourceUtil.getSessionUser().getUserName(),project.getProjectManagerid());
 		}catch(Exception e){
 			e.printStackTrace();
 			message = "审核失败";

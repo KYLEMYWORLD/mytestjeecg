@@ -87,15 +87,15 @@ var MakeLine_P = {
     animation:false,
     label:{
         show:false,
-        formatter: '{b}',
+        //formatter: '{b}',
         position:'middle',
         color:'#d68fe8'
     },
     data:[{
-        name: new Date().Format("yyyy-MM-dd"),
+        name: '',//new Date().Format("yyyy-MM-dd"),
         xAxis:  new Date().Format("yyyy-MM-dd"),
         label:{
-            show:true,
+            show:false,
             color:'#e81d1a'
         }
     }],
@@ -109,29 +109,29 @@ var MakeLine_P = {
     itemStyle: {
         normal: {
             label: {
-                show: true,
+                show: false,
                 color:'#e81d1a'
             },
             labelLine: {
-                show: true,
-                formatter: '{b}',
+                show: false,
+                formatter: '',//'{b}',
                 position:'middle',
             }
         } ,
-        // emphasis: {
-        //     label: {
-        //         show: true,
-        //         position: 'outer',
-        //         color:'#e81d1a'
-        //     },
-        //     labelLine: {
-        //         show: true,
-        //         color:'#e81d1a',
-        //         lineStyle: {
-        //             color: 'red'
-        //         }
-        //     }
-        // }
+        emphasis: {
+            label: {
+                show: false,
+                position: 'outer',
+                color:'#e81d1a'
+            },
+            labelLine: {
+                show: false,
+                color:'#e81d1a',
+                lineStyle: {
+                    color: 'red'
+                }
+            }
+        }
     }
 };
 

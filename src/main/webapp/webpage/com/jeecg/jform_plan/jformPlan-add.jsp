@@ -99,7 +99,7 @@
 	  <input id="planIssucc" name="planIssucc" type="hidden" value="0"/>
 	  <input id="planIsalert" name="planIsalert" type="hidden" value="1"/>
 	  <input id="planStatus" name="planStatus" type="hidden" value="0"/>
-	  <input id="planResponderid" name="planResponderid" type="hidden" value=""/>
+	  <input id="planResponderid" name="planResponderid" type="hidden" value="" datatype="*"  ignore="checked" />
 
 	 <table style="width: 600px;" cellpadding="0" cellspacing="1" class="formtable">
 				<tr>
@@ -109,7 +109,7 @@
 						</label>
 					</td>
 					<td class="value">
-					     	 <input id="planName" name="planName" type="text" maxlength="50" style="width: 150px" class="inputxt"  ignore="ignore" />
+					     	 <input id="planName" name="planName" type="text" maxlength="50" style="width: 150px" class="inputxt" datatype="*"  ignore="checked" />
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">任务名称</label>
 						</td>
@@ -182,7 +182,7 @@
 						</label>
 					</td>
 					<td class="value">
-							   <input id="startDate" readonly name="startDate" type="text" style="width: 150px" class="Wdate" onClick="WdatePicker()"  ignore="ignore" />
+							<input id="startDate" readonly name="startDate" type="text" style="width: 150px" class="Wdate" onClick="WdatePicker()"   datatype="*"  ignore="checked"  />
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">任务开始时间</label>
 						</td>
@@ -192,7 +192,7 @@
 						</label>
 					</td>
 					<td class="value">
-							   <input id="finishDate" readonly  name="finishDate" type="text" style="width: 150px" class="Wdate" onClick="WdatePicker()"  ignore="ignore" />
+							   <input id="finishDate" readonly  name="finishDate" type="text" style="width: 150px" class="Wdate" onClick="WdatePicker()"    datatype="*"  ignore="checked"  />
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">任务完成时间</label>
 						</td>
@@ -204,7 +204,7 @@
 						</label>
 					</td>
 					<td class="value">
-						<input id="planResponder"  readonly  name="planResponder" type="text" style="width: 150px" class="searchbox-inputtext"  ignore="ignore"   onclick="popupClick(this,'account,realname','planResponderid,planResponder','user_select')"  />
+						<input id="planResponder"  readonly  name="planResponder" type="text" style="width: 150px" class="searchbox-inputtext"    datatype="*"  ignore="checked"    onclick="popupClick(this,'account,realname','planResponderid,planResponder','user_select')"  />
 						<span class="Validform_checktip"></span>
 						<label class="Validform_label" style="display: none;">负责人</label>
 					</td>

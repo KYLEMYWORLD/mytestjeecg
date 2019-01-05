@@ -124,7 +124,7 @@
 						</label>
 					</td>
 					<td class="value" colspan="3">
-					     	 <input id="planName" name="planName" type="text" maxlength="100" style="width: 430px" class="inputxt"  ignore="ignore" />
+					     	 <input id="planName" name="planName" type="text" maxlength="100" style="width: 430px" class="inputxt"  ignore="checked" />
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">任务名称</label>
 					</td>
