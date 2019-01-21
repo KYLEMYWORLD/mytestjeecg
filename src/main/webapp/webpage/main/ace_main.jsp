@@ -326,6 +326,12 @@
 								<span class="menu-text"> 首页 </span>
 							</a>
 						</li>
+						<li class="active">
+							<a  href="javascript:addTabs({id:'tSSms',title:'消息中心',close: false,url: 'tSSmsController.do?goMySmsList'});">
+								<i class="fa fa-commenting"></i>
+								<span class="menu-text"> 消息中心 </span>
+							</a>
+						</li>
 						<t:menu style="ace" menuFun="${menuMap}"></t:menu>
 					</ul><!-- /.nav-list -->
 

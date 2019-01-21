@@ -275,6 +275,8 @@ public class CgAutoListController extends BaseController{
 					String value = null;
 					if(obj instanceof Integer){
 						value = String.valueOf(obj);
+					}else if(obj instanceof Double){
+						value = obj.toString();
 					}else{
 						value = (String)obj;
 					}
@@ -420,7 +422,7 @@ public class CgAutoListController extends BaseController{
 	/**
 	 * 删除动态表-批量
 	 * @param configId 配置id
-	 * @param id 主键
+	 * @param ids 主键
 	 * @param request
 	 * @return
 	 */
@@ -605,7 +607,7 @@ public class CgAutoListController extends BaseController{
 				list.add(operation.getOperationcode());
 			}
 		}
-		paras.put(CgAutoListConstant.CONFIG_NOLIST, list);
+		paras.put(CgAutoListConstant.CONFIG_NOLIST, list);//MARK 设置没有权限的按钮
 		paras.put(CgAutoListConstant.CONFIG_NOLISTSTR, nolistStr==null?"":nolistStr);
 	}
 	/**

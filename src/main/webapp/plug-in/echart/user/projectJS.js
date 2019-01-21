@@ -1,11 +1,11 @@
 var yAxisDataStyle = {
-    fontWeight:600,
+    fontWeight:200,
     color:'black',
-    fontSize:16,
+    fontSize:12,
     align:'center',//'left''center''right'
     verticalAlign:'middle',//'top''middle''bottom'
-    height: 600,
-    lineHeight:600,
+    height: 400,
+    lineHeight:400,
     backgroundColor:'#e4e4e4'
 };
 var labelStyle_P = {

@@ -244,9 +244,9 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 
 	/**
 	 * 根据主键删除指定的实体
-	 *
+	 * @param entityName
+	 * @param id
 	 * @param <T>
-	 * @param pojo
 	 */
 	public <T> void deleteEntityById(Class entityName, Serializable id) {
 		delete(get(entityName, id));
@@ -277,12 +277,10 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 	}
 
 	/**
-	 * 根据主键获取实体并加锁。
-	 *
-	 * @param <T>
+	 * 根据主键获取实体并加锁
 	 * @param entityName
 	 * @param id
-	 * @param lock
+	 * @param <T>
 	 * @return
 	 */
 	public <T> T getEntity(Class entityName, Serializable id) {
@@ -307,9 +305,9 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 
 	/**
 	 * 更新指定的实体
-	 *
+	 * @param className
+	 * @param id
 	 * @param <T>
-	 * @param pojo
 	 */
 	public <T> void updateEntitie(String className, Object id) {
 		getSession().update(className, id);
@@ -325,8 +323,6 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 
 	/**
 	 * 通过hql 查询语句查找对象
-	 *
-	 * @param <T>
 	 * @param query
 	 * @return
 	 */
@@ -343,9 +339,8 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 
 	/**
 	 * 通过hql查询唯一对象
-	 *
+	 * @param hql
 	 * @param <T>
-	 * @param query
 	 * @return
 	 */
 	public <T> T singleResult(String hql) {
@@ -363,9 +358,7 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 
 	/**
 	 * 通过hql 查询语句查找HashMap对象
-	 *
-	 * @param <T>
-	 * @param query
+	 * @param hql
 	 * @return
 	 */
 	public Map<Object, Object> getHashMapbyQuery(String hql) {
@@ -383,8 +376,6 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 
 	/**
 	 * 通过sql更新记录
-	 *
-	 * @param <T>
 	 * @param query
 	 * @return
 	 */
@@ -396,9 +387,7 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 
 	/**
 	 * 通过sql查询语句查找对象
-	 *
-	 * @param <T>
-	 * @param query
+	 * @param sql
 	 * @return
 	 */
 	public List<T> findListbySql(final String sql) {
@@ -408,12 +397,10 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 
 	/**
 	 * 创建Criteria对象，有排序功能。
-	 *
-	 * @param <T>
 	 * @param entityClass
-	 * @param orderBy
 	 * @param isAsc
 	 * @param criterions
+	 * @param <T>
 	 * @return
 	 */
 	private <T> Criteria createCriteria(Class<T> entityClass, boolean isAsc,
@@ -451,10 +438,8 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 
 	/**
 	 * 创建单一Criteria对象
-	 *
-	 * @param <T>
 	 * @param entityClass
-	 * @param criterions
+	 * @param <T>
 	 * @return
 	 */
 	private <T> Criteria createCriteria(Class<T> entityClass) {
@@ -464,13 +449,11 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 
 	/**
 	 * 根据属性名和属性值查询. 有排序
-	 *
-	 * @param <T>
 	 * @param entityClass
 	 * @param propertyName
 	 * @param value
-	 * @param orderBy
 	 * @param isAsc
+	 * @param <T>
 	 * @return
 	 */
 	public <T> List<T> findByPropertyisOrder(Class<T> entityClass,
@@ -515,9 +498,8 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 
 	/**
 	 * 批量插入实体
-	 *
-	 * @param clas
-	 * @param values
+	 * @param entityList
+	 * @param <T>
 	 * @return
 	 */
 	public <T> int batchInsertsEntitie(List<T> entityList) {
@@ -539,12 +521,10 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 	 */
 	/**
 	 * 使用占位符的方式填充值 请注意：like对应的值格式："%"+username+"%" Hibernate Query
-	 *
-	 * @param hibernateTemplate
 	 * @param hql
-	 * @param valus
-	 *            占位符号?对应的值，顺序必须一一对应 可以为空对象数组，但是不能为null
-	 * @return 2008-07-19 add by liuyang
+	 * @param values
+	 * @return
+	 * 占位符号?对应的值，顺序必须一一对应 可以为空对象数组，但是不能为null
 	 */
 	public List<T> executeQuery(final String hql, final Object[] values) {
 		Query query = getSession().createQuery(hql);
@@ -552,9 +532,7 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 		for (int i = 0; values != null && i < values.length; i++) {
 			query.setParameter(i, values[i]);
 		}
-
 		return query.list();
-
 	}
 
 	/**
@@ -773,9 +751,8 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 
 	/**
 	 * 获取分页记录SqlQuery
-	 *
-	 * @param cq
-	 * @param isOffset
+	 * @param hqlQuery
+	 * @param isToEntity
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -805,9 +782,8 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 
 	/**
 	 * 获取分页记录HqlQuery
-	 *
-	 * @param cq
-	 * @param isOffset
+	 * @param hqlQuery
+	 * @param needParameter
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -832,9 +808,8 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 
 	/**
 	 * 根据CriteriaQuery获取List
-	 *
 	 * @param cq
-	 * @param isOffset
+	 * @param ispage
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -898,12 +873,11 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 
 	/**
 	 * 使用指定的检索标准检索数据并分页返回数据-采用预处理方式
-	 *
-	 * @param criteria
-	 * @param firstResult
-	 * @param maxResults
+	 * @param sql
+	 * @param page
+	 * @param rows
+	 * @param objs
 	 * @return
-	 * @throws DataAccessException
 	 */
 	public List<Map<String, Object>> findForJdbcParam(String sql, int page,
 			int rows, Object... objs) {
@@ -982,16 +956,44 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 
 	/**
 	 * 通过hql 查询语句查找对象
-	 *
+	 * @param hql
+	 * @param param
 	 * @param <T>
-	 * @param query
 	 * @return
 	 */
 	public <T> List<T> findHql(String hql, Object... param) {
 		Query q = getSession().createQuery(hql);
 		if (param != null && param.length > 0) {
 			for (int i = 0; i < param.length; i++) {
-				q.setParameter(i, param[i]);
+				if(param[i] instanceof String[]){
+					q.setParameterList("ARRAY_"+i, (String[])param[i]);
+				}else{
+					q.setParameter(i, param[i]);
+				}
+
+			}
+		}
+		return q.list();
+	}
+
+	/**
+	 * 通过hql 查询语句查找对象
+	 *
+	 * @param hql
+	 * @param map   保存String[]数组对象
+	 * @param param 其他参数
+	 * @return
+	 */
+	@Override
+	public <T> List<T> findHqlWithArray(String hql, Map<String, String[]> map, Object... param) {
+		Query q = getSession().createQuery(hql);
+		if (param != null && param.length > 0) {
+			for (int i = 0; i < param.length; i++) {
+				if(param[i].equals("ARRAY")){
+					q.setParameterList("ARRAY_"+i, map.get("ARRAY_"+i));
+				}else{
+					q.setParameter(i, param[i]);
+				}
 			}
 		}
 		return q.list();

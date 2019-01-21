@@ -90,10 +90,8 @@ public class CommonServiceImpl implements CommonService {
 
 	/**
 	 * 根据实体名返回全部对象
-	 * 
+	 * @param clas
 	 * @param <T>
-	 * @param hql
-	 * @param size
 	 * @return
 	 */
     @Transactional(readOnly = true)
@@ -153,9 +151,9 @@ public class CommonServiceImpl implements CommonService {
 
 	/**
 	 * 删除实体主键ID删除对象
-	 * 
+	 * @param entityName
+	 * @param id
 	 * @param <T>
-	 * @param entities
 	 */
 	public <T> void deleteEntityById(Class entityName, Serializable id) {
 		commonDao.deleteEntityById(entityName, id);
@@ -174,9 +172,8 @@ public class CommonServiceImpl implements CommonService {
 
 	/**
 	 * 通过hql 查询语句查找对象
-	 * 
+	 * @param hql
 	 * @param <T>
-	 * @param query
 	 * @return
 	 */
 	@Transactional(readOnly = true)
@@ -186,8 +183,7 @@ public class CommonServiceImpl implements CommonService {
 
 	/**
 	 * 根据sql更新
-	 * 
-	 * @param query
+	 * @param sql
 	 * @return
 	 */
 	public int updateBySqlString(String sql) {
@@ -208,9 +204,11 @@ public class CommonServiceImpl implements CommonService {
 
 	/**
 	 * 通过属性称获取实体带排序
-	 * 
+	 * @param entityClass
+	 * @param propertyName
+	 * @param value
+	 * @param isAsc
 	 * @param <T>
-	 * @param clas
 	 * @return
 	 */
 	@Transactional(readOnly = true)
@@ -248,12 +246,10 @@ public class CommonServiceImpl implements CommonService {
 
 	/**
 	 * 返回easyui datagrid模型
-	 * 
 	 * @param cq
 	 * @param isOffset
 	 * @return
 	 */
-
 	@Transactional(readOnly = true)
 	public void getDataGridReturn(final CriteriaQuery cq,
 			final boolean isOffset) {
@@ -262,11 +258,9 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	/**
-	 * 
 	 * hqlQuery方式分页
-	 * 
-	 * @param cq
-	 * @param isOffset
+	 * @param hqlQuery
+	 * @param needParameter
 	 * @return
 	 */
 	@Transactional(readOnly = true)
@@ -276,11 +270,9 @@ public class CommonServiceImpl implements CommonService {
 	}
 
 	/**
-	 * 
 	 * sqlQuery方式分页
-	 * 
-	 * @param cq
-	 * @param isOffset
+	 * @param hqlQuery
+	 * @param isToEntity
 	 * @return
 	 */
 	@Transactional(readOnly = true)
@@ -303,9 +295,9 @@ public class CommonServiceImpl implements CommonService {
 
 	/**
 	 * 通过cq获取全部实体
-	 * 
-	 * @param <T>
 	 * @param cq
+	 * @param ispage
+	 * @param <T>
 	 * @return
 	 */
 	@Transactional(readOnly = true)
@@ -316,8 +308,9 @@ public class CommonServiceImpl implements CommonService {
 
 	/**
 	 * 文件上传
-	 * 
-	 * @param request
+	 * @param uploadFile
+	 * @param <T>
+	 * @return
 	 */
 	public <T> T uploadFile(UploadFile uploadFile) {
 		return commonDao.uploadFile(uploadFile);
@@ -332,9 +325,8 @@ public class CommonServiceImpl implements CommonService {
 
 	/**
 	 * 生成XML文件
-	 * 
-	 * @param fileName
-	 *            XML全路径
+	 * XML全路径
+	 * @param importFile
 	 * @return
 	 */
 	public HttpServletResponse createXml(ImportFile importFile) {
@@ -447,14 +439,28 @@ public class CommonServiceImpl implements CommonService {
 
 	/**
 	 * 通过hql 查询语句查找对象
-	 * 
+	 * @param hql
+	 * @param param
 	 * @param <T>
-	 * @param query
 	 * @return
 	 */
 	@Transactional(readOnly = true)
 	public <T> List<T> findHql(String hql, Object... param) {
 		return this.commonDao.findHql(hql, param);
+	}
+
+	/**
+	 * 通过hql 查询语句查找对象
+	 *
+	 * @param hql
+	 * @param map   保存String[]数组对象
+	 * @param param 其他参数
+	 * @return
+	 */
+	@Override
+	@Transactional(readOnly = true)
+	public <T> List<T> findHqlWithArray(String hql, Map<String, String[]> map, Object... param) {
+		return this.commonDao.findHqlWithArray(hql, map,param);
 	}
 
 	@Transactional(readOnly = true)

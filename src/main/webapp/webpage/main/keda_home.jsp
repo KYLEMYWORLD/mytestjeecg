@@ -147,8 +147,6 @@
     <script src="plug-in/hplus/js/content.js"></script>
     <script type="text/javascript" src="plug-in/echart/user/echarts.min.js"></script>
 
-
-
     <script type="text/javascript" src="plug-in/echart/user/projectJS.js"></script>
     <script type="text/javascript" src="plug-in/jquery-plugs/i18n/jquery.i18n.properties.js"></script>
     <t:base type="tools"></t:base>
@@ -162,7 +160,6 @@
             }
             return "PROJECT"
         }
-
 
         $(document).ready(function () {
             $.ajax({
@@ -190,13 +187,6 @@
                             var yAxisData = new Array();//y轴数据
 
                             if(jsondata!=null){
-                                // $.each(jsondata.project,function(index,data){
-                                //     yAxisData.push({
-                                //         value:data.name,
-                                //         textStyle:yAxisDataStyle
-                                //     });
-                                // });
-
                                 //分出绿，红，白 线
                                 //绿0 任务是正常完成的
                                 //红1 任务未完成，完成时间已经过了
@@ -259,11 +249,11 @@
                                 });
                                 seriesArray.push(GetSeries(projectname,lineData,(lasttaskstatus==1||lasttaskstatus==2)?0:(lasttaskstatus==3?1:2)));
                             }
-                            debugger;
+                            //debugger;
                             var option = {
                                 title: {
                                     text: '项目进度看板',
-                                    subtext: 'Kada'
+                                    subtext: 'Keda'
                                 },
                                 tooltip: {
                                     trigger: 'item',
@@ -281,9 +271,9 @@
                                     position:'top',
                                     type: 'time',
                                     nameGap:300,
-                                    minInterval: 3600 * 24 * 1000 * 7,
+                                    minInterval: 3600 * 24 * 1000 * 30,
                                     maxInterval: 3600 * 24 * 1000 * 60,
-                                    interval:3600 * 24 * 1000 * 7,
+                                    interval:3600 * 24 * 1000 * 30,
                                     splitLine:{
                                         show:false
                                     }
@@ -310,7 +300,6 @@
                                         verticalAlign:'middle',
                                         lineHeight:150,
                                         backgroundColor:'red'
-
                                     }
                                 },
                                 series: seriesArray

@@ -34,7 +34,7 @@ import com.alibaba.fastjson.JSONObject;
  * 动态任务,用以动态调整Spring的任务
  * @author JueYue
  * @date 2013-9-20
- * @version 1.0
+ * @version 1.0loadTask
  */
 @Service(value="dynamicTask")
 public class DynamicTask {

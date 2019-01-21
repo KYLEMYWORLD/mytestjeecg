@@ -9,14 +9,14 @@
    <t:dgCol title="项目名称"  field="taskProjectname" query="true"  queryMode="single"  dictionary="project_select,taskProjectid@taskProjectname,id@project_name"  popup="true"  width="120"></t:dgCol>
    <t:dgCol title="任务类型"  field="taskType" query="true"  queryMode="single"  dictionary="taskType"  width="120"></t:dgCol>
    <t:dgCol title="任务名称"  field="taskName"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="任务状态"  field="taskStatus"  queryMode="single"  dictionary="taskStatus"  width="120"></t:dgCol>
    <t:dgCol title="负责人ID"  field="taskResponderid"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="负责人"  field="taskResponder"  queryMode="single"  dictionary="user_select,taskResponderid@taskResponder,account@realname"  popup="true"  width="120"></t:dgCol>
    <t:dgCol title="抄送人id"  field="taskNotifierid"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="抄送人"  field="taskNotifier"  queryMode="single"  dictionary="user_select,taskNotifierid@taskNotifier,id@realname"  popup="true"  width="120"></t:dgCol>
-   <t:dgCol title="完成时间"  field="taskFinishdate"  formatter="yyyy-MM-dd"  query="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="计划表时间"  field="taskPlanfinishdate"  formatter="yyyy-MM-dd"  query="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="完成时间"  field="taskFinishdate"  formatter="yyyy-MM-dd"  query="true"  queryMode="single"  width="80"></t:dgCol>
+   <t:dgCol title="计划表时间"  field="taskPlanfinishdate"  formatter="yyyy-MM-dd"  query="true"  queryMode="single"  width="80"></t:dgCol>
    <t:dgCol title="任务说明"  field="taskInfo"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="任务状态"  field="taskStatus"  queryMode="single"  dictionary="taskStatus"  width="120"></t:dgCol>
    <t:dgCol title="创建人名称"  field="createName"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="创建人登录名称"  field="createBy"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="创建日期"  field="createDate"  formatter="yyyy-MM-dd"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
@@ -29,13 +29,10 @@
    <t:dgCol title="操作" field="opt" width="100"></t:dgCol>
    <t:dgDelOpt exp="taskStatus#eq#0" title="删除" url="jformTaskController.do?doDel&id={id}" urlclass="ace_button"  urlfont="fa-trash-o" operationCode="delete"/>
    <t:dgFunOpt exp="taskStatus#eq#0" funname="doActivate(id)" title="下发" urlclass="ace_button" urlfont="fa-wrench"/>
-   <t:dgToolBar title="录入" icon="icon-add" url="jformTaskController.do?goAdd" funname="add" id="add"></t:dgToolBar>
-	<t:dgToolBar title="编辑" icon="icon-edit" url="jformTaskController.do?goUpdate" funname="update" id="update"></t:dgToolBar>
-   <t:dgToolBar title="批量删除"  icon="icon-remove" url="jformTaskController.do?doBatchDel" funname="deleteALLSelect" id="deleteselect"></t:dgToolBar>
+   <t:dgToolBar title="录入任务" icon="icon-add" url="jformTaskController.do?goAdd" funname="add" id="add"></t:dgToolBar>
+	<t:dgToolBar title="编辑任务" icon="icon-edit" url="jformTaskController.do?goUpdate" funname="update" id="update"></t:dgToolBar>
    <t:dgToolBar title="查看" icon="icon-search" url="jformTaskController.do?goUpdate" funname="detail" id="detail"></t:dgToolBar>
-   <t:dgToolBar title="导入" icon="icon-put" funname="ImportXls" id="import"></t:dgToolBar>
    <t:dgToolBar title="导出" icon="icon-putout" funname="ExportXls" id="export"></t:dgToolBar>
-   <t:dgToolBar title="模板下载" icon="icon-putout" funname="ExportXlsByT" id="excel"></t:dgToolBar>
   </t:datagrid>
   </div>
  </div>

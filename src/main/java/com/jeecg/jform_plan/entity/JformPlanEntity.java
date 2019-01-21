@@ -62,6 +62,7 @@ public class JformPlanEntity implements java.io.Serializable {
 	@Excel(name="任务说明",width=15)
 	private java.lang.String planInfo;
 	/**负责人ID*/
+	@Excel(name="负责人ID",width = 15)
 	private java.lang.String planResponderid;
 	/**负责人*/
 	@Excel(name="负责人",width=15)
@@ -69,12 +70,18 @@ public class JformPlanEntity implements java.io.Serializable {
 	/**任务状态*/
 	@Excel(name="任务状态",width=15,dicCode="planStatus")
 	private java.lang.Integer planStatus;
+	/**个人任务ID*/
+	@Excel(name="个人任务ID",width=15)
+	private java.lang.String userPlanid;
 	/**审批内容*/
 	@Excel(name="审批内容",width=15)
 	private java.lang.String planRejectmsg;
 	/**完成状态*/
 	@Excel(name="完成状态",width=15,dicCode="planSucc")
 	private java.lang.Integer planIssucc;
+	/**任务完成时间*/
+	@Excel(name="实际完成时间",width=15,format = "yyyy-MM-dd")
+	private java.util.Date realfinishDate;
 	/**延时原因*/
 	@Excel(name="延时原因",width=15)
 	private java.lang.String planLatemsg;
@@ -132,6 +139,23 @@ public class JformPlanEntity implements java.io.Serializable {
 	 *方法: 取得java.lang.String
 	 *@return: java.lang.String  创建人登录名称
 	 */
+
+	/**
+	 * 方法：取得java.util.Date
+	 * @return java.util.Date 实际完成时间
+	 */
+	@Column(name ="RFINISH_DATE",nullable=true,length=32)
+	public java.util.Date getRealfinishDate(){
+		return this.realfinishDate;
+	}
+
+	/**
+	 * 方法: 设置java.util.Date
+	 * @param realfinishDate java.util.Date 实际完成时间
+	 */
+	public void setRealfinishDate(java.util.Date realfinishDate){
+		this.realfinishDate = realfinishDate;
+	}
 
 	@Column(name ="CREATE_BY",nullable=true,length=50)
 	public java.lang.String getCreateBy(){
@@ -552,5 +576,18 @@ public class JformPlanEntity implements java.io.Serializable {
 	 */
 	public void setTaskId(java.lang.String taskId){
 		this.taskId = taskId;
+	}
+
+	@Column(name ="USERPLAN_ID",nullable=true,length=36)
+	public java.lang.String getUserPlanid(){
+		return this.userPlanid;
+	}
+
+	/**
+	 *方法: 设置java.lang.String
+	 *@param: java.lang.String  个人任务ID
+	 */
+	public void setUserPlanid(java.lang.String userPlanid){
+		this.userPlanid = userPlanid;
 	}
 }

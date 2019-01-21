@@ -329,7 +329,7 @@ public class DataGridTag extends TagSupport {
 	 * 设置删除操作URL
 	 */
 
-	public void setDelUrl(String url, String title, String message, String exp, String funname,String operationCode, String urlStyle,String urlclass,String urlfont,boolean inGroup) {
+	public void setDelUrl(String url, String title, String message, String exp, String funname,String operationCode, String urlStyle,String urlclass,String urlfont,String id,boolean inGroup) {
 
 		DataGridUrl dataGridUrl = new DataGridUrl();
 		dataGridUrl.setTitle(title);
@@ -338,7 +338,7 @@ public class DataGridTag extends TagSupport {
 		dataGridUrl.setMessage(message);
 		dataGridUrl.setExp(exp);
 		dataGridUrl.setFunname(funname);
-
+		dataGridUrl.setId(id);
 		dataGridUrl.setInGroup(inGroup);
 
 		if(checkBrowerIsNotIE()){
@@ -420,7 +420,7 @@ public class DataGridTag extends TagSupport {
 	/**
 	 * 设置自定义函数操作URL
 	 */
-	public void setFunUrl(String title, String exp, String funname,String operationCode, String urlStyle,String urlclass,String urlfont,boolean inGroup) {
+	public void setFunUrl(String title, String exp, String funname,String operationCode, String urlStyle,String urlclass,String urlfont,String id,boolean inGroup) {
 		DataGridUrl dataGridUrl = new DataGridUrl();
 		dataGridUrl.setTitle(title);
 		dataGridUrl.setType(OptTypeDirection.Fun);
@@ -428,6 +428,8 @@ public class DataGridTag extends TagSupport {
 		dataGridUrl.setFunname(funname);
 
 		dataGridUrl.setInGroup(inGroup);
+
+		dataGridUrl.setId(id);
 
 		if(checkBrowerIsNotIE()){
 			dataGridUrl.setUrlStyle(urlStyle);
@@ -2543,7 +2545,20 @@ public class DataGridTag extends TagSupport {
 		appendLine(sb,"     if(!rec.id){return '';}");
 		appendLine(sb,"         var href='';");
 		List<DataGridUrl> list = urlList;
+		StringBuffer operationcodes = new StringBuffer();
+		try{
+			List<TSOperation> operations  = (List<TSOperation>)super.pageContext.getRequest().getAttribute(Globals.NOAUTO_OPERATIONCODES);
+			for(TSOperation o : operations){
+				operationcodes.append(","+o.getOperationcode());
+			}
+		}catch (Exception e){
+			log.info(e.getMessage());
+		}
+		String notAutoBtn = operationcodes.length()==0 ? "":operationcodes.toString();
 		for (DataGridUrl dataGridUrl : list) {
+			if(dataGridUrl.getId() !=null && notAutoBtn.contains(dataGridUrl.getId())){
+				continue;
+			}
 			if(!dataGridUrl.isInGroup()){
 				String url = dataGridUrl.getUrl();
 				MessageFormat formatter = new MessageFormat("");
@@ -3072,7 +3087,7 @@ public class DataGridTag extends TagSupport {
 
 			// 隐藏字段
 			if (column.isHidden()) {
-				appendLine(sb,",hidden:true");
+				appendLine(sb,"		,hidden:true");
 			}
 
 			if (!treegrid) {
@@ -3131,7 +3146,7 @@ public class DataGridTag extends TagSupport {
 					appendLine(sb,"}");
 
 				}else if (StringUtil.isNotEmpty(column.getField()) && column.getField().equals("opt")) {// 加入操作
-
+					// TODO 操作栏代码
 					appendLine(sb,"     ,formatter:function(value,rec,index){");
 
 					if(column.isOptsMenu()){

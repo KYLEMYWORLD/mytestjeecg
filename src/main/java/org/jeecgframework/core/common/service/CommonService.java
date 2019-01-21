@@ -43,12 +43,11 @@ public interface CommonService {
 
 	public <T> void batchSave(List<T> entitys);
 
-	/**
+	/***
 	 * 根据实体名称和主键获取实体
-	 * 
-	 * @param <T>
-	 * @param entityName
+	 * @param class1
 	 * @param id
+	 * @param <T>
 	 * @return
 	 */
 	public <T> T get(Class<T> class1, Serializable id);
@@ -90,11 +89,11 @@ public interface CommonService {
 	 */
 	public <T> List<T> loadAll(final Class<T> entityClass);
 
-	/**
+	/***
 	 * 删除实体主键删除
-	 * 
+	 * @param entityName
+	 * @param id
 	 * @param <T>
-	 * @param entities
 	 */
 	public <T> void deleteEntityById(Class entityName, Serializable id);
 
@@ -114,19 +113,17 @@ public interface CommonService {
 	 */
 	public <T> void updateEntitie(T pojo);
 
-	/**
+	/***
 	 * 通过hql 查询语句查找对象
-	 * 
+	 * @param hql
 	 * @param <T>
-	 * @param query
 	 * @return
 	 */
 	public <T> List<T> findByQueryString(String hql);
 
-	/**
+	/***
 	 * 根据sql更新
-	 * 
-	 * @param query
+	 * @param sql
 	 * @return
 	 */
 	public int updateBySqlString(String sql);
@@ -140,11 +137,13 @@ public interface CommonService {
 	 */
 	public <T> List<T> findListbySql(String query);
 
-	/**
+	/***
 	 * 通过属性称获取实体带排序
-	 * 
+	 * @param entityClass
+	 * @param propertyName
+	 * @param value
+	 * @param isAsc
 	 * @param <T>
-	 * @param clas
 	 * @return
 	 */
 	public <T> List<T> findByPropertyisOrder(Class<T> entityClass,
@@ -186,23 +185,19 @@ public interface CommonService {
 			final boolean isOffset);
 
 
-	/**
-	 * 
+	/***
 	 * hqlQuery方式分页
-	 * 
-	 * @param cq
-	 * @param isOffset
+	 * @param hqlQuery
+	 * @param needParameter
 	 * @return
 	 */
 	public PageList getPageList(final HqlQuery hqlQuery,
 			final boolean needParameter);
 
-	/**
-	 * 
+	/***
 	 * sqlQuery方式分页
-	 * 
-	 * @param cq
-	 * @param isOffset
+	 * @param hqlQuery
+	 * @param isToEntity
 	 * @return
 	 */
 	public PageList getPageListBySql(final HqlQuery hqlQuery,
@@ -223,20 +218,20 @@ public interface CommonService {
 	public <T> List<T> getListByCriteriaQuery(final CriteriaQuery cq,
 			Boolean ispage);
 
-	/**
+	/***
 	 * 文件上传
-	 * 
-	 * @param request
+	 * @param uploadFile
+	 * @param <T>
+	 * @return
 	 */
 	public <T> T uploadFile(UploadFile uploadFile);
 
 	public HttpServletResponse viewOrDownloadFile(UploadFile uploadFile);
 
-	/**
+	/***
 	 * 生成XML文件
-	 * 
-	 * @param fileName
-	 *            XML全路径
+	 * @param importFile
+	 * @return
 	 */
 	public HttpServletResponse createXml(ImportFile importFile);
 
@@ -317,14 +312,13 @@ public interface CommonService {
 	public <T> List<T> findObjForJdbc(String sql, int page, int rows,
 			Class<T> clazz);
 
-	/**
+	/***
 	 * 使用指定的检索标准检索数据并分页返回数据-采用预处理方式
-	 * 
-	 * @param criteria
-	 * @param firstResult
-	 * @param maxResults
+	 * @param sql
+	 * @param page
+	 * @param rows
+	 * @param objs
 	 * @return
-	 * @throws DataAccessException
 	 */
 	public List<Map<String, Object>> findForJdbcParam(String sql, int page,
 			int rows, Object... objs);
@@ -340,14 +334,24 @@ public interface CommonService {
 	 */
 	public Long getCountForJdbcParam(String sql, Object... objs);
 
-	/**
+	/***
 	 * 通过hql 查询语句查找对象
-	 * 
+	 * @param hql
+	 * @param param
 	 * @param <T>
-	 * @param query
 	 * @return
 	 */
 	public <T> List<T> findHql(String hql, Object... param);
+
+	/**
+	 * 通过hql 查询语句查找对象
+	 * @param hql
+	 * @param map	保存String[]数组对象
+	 * @param param	其他参数
+	 * @param <T>
+	 * @return
+	 */
+	public <T> List<T> findHqlWithArray(String hql,Map<String,String[]> map, Object... param);
 
 	public <T> List<T> pageList(DetachedCriteria dc, int firstResult,
 			int maxResult);
@@ -356,7 +360,7 @@ public interface CommonService {
 
 	/**
 	 * 执行存储过程
-	 * @param executeSql
+	 * @param procedureSql
 	 * @param params
 	 * @return
 	 */

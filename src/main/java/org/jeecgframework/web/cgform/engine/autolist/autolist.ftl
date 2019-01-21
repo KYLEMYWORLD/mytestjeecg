@@ -93,7 +93,7 @@ function createDataGrid${config_id}(){
 						href+="删除</a>]";
 						</#if>
 						<#list config_buttons as x>
-							<#if x['buttonStyle'] == 'link' && x['buttonStatus']=='1' && config_noliststr?index_of("${x['buttonCode']}")==-1>
+							<#if x['buttonStyle'] == 'link' && x['buttonStatus']=='1' && config_noliststr ? index_of("${x['buttonCode']}")==-1>
 								href+="[<a href='#' buttonCode='${x['buttonCode']}' formId ='${x['formId']}' ";
 								<#if x['optType'] == 'action'>
 								href+=" onclick=\"doBusButtonForLink('cgFormBuildController.do?doButton&formId=${x['formId']}&buttonCode=${x['buttonCode']}&tableName=${config_id}','${x['buttonName']}','${config_id}List','"+rec.id+"')\"";

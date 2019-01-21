@@ -5,6 +5,23 @@
   <div region="center" style="padding:0px;border:0px">
   <t:datagrid name="jformPlanList" checkbox="false" pagination="true" treegrid="true" treeField="planName" fitColumns="true" title="项目任务计划表" sortName="createDate" actionUrl="jformPlanController.do?datagrid" idField="id" fit="true" queryMode="group">
    <t:dgCol title="主键"  field="id"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="项目名称"  field="projectId" query="true"  queryMode="single"  width="60"  dictionary="jform_project,id,project_name"></t:dgCol>
+   <t:dgCol title="任务名称"  field="planName"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="任务等级"  field="planLevel"  queryMode="single"  dictionary="planLevel"  width="60"></t:dgCol>
+   <t:dgCol title="任务状态"  field="planStatus"  query="true"  queryMode="single"  dictionary="planStatus"  width="60"></t:dgCol>
+   <t:dgCol title="任务顺序"  field="planOrder"  queryMode="single" hidden="true"  width="60"></t:dgCol>
+   <t:dgCol title="任务父ID"  field="planId"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="任务开始时间"  field="startDate"  formatter="yyyy-MM-dd"  query="true"  queryMode="single"  width="80"></t:dgCol>
+   <t:dgCol title="任务完成时间"  field="finishDate"  formatter="yyyy-MM-dd"  query="true"  queryMode="single"  width="80"></t:dgCol>
+   <t:dgCol title="负责人ID"  field="planResponderid"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="负责人"  field="planResponder"  queryMode="single"  dictionary="user_select,planResponderid@planResponder,account@realname"  popup="true"  width="80"></t:dgCol>
+   <t:dgCol title="审批内容" hidden="true"  field="planRejectmsg"  queryMode="single"  width="60"></t:dgCol>
+   <t:dgCol title="完成状态"  field="planIssucc"  query="true"  queryMode="single"  dictionary="planSucc"  width="60"></t:dgCol>
+   <t:dgCol title="延时原因" hidden="true"  field="planLatemsg"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="预警状态"  field="planIsalert"  query="true"  queryMode="single"  dictionary="planAlert"  width="60"></t:dgCol>
+   <t:dgCol title="预警原因" hidden="true"  field="planAlertmsg"  queryMode="single"  width="60"></t:dgCol>
+   <t:dgCol title="任务分配名称" field="taskId" queryMode="single" width="60" dictionary="jform_task,id,task_name"></t:dgCol>
+   <t:dgCol title="任务说明"  field="planInfo"  queryMode="single"  width="80"></t:dgCol>
    <t:dgCol title="创建人名称"  field="createName"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="创建人登录名称"  field="createBy"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="创建日期"  field="createDate"  formatter="yyyy-MM-dd"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
@@ -14,38 +31,19 @@
    <t:dgCol title="所属部门"  field="sysOrgCode"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="所属公司"  field="sysCompanyCode"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="流程状态"  field="bpmStatus"  hidden="true"  queryMode="single"  dictionary="bpm_status"  width="120"></t:dgCol>
-   <t:dgCol title="任务名称"  field="planName"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="任务等级"  field="planLevel"  queryMode="single"  dictionary="planLevel"  width="60"></t:dgCol>
-   <t:dgCol title="任务顺序"  field="planOrder"  queryMode="single" hidden="true"  width="60"></t:dgCol>
-   <t:dgCol title="任务父ID"  field="planId"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="任务开始时间"  field="startDate"  formatter="yyyy-MM-dd"  query="true"  queryMode="single"  width="80"></t:dgCol>
-   <t:dgCol title="任务完成时间"  field="finishDate"  formatter="yyyy-MM-dd"  query="true"  queryMode="single"  width="80"></t:dgCol>
-   <t:dgCol title="任务说明"  field="planInfo"  queryMode="single"  width="80"></t:dgCol>
-   <t:dgCol title="负责人ID"  field="planResponderid"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="负责人"  field="planResponder"  queryMode="single"  dictionary="user_select,planResponderid@planResponder,account@realname"  popup="true"  width="80"></t:dgCol>
-   <t:dgCol title="任务状态"  field="planStatus"  query="true"  queryMode="single"  dictionary="planStatus"  width="60"></t:dgCol>
-   <t:dgCol title="审批内容" hidden="true"  field="planRejectmsg"  queryMode="single"  width="60"></t:dgCol>
-   <t:dgCol title="完成状态"  field="planIssucc"  query="true"  queryMode="single"  dictionary="planSucc"  width="60"></t:dgCol>
-   <t:dgCol title="延时原因" hidden="true"  field="planLatemsg"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="预警状态"  field="planIsalert"  query="true"  queryMode="single"  dictionary="planAlert"  width="60"></t:dgCol>
-   <t:dgCol title="预警原因" hidden="true"  field="planAlertmsg"  queryMode="single"  width="60"></t:dgCol>
-   <t:dgCol title="项目名称"  field="projectId" query="true"  queryMode="single"  width="60"  dictionary="jform_project,id,project_name "></t:dgCol>
-   <t:dgCol title="任务分配名称" field="taskId" queryMode="single" width="60" dictionary="jform_task,id,task_name"></t:dgCol>
+
    <t:dgCol title="操作" field="opt" width="180"></t:dgCol>
    <t:dgDelOpt exp="planStatus#eq#0,1" title="删除" url="jformPlanController.do?doDel&id={id}" urlclass="ace_button"  urlfont="fa-trash-o"/>
-   <t:dgFunOpt exp="planLevel#eq#1&&planStatus#eq#0,4" funname="doSendApprove(id,index)" title="提交审批" urlclass="ace_button" urlfont="fa-wrench" />
-   <t:dgFunOpt exp="planLevel#eq#1&&planStatus#eq#3" funname="doApprove(id,index)" title="审批" urlclass="ace_button" urlfont="fa-wrench" />
-   <t:dgFunOpt exp="planLevel#eq#1&&planStatus#eq#4" funname="doApproveMsg(id,index)" title="查看审批信息" urlclass="ace_button" urlfont="fa-wrench" />
-   <t:dgFunOpt exp="planLevel#eq#2&&planStatus#eq#0" funname="doSendDivide(id)" title="下发细分" urlclass="ace_button" urlfont="fa-wrench" />
-   <t:dgFunOpt exp="planLevel#eq#2&&planStatus#eq#1" funname="doDivideFinish(id)" title="细分完成" urlclass="ace_button" urlfont="fa-wrench" />
+   <t:dgFunOpt id="doSendApprove" exp="planLevel#eq#1&&planStatus#eq#0,4" funname="doSendApprove(id,index)" title="提交审批" urlclass="ace_button" urlfont="fa-wrench" />
+   <t:dgFunOpt id="doApprove"  exp="planLevel#eq#1&&planStatus#eq#3" funname="doApprove(id,index)" title="审批" urlclass="ace_button" urlfont="fa-wrench" />
+   <t:dgFunOpt id="doApproveMsg"  exp="planLevel#eq#1&&planStatus#eq#4" funname="doApproveMsg(id,index)" title="查看审批信息" urlclass="ace_button" urlfont="fa-wrench" />
+   <t:dgFunOpt id="doSendDivide"  exp="planLevel#eq#2&&planStatus#eq#0" funname="doSendDivide(id)" title="下发细分" urlclass="ace_button" urlfont="fa-wrench" />
+   <t:dgFunOpt id="doDivideFinish"  exp="planLevel#eq#2&&planStatus#eq#1" funname="doDivideFinish(id)" title="细分完成" urlclass="ace_button" urlfont="fa-wrench" />
    <t:dgToolBar title="添加一级任务" icon="icon-add" url="jformPlanController.do?goAddFirst" funname="BeforeFirstAdd" id="addfirsttree"  width="635" height="470" ></t:dgToolBar>
    <t:dgToolBar title="添加任务" icon="icon-add" url="jformPlanController.do?goAdd" funname="BeforeAdd" id="addtree"  width="635" height="470" ></t:dgToolBar>
    <t:dgToolBar title="编辑" icon="icon-edit" url="jformPlanController.do?goUpdate" width="635" height="470" funname="updatetree" id="updatetree"></t:dgToolBar>
-   <t:dgToolBar title="批量删除"  icon="icon-remove" url="jformPlanController.do?doBatchDel" funname="deleteALLSelecttree" id="deleteselecttree"></t:dgToolBar>
    <t:dgToolBar title="查看" icon="icon-search" url="jformPlanController.do?goUpdate" funname="detailtree" id="detailtree"  width="635" height="470" ></t:dgToolBar>
-   <t:dgToolBar title="导入" icon="icon-put" funname="ImportXls" id="import"></t:dgToolBar>
    <t:dgToolBar title="导出" icon="icon-putout" funname="ExportXls" id="export"></t:dgToolBar>
-   <t:dgToolBar title="模板下载" icon="icon-putout" funname="ExportXlsByT" id="excel"></t:dgToolBar>
   </t:datagrid>
   </div>
  </div>
@@ -69,6 +67,7 @@
     $('#'+id).treegrid("clearChecked");
     $('#'+id).treegrid("clearSelections");
    }
+
    add(title,url,id,wwith,wheight);
  }
 

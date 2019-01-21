@@ -499,6 +499,11 @@
 		<body-content>JSP</body-content>
 		<description>列表删除操作</description>
 		<attribute>
+			<name>id</name>
+			<rtexprvalue>true</rtexprvalue>
+			<description>控件ID</description>
+		</attribute>
+		<attribute>
 			<name>url</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -694,7 +699,13 @@
 			<rtexprvalue>true</rtexprvalue>
 			<description>操作标题</description>
 		</attribute>
-		
+
+		<attribute>
+			<name>id</name>
+			<rtexprvalue>true</rtexprvalue>
+			<description>控件ID</description>
+		</attribute>
+
 		<attribute>
 			<name>langArg</name>
 			<required>false</required>

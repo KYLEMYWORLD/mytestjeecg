@@ -57,15 +57,33 @@
 	  //编写自定义JS代码
 	  $(document).ready(function(){
 		  var status ='${jformPlanPage.planStatus}';
+		  //草稿	下发细分	细分完成
 		  if(status!='0' && status!='1' && status!='2'){
 		  	$("#planName").attr("disabled","disabled");
 		  	$("#planId").attr("disabled","disabled");
 		  	$("#startDate").attr("readonly","readonly");
-		  	$("#planResponder").attr("disabled","disabled");
 		  	$("#planInfo").attr("disabled","disabled");
 		  	$("#finishDate").attr("disabled","disabled");
 		  }
+
+		  //草稿
+		  if(status!='0'){// || '${jformPlanPage.planLevel}'=='2'){
+			  $("#planResponder").attr("disabled","disabled");
+		  }
 		  $(".combo-arrow").off("click");
+
+
+		  var level = ${jformPlanPage.planLevel};
+		  if(level == 2){
+			  $("#planLevelS").val("2");//二级
+			  $("#planLevel").val("2");//二级
+			  $("#planLevelS").find("option[value='2']").attr("selected",true);
+		  }else {
+			  $("#planLevelS").val("3");//三级
+			  $("#planLevel").val("3");//三级
+			  $("#planLevelS").find("option[value='3']").attr("selected", true);
+			  $("#planResponder").attr("onclick", "popupClick(this,'account,realname','planResponderid,planResponder','user_select_single')");
+		  }
 	  });
 
   </script>

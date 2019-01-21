@@ -26,6 +26,7 @@ public class DataGridFunOptTag extends TagSupport {
 	private String urlclass;//按钮样式
 	private String urlfont;//按钮图标
 
+	private String id;//控件ID
 	private boolean inGroup;//操作列菜单一开始是否隐藏【船舶专用】
 
 	public int doStartTag() throws JspTagException {
@@ -36,7 +37,7 @@ public class DataGridFunOptTag extends TagSupport {
 		
 		Tag t = findAncestorWithClass(this, DataGridTag.class);
 		DataGridTag parent = (DataGridTag) t;
-		parent.setFunUrl(title,exp,funname,operationCode,urlStyle,urlclass,urlfont,inGroup);
+		parent.setFunUrl(title,exp,funname,operationCode,urlStyle,urlclass,urlfont,id,inGroup);
 		return EVAL_PAGE;
 	}
 	public void setFunname(String funname) {
@@ -74,8 +75,12 @@ public class DataGridFunOptTag extends TagSupport {
 	public void setUrlfont(String urlfont) {
 		this.urlfont = urlfont;
 	}
-
-
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public boolean isInGroup() {
 		return inGroup;
 	}

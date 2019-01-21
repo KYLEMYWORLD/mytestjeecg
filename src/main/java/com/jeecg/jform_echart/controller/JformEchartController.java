@@ -118,6 +118,16 @@ public class JformEchartController extends BaseController {
 	}
 
 	/**
+	 * 项目看板信息表列表 页面跳转
+	 *
+	 * @return
+	 */
+	@RequestMapping(params = "echart")
+	public ModelAndView echart(HttpServletRequest request) {
+		return new ModelAndView("main/keda_echart");
+	}
+
+	/**
 	 * easyui AJAX请求数据
 	 * 
 	 * @param request

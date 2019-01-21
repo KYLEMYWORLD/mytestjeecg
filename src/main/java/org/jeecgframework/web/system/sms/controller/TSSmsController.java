@@ -75,13 +75,11 @@ public class TSSmsController extends BaseController {
 
 	/**
 	 * easyui AJAX请求数据
-	 * 
+	 * @param tSSms
 	 * @param request
 	 * @param response
 	 * @param dataGrid
-	 * @param user
 	 */
-
 	@RequestMapping(params = "datagrid")
 	public void datagrid(TSSmsEntity tSSms,HttpServletRequest request, HttpServletResponse response, DataGrid dataGrid) {
 		CriteriaQuery cq = new CriteriaQuery(TSSmsEntity.class, dataGrid);
@@ -152,8 +150,8 @@ public class TSSmsController extends BaseController {
 
 	/**
 	 * 添加消息发送记录表
-	 * 
-	 * @param ids
+	 * @param tSSms
+	 * @param request
 	 * @return
 	 */
 	@RequestMapping(params = "doAdd")
@@ -173,11 +171,11 @@ public class TSSmsController extends BaseController {
 		j.setMsg(message);
 		return j;
 	}
-	
+
 	/**
 	 * 更新消息发送记录表
-	 * 
-	 * @param ids
+	 * @param tSSms
+	 * @param request
 	 * @return
 	 */
 	@RequestMapping(params = "doUpdate")
@@ -460,10 +458,10 @@ public class TSSmsController extends BaseController {
 		}
 		return new ModelAndView("system/sms/mySms-info");
 	}
-	
+
 	/**
 	 * 阅读通知
-	 * @param user
+	 * @param tSSms
 	 * @param req
 	 * @return
 	 */
@@ -484,16 +482,14 @@ public class TSSmsController extends BaseController {
 		}
 		return j;
 	}
-	
+
 	/**
 	 * easyui AJAX请求数据
-	 * 
+	 * @param tSSms
 	 * @param request
 	 * @param response
 	 * @param dataGrid
-	 * @param user
 	 */
-
 	@RequestMapping(params = "mydatagrid")
 	public void mydatagrid(TSSmsEntity tSSms,HttpServletRequest request, HttpServletResponse response, DataGrid dataGrid) {
 		CriteriaQuery cq = new CriteriaQuery(TSSmsEntity.class, dataGrid);
@@ -514,11 +510,9 @@ public class TSSmsController extends BaseController {
 		this.tSSmsService.getDataGridReturn(cq, true);
 		TagUtil.datagrid(response, dataGrid);
 	}
-	
+
 	/**
 	 * 取得可读的消息
-	 * 
-	 * @param user
 	 * @param req
 	 * @return
 	 */
@@ -582,10 +576,10 @@ public class TSSmsController extends BaseController {
 		}
 		return j;
 	}
-	
+
 	/**
 	 * 阅读消息(消息状态置成已提醒)
-	 * @param user
+	 * @param messageId
 	 * @param req
 	 * @return
 	 */
@@ -606,10 +600,10 @@ public class TSSmsController extends BaseController {
 		}
 		return j;
 	}
-	
+
 	/**
 	 * 获取消息
-	 * @param user
+	 * @param msgId
 	 * @param req
 	 * @return
 	 */

@@ -5,7 +5,7 @@
   <div region="center" style="padding:0px;border:0px">
   <t:datagrid name="tSSmsList" checkbox="true" fitColumns="false" title="我的消息列表" actionUrl="tSSmsController.do?mydatagrid" idField="id" fit="true" queryMode="group" sortName="createDate" sortOrder="desc">
    <t:dgCol title="common.esId"  field="id"  hidden="true"  queryMode="single" ></t:dgCol>
-   <t:dgCol title="common.isRead" field="isRead"  replace="已读_1,未读_0"></t:dgCol>
+   <t:dgCol title="common.isRead" field="isRead"  replace="已读_1,未读_0"  extendParams="styler:readtype"></t:dgCol>
    <%-- <t:dgCol title="common.messageType"  field="esType"  query="false" queryMode="single" dictionary="msgType"></t:dgCol> --%>
    <t:dgCol title="common.messageHeader"  field="esTitle" query="true" queryMode="single" ></t:dgCol>
    <t:dgCol title="common.sender"  field="esSender"  queryMode="single"></t:dgCol>
@@ -30,5 +30,15 @@
 	  	var addurl = "tSSmsController.do?goSmsDetail&id="+id;
 		createdetailwindow("通知详情", addurl, 750, 600);
   }
-  
+  //列表字段颜色 demo,逻辑判断函数
+  function readtype(val,row,index){
+      //可添加更多CSS样式
+      var s2 = 'background-color:#ff9d2e;color:#FFF;';
+      var s3 = 'background-color:transparent;';
+      //未读
+      if (val =='0') {
+          return s2
+      }
+      return s3;
+  }
  </script>

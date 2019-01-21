@@ -25,13 +25,10 @@
    <t:dgCol title="流程状态"  field="bpmStatus"  hidden="true"  queryMode="single"  dictionary="bpm_status"  width="120"></t:dgCol>
    <t:dgCol title="操作" field="opt" width="100"></t:dgCol>
    <t:dgDelOpt exp="projectStatus#eq#0" title="删除" url="jformProjectController.do?doDel&id={id}" urlclass="ace_button"  urlfont="fa-trash-o" operationCode="delete"/>
-   <t:dgToolBar title="录入" icon="icon-add" url="jformProjectController.do?goAdd" funname="add" id="add"></t:dgToolBar>
-	<t:dgToolBar title="编辑" icon="icon-edit" url="jformProjectController.do?goUpdate" funname="update" id="update"></t:dgToolBar>
-   <t:dgToolBar title="批量删除"  icon="icon-remove" url="jformProjectController.do?doBatchDel" funname="deleteALLSelect" id="deleteselect"></t:dgToolBar>
+   <t:dgToolBar title="添加项目" icon="icon-add" url="jformProjectController.do?goAdd" funname="add" id="add"></t:dgToolBar>
+	<t:dgToolBar title="编辑项目" icon="icon-edit" url="jformProjectController.do?goUpdate" funname="update" id="update"></t:dgToolBar>
    <t:dgToolBar title="查看" icon="icon-search" url="jformProjectController.do?goUpdate" funname="detail" id="detail"></t:dgToolBar>
-   <t:dgToolBar title="导入" icon="icon-put" funname="ImportXls" id="import"></t:dgToolBar>
    <t:dgToolBar title="导出" icon="icon-putout" funname="ExportXls" id="export"></t:dgToolBar>
-   <t:dgToolBar title="模板下载" icon="icon-putout" funname="ExportXlsByT" id="excel"></t:dgToolBar>
    <t:dgToolBar title="激活" icon="icon-edit"  url="jformProjectController.do?doActivate" funname="doActivate" id="activate" ></t:dgToolBar>
   </t:datagrid>
   </div>
