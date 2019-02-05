@@ -112,6 +112,11 @@ public class TSBaseUser extends IdEntity implements java.io.Serializable {
 //	public void setTSDepart(TSDepart TSDepart) {
 //		this.TSDepart = TSDepart;
 //	}
+
+	/**
+	 * 用户账号
+	 * @return
+	 */
 	@Column(name = "username", nullable = false)
 	public String getUserName() {
 		return this.userName;
@@ -120,6 +125,11 @@ public class TSBaseUser extends IdEntity implements java.io.Serializable {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
+	/**
+	 * 用户名称
+	 * @return
+	 */
 	@Column(name = "realname", length = 50)
 	public String getRealName() {
 		return this.realName;

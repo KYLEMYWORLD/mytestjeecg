@@ -2,6 +2,7 @@ package org.jeecgframework.web.cgreport.controller.core;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,7 +70,7 @@ public class CgReportController extends BaseController {
 		//step.2 获取列表ftl模板路径
 		FreemarkerHelper viewEngine = new FreemarkerHelper();
 		//step.3 组合模板+数据参数，进行页面展现
-		loadVars(cgReportMap,request);
+		loadVars(null,cgReportMap,request);
 
 		//step.4 页面css js引用
 		cgReportMap.put(CgReportConstant.CONFIG_IFRAME, getHtmlHead(request));
@@ -127,25 +128,25 @@ public class CgReportController extends BaseController {
 	
 	/**
 	 * popup入口
-	 * @param id 动态配置ID-code
+	 * @param popupEntity 动态配置ID-code等数据
 	 * @param request
 	 * @param response
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(params = "popup")
-	public void popup(String id, HttpServletRequest request,
+	public void popup(PopupEntity popupEntity, HttpServletRequest request,
 			HttpServletResponse response) {
 		//step.1 根据id获取该动态报表的配置参数
 		Map<String, Object>  cgReportMap = null;
 		try{
-			cgReportMap = cgReportService.queryCgReportConfig(id);
+			cgReportMap = cgReportService.queryCgReportConfig(popupEntity.getId());
 		}catch (Exception e) {
 			throw new CgReportNotFoundException("动态报表配置不存在!");
 		}
 		//step.2 获取列表ftl模板路径
 		FreemarkerHelper viewEngine = new FreemarkerHelper();
 		//step.3 组合模板+数据参数，进行页面展现
-		loadVars(cgReportMap,request);
+		loadVars(popupEntity,cgReportMap,request);
 
 		//step.4 页面css js引用
 		cgReportMap.put(CgReportConstant.CONFIG_IFRAME, getHtmlHead(request));
@@ -173,7 +174,7 @@ public class CgReportController extends BaseController {
 	 * @param cgReportMap
 	 */
 	@SuppressWarnings("unchecked")
-	private void loadVars(Map<String, Object> cgReportMap,HttpServletRequest request) {
+	private void loadVars(PopupEntity popupEntity,Map<String, Object> cgReportMap,HttpServletRequest request) {
 		Map mainM = (Map) cgReportMap.get(CgReportConstant.MAIN);
 		List<Map<String,Object>> fieldList = (List<Map<String, Object>>) cgReportMap.get(CgReportConstant.ITEMS);
 		List<String> paramList = (List<String>)cgReportMap.get(CgReportConstant.PARAMS);
@@ -194,12 +195,13 @@ public class CgReportController extends BaseController {
 				String value = request.getParameter(param);
     			if(StringUtil.isNotEmpty(value)){
     				sb.append(value);
-
     			}else{
-    				value = ResourceUtil.getUserSystemData(param);
-    				sb.append(value);
+    				value = getPopupEntityValue(popupEntity,param);
+					if(value==null || value.equals("")){
+						value = ResourceUtil.getUserSystemData(param);
+					}
+					sb.append(value);
     			}
-
 			}
 		}
 		cgReportMap.put(CgReportConstant.CONFIG_ID, mainM.get("code"));
@@ -209,7 +211,39 @@ public class CgReportController extends BaseController {
 		//获取传递参数
 		cgReportMap.put(CgReportConstant.CONFIG_PARAMS, sb.toString());
 	}
-	
+
+	/**
+	 * 根据变量名获取变量值
+	 */
+	private Field[] fields;
+	private String getPopupEntityValue(PopupEntity popupEntity,String name) {
+		if (popupEntity == null) return null;
+		if (fields == null) {
+			fields = popupEntity.getClass().getDeclaredFields();
+		}
+		for (int i = 0, len = fields.length; i < len; i++) {
+			// 对于每个属性，获取属性名
+			String varName = fields[i].getName();
+			if(!name.equals(varName))continue;
+			try {
+//				// 获取原来的访问控制权限
+//				boolean accessFlag = fields[i].isAccessible();
+//				// 修改访问控制权限
+//				fields[i].setAccessible(true);
+//				// 获取在对象f中属性fields[i]对应的对象中的变量
+				Object o = fields[i].get(popupEntity);
+				System.out.println("传入的对象中包含一个如下的变量：" + varName + " = " + o);
+				// 恢复访问控制权限
+//				fields[i].setAccessible(accessFlag);
+				return o != null ? String.valueOf(o).toString() : null;
+			} catch (IllegalArgumentException ex) {
+				ex.printStackTrace();
+			} catch (IllegalAccessException ex) {
+				ex.printStackTrace();
+			}
+		}
+		return null;
+	}
 	
 	/**
 	 * 动态报表数据查询

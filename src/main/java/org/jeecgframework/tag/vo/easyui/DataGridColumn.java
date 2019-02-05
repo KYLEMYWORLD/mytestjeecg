@@ -35,6 +35,7 @@ public class DataGridColumn {
 	protected String dictionary;
 
 	protected String dictCondition;
+	protected String searchpopdic;
 
 	protected boolean popup=false;	//是否启用popup模式选择 默认不启用
 	protected String replace;
@@ -354,6 +355,14 @@ public class DataGridColumn {
 
 	public void setAjaxDict(boolean isAjaxDict) {
 		this.isAjaxDict = isAjaxDict;
+	}
+
+	public String getSearchpopdic() {
+		return searchpopdic;
+	}
+
+	public void setSearchpopdic(String searchpopdic) {
+		this.searchpopdic = searchpopdic;
 	}
 
 	@Override

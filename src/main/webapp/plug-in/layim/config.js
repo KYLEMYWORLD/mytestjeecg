@@ -3,7 +3,7 @@
 //websocket 配置
 //动态配置Ip为当前服务器
 var chatIp = document.location.host;
-var id = "";
+var id = "127.0.0.1";
 jQuery.post("chat/imController.do?getUserid", {
 
 }, function (text) {

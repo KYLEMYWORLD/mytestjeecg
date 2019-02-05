@@ -564,7 +564,6 @@ public class JformPlanEntity implements java.io.Serializable {
 	 *方法: 取得java.lang.String
 	 *@return: java.lang.String  分配任务ID
 	 */
-
 	@Column(name ="TASK_ID",nullable=true,length=36)
 	public java.lang.String getTaskId(){
 		return this.taskId;

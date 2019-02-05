@@ -33,7 +33,7 @@
 							</label>
 						</td>
 						<td class="value">
-							<input id="taskProjectname" name="taskProjectname" type="text" style="width: 150px" class="searchbox-inputtext"  datatype="*"  ignore="checked"  onclick="popupClick(this,'id,project_name','taskProjectid,taskProjectname','project_select')" value='${jformTaskPage.taskProjectname}'/>
+							<input id="taskProjectname" name="taskProjectname" type="text" style="width: 150px" class="searchbox-inputtext"  datatype="*"  ignore="checked"  onclick="popupClick(this,'id,project_name','taskProjectid,taskProjectname','project4task')" value='${jformTaskPage.taskProjectname}'/>
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">项目名称</label>
 						</td>

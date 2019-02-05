@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--360浏览器优先以webkit内核解析-->
+    <title>项目管理系统</title>
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link href="plug-in/hplus/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="plug-in/hplus/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="plug-in/hplus/css/animate.css" rel="stylesheet">
+    <link href="plug-in/hplus/css/style.css?v=4.1.0" rel="stylesheet">
+    <link rel="stylesheet" href="plug-in/themes/fineui/main/iconfont.css">
+    <script src="plug-in/laydate/laydate.js"></script>
+
+    <style type="text/css">
+        .gray-bg {
+            background-color: #e9ecf3;
+        }
+
+        .col-sm-2 {
+            width: 10%;
+            padding-left: 5px;
+            padding-right: 5px;
+            float: left;
+        }
+
+        .p-lg {
+            padding: 0px 0px 10px 0px;
+        }
+
+        .widget {
+            margin-top: 0px;
+        }
+
+        .iconfont {
+            font-size: 30px;
+            color: white;
+        }
+
+        h2 {
+            font-size: 20px;
+        }
+
+        .echart_div {
+            height: 240px;
+            width: 100%;
+        }
+
+        .ibtn {
+            cursor: pointer;
+        }
+
+        .flot-chart {
+            height: 400px;
+        }
+
+        @media (min-width: 992px) {
+            .col-cs-2 {
+                width: 11.11%;
+                padding-left: 5px;
+                padding-right: 5px;
+                float: left;
+            }
+        }
+        li{
+            font-size: 18px;
+        }
+        .carousel-indicators li {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 1px;
+            text-indent: -999px;
+            cursor: pointer;
+            background-color: #000;
+            background-color: rgb(160, 162, 161);
+            border: 1px solid #bdd6bf;
+            border-radius: 10px;
+        }
+    </style>
+    <script type="text/javascript">
+        Date.prototype.Format = function (fmt) { //author: meizz
+            var o = {
+                "M+": this.getMonth() + 1, //月份
+                "d+": this.getDate(), //日
+                "H+": this.getHours(), //小时
+                "m+": this.getMinutes(), //分
+                "s+": this.getSeconds(), //秒
+                "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                "S": this.getMilliseconds() //毫秒
+            };
+            if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+            return fmt;
+        }
+    </script>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="ibox float-e-margins" id="project-echart">
+                <div class="ibox-title">
+                    <h5>项目进度概览</h5>
+                    <div class="pull-right">
+                        <div class="btn-group">
+                        </div>
+                    </div>
+                </div>
+                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="30000">
+                    <!-- 轮播（Carousel）指标 -->
+                    <ol class="carousel-indicators" id="carousel-indicators">
+
+                    </ol>
+                    <!-- 轮播（Carousel）项目 放置echar的展示内容-->
+                    <div class="carousel-inner" id="carousel-inner">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3  border-bottom white-bg dashboard-header">
+            <h2>通知及备注：</h2>
+            <ol>
+                <li>会议通知</li>
+                <li>物料达到情况通知</li>
+                <li>任务变更通知</li>
+                <li>关键任务节点通知</li>
+                <li>临时任务通知</li>
+            </ol>
+        </div>
+    </div>
+
+</div>
+    <!-- 全局js -->
+    <script src="plug-in/hplus/js/jquery.min.js?v=2.1.4"></script>
+    <script src="plug-in/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+    <!-- 自定义js -->
+    <script src="plug-in/hplus/js/content.js"></script>
+    <script type="text/javascript" src="plug-in/echart/user/echarts.min.js"></script>
+    <link rel="stylesheet" href="plug-in/tools/css/metrole/common.css" type="text/css"></link>
+    <link rel="stylesheet" href="plug-in/ace/css/font-awesome.css" type="text/css"></link>
+    <script type="text/javascript" src="plug-in/lhgDialog/lhgdialog.min.js?skin=metrole"></script>
+    <script type="text/javascript" src="plug-in/ace/js/bootstrap-tab.js"></script>
+    <script type="text/javascript" src="plug-in/layer/layer.js"></script>
+    <script type="text/javascript" src="plug-in/tools/easyuiextend.js"></script>
+    <script type="text/javascript" src="plug-in/jquery-plugs/hftable/jquery-hftable.js"></script>
+    <script type="text/javascript" src="plug-in/tools/json2.js" ></script>
+    <script type="text/javascript" src="plug-in/bootstrap/js/bootstrap-carousel.js"></script>
+
+<script>
+    var date = new Date();
+    document.write('<script type="text/javascript" src="plug-in/echart/user/projectJS.js?'+date.getTime()+'">\<\/script\>')
+    document.write('<script type="text/javascript" src="plug-in/echart/user/echart-display.js?'+date.getTime()+'">\<\/script\>')
+</script>
+</body>
+</html>

@@ -12,13 +12,7 @@ public interface JformUserPlanServiceI extends CommonService{
  	public Serializable save(JformUserPlanEntity entity) throws Exception;
  	
  	public void saveOrUpdate(JformUserPlanEntity entity) throws Exception;
- 	
- 	/**
-	 * 自定义按钮-[添加任务]业务处理
-	 * @param t table-kyle
-	 * @return
-	 */
-	 public void doAdduserplanBus(JformUserPlanEntity t) throws Exception;
+
  	/**
 	 * 自定义按钮-[细分完成]业务处理
 	 * @param t table-kyle

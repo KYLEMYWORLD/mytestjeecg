@@ -80,13 +80,13 @@ var tooltip_P ={
             +"任务："+dataItem.data[2];
         }
 };
-var IsMakeLine = true;
+var MakeLine_Temp;
 var MakeLine_P = {
     silent:true,
     symbol:'none',
     animation:false,
     label:{
-        show:false,
+        show:true,
         //formatter: '{b}',
         position:'middle',
         color:'#d68fe8'
@@ -95,7 +95,7 @@ var MakeLine_P = {
         name: '',//new Date().Format("yyyy-MM-dd"),
         xAxis:  new Date().Format("yyyy-MM-dd"),
         label:{
-            show:false,
+            show:true,
             color:'#e81d1a'
         }
     }],
@@ -109,7 +109,7 @@ var MakeLine_P = {
     itemStyle: {
         normal: {
             label: {
-                show: false,
+                show: true,
                 color:'#e81d1a'
             },
             labelLine: {
@@ -120,12 +120,12 @@ var MakeLine_P = {
         } ,
         emphasis: {
             label: {
-                show: false,
+                show: true,
                 position: 'outer',
                 color:'#e81d1a'
             },
             labelLine: {
-                show: false,
+                show: true,
                 color:'#e81d1a',
                 lineStyle: {
                     color: 'red'
@@ -135,10 +135,18 @@ var MakeLine_P = {
     }
 };
 
-
+var projectName;
 function GetSeries(_name,_data,_linestyle){
-    if(!IsMakeLine){MakeLine_P={}}
-    IsMakeLine=false;
+    //debugger;
+    MakeLine_Temp = MakeLine_P;
+    if(projectName==null || projectName==''){
+        projectName = _name;
+    }else if(projectName == _name){
+        MakeLine_Temp ={};
+    }else {
+        projectName = _name;
+    }
+
     if(_linestyle != null &&_linestyle ==0) _linestyle = lineStyle_Green_P;
     else if(_linestyle != null &&_linestyle == 1) _linestyle = lineStyle_Red_P;
     else if(_linestyle != null &&_linestyle == 2) _linestyle = lineStyle_White_P;
@@ -156,6 +164,6 @@ function GetSeries(_name,_data,_linestyle){
             itemStyle: itemStyle_P,
             lineStyle: _linestyle,
             tooltip:tooltip_P,
-            markLine : MakeLine_P
-        };
+            markLine : MakeLine_Temp //时间线
+    };
 }

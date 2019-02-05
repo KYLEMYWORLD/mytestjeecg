@@ -965,12 +965,7 @@ public abstract class GenericBaseCommonDao<T, PK extends Serializable>
 		Query q = getSession().createQuery(hql);
 		if (param != null && param.length > 0) {
 			for (int i = 0; i < param.length; i++) {
-				if(param[i] instanceof String[]){
-					q.setParameterList("ARRAY_"+i, (String[])param[i]);
-				}else{
-					q.setParameter(i, param[i]);
-				}
-
+				q.setParameter(i, param[i]);
 			}
 		}
 		return q.list();

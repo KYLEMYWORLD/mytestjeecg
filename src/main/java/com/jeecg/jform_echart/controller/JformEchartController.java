@@ -2,7 +2,6 @@ package com.jeecg.jform_echart.controller;
 import com.jeecg.jform_echart.entity.JformEchartEntity;
 import com.jeecg.jform_echart.service.JformEchartServiceI;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,16 +37,36 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import java.util.Map;
+import java.util.HashMap;
 
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
+import org.jeecgframework.core.beanvalidator.BeanValidators;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+
+import org.springframework.http.MediaType;
+import org.springframework.web.util.UriComponentsBuilder;
+import org.apache.commons.lang3.StringUtils;
+import org.jeecgframework.jwt.util.ResponseMessage;
+import org.jeecgframework.jwt.util.Result;
+import com.alibaba.fastjson.JSONArray;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**   
  * @Title: Controller  
  * @Description: 项目看板信息表
  * @author onlineGenerator
- * @date 2018-12-28 15:58:35
+ * @date 2019-01-21 14:15:57
  * @version V1.0   
  *
  */
+@Api(value="JformEchart",description="项目看板信息表",tags="jformEchartController")
 @Controller
 @RequestMapping("/jformEchartController")
 public class JformEchartController extends BaseController {
@@ -57,6 +76,8 @@ public class JformEchartController extends BaseController {
 	private JformEchartServiceI jformEchartService;
 	@Autowired
 	private SystemService systemService;
+	@Autowired
+	private Validator validator;
 
 	/**
 	 * 获取项目看板信息内容
@@ -81,7 +102,7 @@ public class JformEchartController extends BaseController {
 		// 查询条件组装器
 		org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq,jformEchart, request.getParameterMap());
 		list = this.jformEchartService.getListByCriteriaQuery(cq, false);
-		String sql = "select id,project_name name from jform_project";
+		String sql = "select id,project_name name, project_responder resp,project_manager mana from jform_project";
 		List<Map<String, Object>> result = systemService.findForJdbc(sql);
 
 		Map map = new HashMap();
@@ -104,8 +125,15 @@ public class JformEchartController extends BaseController {
 		map.put("count",count);
 		return map;
 	}
-
-
+	/**
+	 * 项目看板信息表列表 页面跳转
+	 *
+	 * @return
+	 */
+	@RequestMapping(params = "echart")
+	public ModelAndView echart(HttpServletRequest request) {
+		return new ModelAndView("main/keda_echart");
+	}
 
 	/**
 	 * 项目看板信息表列表 页面跳转
@@ -115,16 +143,6 @@ public class JformEchartController extends BaseController {
 	@RequestMapping(params = "list")
 	public ModelAndView list(HttpServletRequest request) {
 		return new ModelAndView("com/jeecg/jform_echart/jformEchartList");
-	}
-
-	/**
-	 * 项目看板信息表列表 页面跳转
-	 *
-	 * @return
-	 */
-	@RequestMapping(params = "echart")
-	public ModelAndView echart(HttpServletRequest request) {
-		return new ModelAndView("main/keda_echart");
 	}
 
 	/**
@@ -141,6 +159,7 @@ public class JformEchartController extends BaseController {
 		//查询条件组装器
 		org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, jformEchart, request.getParameterMap());
 		try{
+		//自定义追加查询条件
 			//任务完成时间降序
 			cq.addOrder("projectId", SortDirection.asc);//项目ID
 //			cq.addOrder("taskId", SortDirection.asc);//任务ID
@@ -367,6 +386,131 @@ public class JformEchartController extends BaseController {
 		}
 		return j;
 	}
+
+	/**
+	 * 获取激活的项目数量
+	 * @return
+	 */
+	@RequestMapping(value = "/GetProjectCount", method = RequestMethod.GET)
+	@ResponseBody
+	@ApiOperation(value="获取激活的项目数量")
+	public ResponseMessage<?> GetProjectCount(){
+		long count = systemService.getCountForJdbc("select count(id) from jform_project where project_status = 1");
+		return Result.success(count);
+	}
+
+	/**
+	 * 获取项目看板信息内容
+	 * @return
+	 */
+	@RequestMapping(value = "/GetProjectEchart", method = RequestMethod.GET)
+	@ResponseBody
+	@ApiOperation(value="获取激活的项目内容")
+	public ResponseMessage<Map> GetProjectEchart(HttpServletRequest request){
+		List<JformEchartEntity> list;
+		CriteriaQuery query = new CriteriaQuery(JformEchartEntity.class);
+		//指定任务
+		if(!request.getParameterMap().containsKey("pretaskId")){
+			//如果没有指定父任务节点则查询所有项目的一级任务
+			query.eq("taskLevel", 1);
+		}
+		query.addOrder("projectId", SortDirection.desc);//项目ID
+		query.addOrder("finishDate", SortDirection.desc);//完成时间
+		query.add();
+		list = this.jformEchartService.getListByCriteriaQuery(query, true);
+
+		String sql = "select id,project_name name, project_responder resp,project_manager mana from jform_project";
+		List<Map<String, Object>> result = systemService.findForJdbc(sql);
+
+		Map map = new HashMap();
+		map.put("data",list);
+		map.put("project",result);
+		return Result.success(map);
+	}
 	
+	@RequestMapping(value="/list/{pageNo}/{pageSize}", method = RequestMethod.GET)
+	@ResponseBody
+	@ApiOperation(value="项目看板信息表列表信息",produces="application/json",httpMethod="GET")
+	public ResponseMessage<List<JformEchartEntity>> list(@PathVariable("pageNo") int pageNo, @PathVariable("pageSize") int pageSize, HttpServletRequest request) {
+		if(pageSize > Globals.MAX_PAGESIZE){
+			return Result.error("每页请求不能超过" + Globals.MAX_PAGESIZE + "条");
+		}
+		CriteriaQuery query = new CriteriaQuery(JformEchartEntity.class);
+		query.setCurPage(pageNo<=0?1:pageNo);
+		query.setPageSize(pageSize<1?1:pageSize);
+		List<JformEchartEntity> listJformEcharts = this.jformEchartService.getListByCriteriaQuery(query,true);
+		return Result.success(listJformEcharts);
+	}
 	
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	@ApiOperation(value="根据ID获取项目看板信息表信息",notes="根据ID获取项目看板信息表信息",httpMethod="GET",produces="application/json")
+	public ResponseMessage<?> get(@ApiParam(required=true,name="id",value="ID")@PathVariable("id") String id) {
+		JformEchartEntity task = jformEchartService.get(JformEchartEntity.class, id);
+		if (task == null) {
+			return Result.error("根据ID获取项目看板信息表信息为空");
+		}
+		return Result.success(task);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@ApiOperation(value="创建项目看板信息表")
+	public ResponseMessage<?> create(@ApiParam(name="项目看板信息表对象")@RequestBody JformEchartEntity jformEchart, UriComponentsBuilder uriBuilder) {
+		//调用JSR303 Bean Validator进行校验，如果出错返回含400错误码及json格式的错误信息.
+		Set<ConstraintViolation<JformEchartEntity>> failures = validator.validate(jformEchart);
+		if (!failures.isEmpty()) {
+			return Result.error(JSONArray.toJSONString(BeanValidators.extractPropertyAndMessage(failures)));
+		}
+
+		//保存
+		try{
+			jformEchartService.save(jformEchart);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Result.error("项目看板信息表信息保存失败");
+		}
+		return Result.success(jformEchart);
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	@ApiOperation(value="更新项目看板信息表",notes="更新项目看板信息表")
+	public ResponseMessage<?> update(@ApiParam(name="项目看板信息表对象")@RequestBody JformEchartEntity jformEchart) {
+		//调用JSR303 Bean Validator进行校验，如果出错返回含400错误码及json格式的错误信息.
+		Set<ConstraintViolation<JformEchartEntity>> failures = validator.validate(jformEchart);
+		if (!failures.isEmpty()) {
+			return Result.error(JSONArray.toJSONString(BeanValidators.extractPropertyAndMessage(failures)));
+		}
+
+		//保存
+		try{
+			jformEchartService.saveOrUpdate(jformEchart);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Result.error("更新项目看板信息表信息失败");
+		}
+
+		//按Restful约定，返回204状态码, 无内容. 也可以返回200状态码.
+		return Result.success("更新项目看板信息表信息成功");
+	}
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@ApiOperation(value="删除项目看板信息表")
+	public ResponseMessage<?> delete(@ApiParam(name="id",value="ID",required=true)@PathVariable("id") String id) {
+		logger.info("delete[{}]" , id);
+		// 验证
+		if (StringUtils.isEmpty(id)) {
+			return Result.error("ID不能为空");
+		}
+		try {
+			jformEchartService.deleteEntityById(JformEchartEntity.class, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Result.error("项目看板信息表删除失败");
+		}
+
+		return Result.success();
+	}
 }

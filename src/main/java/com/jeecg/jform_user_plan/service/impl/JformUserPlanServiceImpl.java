@@ -41,31 +41,28 @@ public class JformUserPlanServiceImpl extends CommonServiceImpl implements Jform
     }
 
     /**
-     * 自定义按钮-[添加任务]业务处理
-     *
-     * @param t
-     * @return
-     */
-    public void doAdduserplanBus(JformUserPlanEntity t) throws Exception {
-        //-----------------sql增强 start----------------------------
-        //-----------------sql增强 end------------------------------
-
-        //-----------------java增强 start---------------------------
-        //-----------------java增强 end-----------------------------
-    }
-
-    /**
      * 自定义按钮-[细分完成]业务处理
-     *
+     *  二级任务下面的三级任务状态也更新为细分完成
      * @param t
      * @return
      */
     public void doDividefinishBus(JformUserPlanEntity t) throws Exception {
-        //-----------------sql增强 start----------------------------
-        //-----------------sql增强 end------------------------------
+        // TODO 二级任务下面的三级任务状态也更新为细分完成
+        StringBuffer sql = new StringBuffer();
+        sql.append("update jform_user_plan t set");
+        sql.append(" t.plan_status = ?");
+        sql.append(" where t.plan_id = ?");
+        executeSql(sql.toString(), ConstSetBA.PlanStatus_SendDivideFinish, t.getId());
 
-        //-----------------java增强 start---------------------------
-        //-----------------java增强 end-----------------------------
+        // TODO 更新工作任务的三级任务状态为细分完成
+        sql.setLength(0);
+        sql.append("update jform_plan t set");
+        sql.append(" t.plan_status = ?");
+        sql.append(" where t.id in (");
+        sql.append(" select p.task_id from jform_user_plan p where p.plan_id = ? )");
+        executeSql(sql.toString(), ConstSetBA.PlanStatus_SendDivideFinish, t.getId());
+
+        saveOrUpdate(t);
     }
 
     /**

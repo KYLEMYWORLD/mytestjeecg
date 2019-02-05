@@ -61,51 +61,43 @@
 	  var operate = '${operate}';
 	  if(operate!='' && operate=='dividetype'){
 	  	//细分任务
-		  $("#planLevel").val("3");
-		  $("#planLevelS").val("3");
-		  $("#planLevelS").find("option[value='3']").attr("selected",true);
-
+		  $("#planLevel").val(3);
 	  }else{
 	  	//个人任务
-		  $("#planLevel").val("4");
-		  $("#planLevelS").val("4");
-		  $("#planLevelS").find("option[value='4']").attr("selected",true);
+		  $("#planLevel").val(4);
 	  }
-	  $("#planId").attr("disabled","disabled");
+	  $("#planId").attr("disabled",true);
 	  $(".combo-arrow").off("click");
-	  $("#planLevelS").attr("disabled","disabled");
+	  $("#planLevel").attr("disabled",true);
 
 	  $("#planResponderid").val(userid);
 	  $("#planResponder").val(username);
 	  $("#planResponders").val(username);
-	  $("#planResponderT").val(username);
-	  $("#planResponderT").attr("disabled","disabled");
-
-	  $("#planIssucc").val("0");//未完成
-	  //任务状态
-	  $("#planStatus").val("0");//草稿
-	  //预警状态
-	  $("#planIsalert").val("1");//正常
+	  $("#planResponder").attr("disabled",true);
   });
 
+  //提交表单前恢复可编辑状态，才会把值传到后台
+  function enableInput() {
+	  $("#planResponder").attr("disabled",false);
+	  $("#planLevel").attr("disabled",false);
+	  $("#planId").attr("disabled",false);
+  }
 
   </script>
  </head>
  <body>
-  <t:formvalid formid="formobj" dialog="true" usePlugin="password" layout="table" action="jformUserPlanController.do?doAdd" >
+  <t:formvalid formid="formobj" dialog="true" usePlugin="password" layout="table" action="jformUserPlanController.do?doAdd" beforeSubmit="enableInput">
 	  <input id="id" name="id" type="hidden" value="${jformUserPlanPage.id }"/>
-	  <input id="planLevel" name="planLevel" type="hidden" value="${jformUserPlanPage.planLevel }"/>
 	  <input id="planOrder" name="planOrder" type="hidden" value="${jformUserPlanPage.planOrder }"/>
 	  <input id="planResponderid" name="planResponderid" type="hidden" value="${jformUserPlanPage.planResponderid }"/>
-	  <input id="planResponder" name="planResponder" type="hidden" value="${jformUserPlanPage.planResponder }"/>
 	  <input id="planResponders" name="planResponders" type="hidden" value="${jformUserPlanPage.planResponders }"/>
 	  <input id="planRejectmsg" name="planRejectmsg" type="hidden" value="${jformUserPlanPage.planRejectmsg }"/>
 	  <input id="projectId" name="projectId" type="hidden" value="${jformUserPlanPage.projectId }"/>
 	  <input id="taskId" name="taskId" type="hidden" value="${jformUserPlanPage.taskId }"/>
-	  <input id="planIssucc" name="planIssucc" type="hidden"  value="${jformUserPlanPage.planIssucc }"/>
-	  <input id="planStatus" name="planStatus" type="hidden"  value="${jformUserPlanPage.planStatus }"/>
+	  <input id="planIssucc" name="planIssucc" type="hidden"  value="0"/>
+	  <input id="planStatus" name="planStatus" type="hidden"  value="0"/>
 	  <input id="planLatemsg" name="planLatemsg" type="hidden"  value="${jformUserPlanPage.planLatemsg }"/>
-	  <input id="planIsalert" name="planIsalert" type="hidden" value="${jformUserPlanPage.planIsalert }"/>
+	  <input id="planIsalert" name="planIsalert" type="hidden" value="1"/>
 	  <input id="planAlertmsg" name="planAlertmsg" type="hidden"  value="${jformUserPlanPage.planAlertmsg }"/>
 
 	  <table style="width: 600px;" cellpadding="0" cellspacing="1" class="formtable">
@@ -126,7 +118,7 @@
 						</label>
 					</td>
 					<td class="value">
-							<t:dictSelect id="planLevelS" field="planLevelS" type="list" datatype="n"  typeGroupCode="userPlanT"   defaultVal="${jformPlanPage.planLevel}" hasLabel="false"  title="任务等级" ></t:dictSelect>
+							<t:dictSelect id="planLevel" field="planLevel" type="list" datatype="n"  typeGroupCode="userPlanT"   defaultVal="${jformPlanPage.planLevel}" hasLabel="false"  title="任务等级" ></t:dictSelect>
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">任务等级</label>
 						</td>
@@ -162,7 +154,7 @@
 						</label>
 					</td>
 					<td class="value">
-						<input id="planResponderT"  name="planResponderT" type="text" style="width: 150px" class="searchbox-inputtext"    datatype="*"  ignore="checked" />
+						<input id="planResponder"  name="planResponder" type="text" style="width: 150px" class="searchbox-inputtext"    datatype="*"  ignore="checked" />
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">负责人</label>
 						</td>

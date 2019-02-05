@@ -11,7 +11,7 @@
  </head>
  <body>
 		<t:formvalid formid="formobj" dialog="true" usePlugin="password" layout="table" action="jformEchartController.do?doUpdate" >
-					<input id="id" name="id" type="hidden" value="${jformEchartPage.id }"/>
+					  <input id="id" name="id" type="hidden" value="${jformEchartPage.id }"/>
 		<table style="width: 600px;" cellpadding="0" cellspacing="1" class="formtable">
 					<tr>
 						<td align="right">
@@ -140,7 +140,7 @@
 							</label>
 						</td>
 						<td class="value">
-							<input id="rfinishDate" name="rfinishDate" type="text" style="width: 150px"  class="Wdate" onClick="WdatePicker()"  ignore="ignore" value='<fmt:formatDate value='${jformEchartPage.rfinishDate}' type="date" pattern="yyyy-MM-dd"/>'/>
+									  <input id="rfinishDate" name="rfinishDate" type="text" style="width: 150px"  class="Wdate" onClick="WdatePicker()"  ignore="ignore" value='<fmt:formatDate value='${jformEchartPage.rfinishDate}' type="date" pattern="yyyy-MM-dd"/>'/>
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">实际完成时间</label>
 						</td>

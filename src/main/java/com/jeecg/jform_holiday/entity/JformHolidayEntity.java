@@ -35,9 +35,9 @@ public class JformHolidayEntity implements java.io.Serializable {
 	/**节假日*/
 	@Excel(name="节假日",width=15,format = "yyyy-MM-dd")
 	private java.util.Date holiday;
-	/**时长*/
+	/**时长 1 上半天 2 下半天 3 全天*/
 	@Excel(name="时长",width=15,dicCode="holidayT")
-	private java.lang.Double times;
+	private java.lang.Integer times;
 	/**创建人名称*/
 	private java.lang.String createName;
 	/**创建人登录名称*/
@@ -99,8 +99,8 @@ public class JformHolidayEntity implements java.io.Serializable {
 	 *@return: java.lang.Double  时长
 	 */
 
-	@Column(name ="TIMES",nullable=false,scale=1,length=16)
-	public java.lang.Double getTimes(){
+	@Column(name ="TIMES",nullable=true,length=1)
+	public java.lang.Integer getTimes(){
 		return this.times;
 	}
 
@@ -108,7 +108,7 @@ public class JformHolidayEntity implements java.io.Serializable {
 	 *方法: 设置java.lang.Double
 	 *@param: java.lang.Double  时长
 	 */
-	public void setTimes(java.lang.Double times){
+	public void setTimes(java.lang.Integer times){
 		this.times = times;
 	}
 	/**

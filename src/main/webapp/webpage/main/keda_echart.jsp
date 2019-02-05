@@ -91,7 +91,7 @@
 <div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-sm-9">
-            <div class="ibox float-e-margins">
+            <div class="ibox float-e-margins" id="project-echart">
                 <div class="ibox-title">
                     <h5>项目进度概览</h5>
                     <div class="pull-right">
@@ -99,16 +99,6 @@
                             <%--<button type="button" class="btn btn-xs btn-white active">天</button>
                             <button type="button" class="btn btn-xs btn-white">月</button>
                             <button type="button" class="btn btn-xs btn-white">年</button>--%>
-                        </div>
-                    </div>
-                </div>
-                <div class="ibox-content">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <!--4:700-->
-                            <div id="projectChart" class="flot-chart" style="height:200px;">
-                                <div class="flot-chart-content" id="chart"></div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -146,6 +136,20 @@
             }
             return "PROJECT"
         }
+        function GetProjectData(data,id){
+            for(var i =0;i<data.length;i++){
+                if(data[i].id==id){
+                    return data[i];
+                }
+            }
+            return {mana :'',resp:''};
+        }
+
+        var echartTemp ="\<div class=\"ibox-content\"\>\<div class=\"row\">" +
+            "\<div class=\"col-sm-12\"\><div class=\"flot-chart\" style=\"height:300px;\"> " +
+            "<div class=\"flot-chart-content\" id=\"";
+
+        var echartTemp2 = "\"\>\<\/div\>\<\/div\>\</div\>\<\/div\>\<\/div\>";
 
         $(document).ready(function () {
             $.ajax({
@@ -154,170 +158,212 @@
                 success: function (jsondata) {
                     jsondata = JSON.parse(jsondata);
                     if(jsondata.count!=null){
-                        var heightCss = jsondata.count * 300;
-                        $("#projectChart").attr("style","height:"+heightCss+"px;");
-                    }
-
-                    var chart = echarts.init(document.getElementById('chart'));
-                    $.ajax({
-                        type: "POST",
-                        url: "jformEchartController.do?GetProjectEchart",
-                        data:{
-                            // "finishDate_begin":"2018-01-30",
-                            // "finishDate_end":"2019-02-20"
-                        },
-                        success: function (jsondata) {
-                            jsondata = JSON.parse(jsondata);
-                            var nowdate = new Date().Format("yyyy-MM-dd");
-                            var seriesArray = new Array();//报表数据
-                            var yAxisData = new Array();//y轴数据
-
-                            if(jsondata!=null){
-                                //分出绿，红，白 线
-                                //绿0 任务是正常完成的
-                                //红1 任务未完成，完成时间已经过了
-                                //白2 任务未完成，完成时间位到
-
-                                var lineData = new Array();
-                                var projectindex = 0;
-                                var projectname = '';
-                                var lasttaskstatus,nowtaskstatus;
-                                //节点颜色 0未完成(时间过了，红色，时间未到白色)  1按时完成(绿色)  2延时完成(橙)
-                                $.each(jsondata.data,function(index,data){
-                                    //任务节点
-                                    if(data.taskStatus==0){//未完成
-                                        if(data.finishDate>=nowdate){
-                                            nowtaskstatus = 0;//未完成，还没到时间
-                                        }else{
-                                            nowtaskstatus = 3;//未完成，时间过了
-                                        }
-                                    }else if(data.taskStatus==1){
-                                        nowtaskstatus = 1;//正常完成
-                                    }else if(data.taskStatus==2){
-                                        nowtaskstatus = 2;//延时完成
-                                    }
-
-                                    if(projectname==null || projectname==''){
-                                        projectname = data.projectId;
-                                        //添加y轴信息列表
-                                        yAxisData.push({
-                                            value:GetProjectName(jsondata.project,data.projectId),
-                                            textStyle:yAxisDataStyle
-                                        });
-                                    }else if(projectname==data.projectId){
-                                        //继续组装当前项目信息
-                                        if(lasttaskstatus!=nowtaskstatus){//如果当前任务状态和上一个状态不同
-                                            lineData.push([data.finishDate,projectindex,'',-1]);
-                                            //分出绿0，红1，白2 (线)
-                                            seriesArray.push(GetSeries(projectname,lineData,(lasttaskstatus==1||lasttaskstatus==2)?0:(lasttaskstatus==3?1:2)));
-                                            lineData = new Array();
-                                        }
-                                    }else if(projectname!=data.projectId){
-                                        //结束上一个项目的信息组装
-                                        seriesArray.push(GetSeries(projectname,lineData,(lasttaskstatus==1||lasttaskstatus==2)?0:(lasttaskstatus==3?1:2)));
-                                        projectindex++;
-                                        lineData = new Array();
-                                        //下一个项目信息开始
-                                        projectname = data.projectId;
-                                        //添加y轴信息列表
-                                        yAxisData.push({
-                                            value:GetProjectName(jsondata.project,data.projectId),
-                                            textStyle:yAxisDataStyle
-                                        });
-                                    }
-                                    lineData.push([data.finishDate,projectindex,data.taskShortname,nowtaskstatus]);
-                                    if(data.finishDate>=nowdate &&data.taskStatus==1){
-                                        lasttaskstatus =  0;
-                                    }else{
-                                        lasttaskstatus=nowtaskstatus;
-                                    }
-                                });
-                                seriesArray.push(GetSeries(projectname,lineData,(lasttaskstatus==1||lasttaskstatus==2)?0:(lasttaskstatus==3?1:2)));
-                            }
-                            //debugger;
-                            var option = {
-                                title: {
-                                    text: '项目进度看板',
-                                    subtext: 'Keda'
-                                },
-                                tooltip: {
-                                    trigger: 'item',
-                                    formatter: '<b>{b0}</b>: {c0}'
-                                },
-                                grid: {
-                                    left: '3%',
-                                    right: '4%',
-                                    bottom: '3%',
-                                    containLabel: true,
-                                    height:'auto'
-                                },
-                                xAxis:  {
-                                    show:true,
-                                    position:'top',
-                                    type: 'time',
-                                    nameGap:300,
-                                    minInterval: 3600 * 24 * 1000 * 30,
-                                    maxInterval: 3600 * 24 * 1000 * 60,
-                                    interval:3600 * 24 * 1000 * 30,
-                                    splitLine:{
-                                        show:false
-                                    }
-                                },
-                                yAxis: {
-                                    type: 'category',//坐标轴类型。'value' 数值轴 'category' 类目轴 'time' 时间轴 'log' 对数轴
-                                    nameGap:500,//坐标轴名称与轴线之间的距离。
-                                    boundaryGap: [0.2, 0.2],
-                                    lineHeight:400,
-                                    data: yAxisData,
-                                    axisLine:{
-                                        show:false
-                                    },
-                                    splitLine:{
-                                        show:true
-                                    },
-                                    axisTick:{
-                                        show:false
-                                    },
-                                    offset:50,
-                                    nameTextStyle:{
-                                        fontSize:20,
-                                        align:'center',
-                                        verticalAlign:'middle',
-                                        lineHeight:150,
-                                        backgroundColor:'red'
-                                    }
-                                },
-                                series: seriesArray
-                            };
-                            chart.setOption(option, true);
-                            chart.on('click', function (params) {
-                                if (params.componentType === 'markPoint') {
-                                    // 点击到了 markPoint 上
-                                    if (params.seriesIndex === 5) {
-                                        // 点击到了 index 为 5 的 series 的 markPoint 上。
-                                    }
-                                }
-                                else if (params.componentType === 'series') {
-                                    console.log(params);
-                                    // if (params.seriesType === 'graph') {
-                                    //     if (params.dataType === 'edge') {
-                                    //         // 点击到了 graph 的 edge（边）上。
-                                    //     }
-                                    //     else {
-                                    //         // 点击到了 graph 的 node（节点）上。
-                                    //     }
-                                    // }
-                                }
-                            });
-
+                        var tmep = '';
+                        for(var i=0; i< jsondata.count ; i++){
+                            tmep += echartTemp+'chart'+i+echartTemp2;
                         }
-                    });
-                    $(window).resize(chart.resize);
+                        $("#project-echart").html($("#project-echart").html()+tmep);
+                        // var heightCss = jsondata.count * 300;
+                        // $("#projectChart").attr("style","height:"+heightCss+"px;");
 
+                        //获取项目动态数据
+                        getEchartData(jsondata.count);
+                    }
                 }});
-
-
         });
+
+        /**
+         * 获取项目的详细数据
+         * @pcount 项目的数量
+         */
+        function getEchartData(pcount){
+            $.ajax({
+                type: "POST",
+                url: "jformEchartController.do?GetProjectEchart",
+                data:{
+                    // "finishDate_begin":"2018-01-30",
+                    // "finishDate_end":"2019-02-20"
+                },
+                success: function (jsondata) {
+                    jsondata = JSON.parse(jsondata);
+                    var nowdate = new Date().Format("yyyy-MM-dd");
+                    var seriesArray = new Array();//报表数据
+                    var seriesArrays = new Array();//不同项目数据分开
+                    var yAxisData = new Array();//y轴数据
+                    var yAxisDatas = new Array();//y轴数据
+
+                    if(jsondata!=null){
+                        //分出绿，红，白 线
+                        //绿0 任务是正常完成的
+                        //红1 任务未完成，完成时间已经过了
+                        //白2 任务未完成，完成时间位到
+
+                        var lineData = new Array();
+                        var projectindex = 0;
+                        var projectname = '';
+                        var lasttaskstatus,nowtaskstatus;
+                        //节点颜色 0未完成(时间过了，红色，时间未到白色)  1按时完成(绿色)  2延时完成(橙)
+                        $.each(jsondata.data,function(index,data){
+                            //任务节点
+                            if(data.taskStatus==0){//未完成
+                                if(data.finishDate>=nowdate){
+                                    nowtaskstatus = 0;//未完成，还没到时间
+                                }else{
+                                    nowtaskstatus = 3;//未完成，时间过了
+                                }
+                            }else if(data.taskStatus==1){
+                                nowtaskstatus = 1;//正常完成
+                            }else if(data.taskStatus==2){
+                                nowtaskstatus = 2;//延时完成
+                            }
+
+                            if(projectname==null || projectname==''){
+                                projectname = data.projectId;
+                                //添加y轴信息列表
+                                yAxisData.push([{
+                                    value:GetProjectName(jsondata.project,data.projectId),
+                                    textStyle:yAxisDataStyle
+                                },{"data":GetProjectData(jsondata.project,data.projectId)}]);
+                                ///yAxisDatas.push(yAxisData);
+                                //yAxisData =[];
+                            }else if(projectname==data.projectId){
+                                //继续组装当前项目信息
+                                if(lasttaskstatus!=nowtaskstatus){//如果当前任务状态和上一个状态不同
+                                    lineData.push([data.finishDate,projectindex,'',-1]);
+                                    //分出绿0，红1，白2 (线)
+                                    seriesArray.push(GetSeries(projectname,lineData,(lasttaskstatus==1||lasttaskstatus==2)?0:(lasttaskstatus==3?1:2)));
+                                    lineData = new Array();
+                                }
+                            }else if(projectname!=data.projectId){
+                                //结束上一个项目的信息组装
+                                seriesArray.push(GetSeries(projectname,lineData,(lasttaskstatus==1||lasttaskstatus==2)?0:(lasttaskstatus==3?1:2)));
+                                seriesArrays.push(seriesArray);
+                                seriesArray = [];//重新装载下一个项目的series
+                                projectindex++;
+                                lineData = new Array();
+                                //下一个项目信息开始
+                                projectname = data.projectId;
+                                //添加y轴信息列表
+                                yAxisData.push([{
+                                    value:GetProjectName(jsondata.project,data.projectId),
+                                    textStyle:yAxisDataStyle
+                                },{"data":GetProjectData(jsondata.project,data.projectId)}]);
+                                //yAxisDatas.push(yAxisData);
+                                //yAxisData =[];
+                            }
+                            lineData.push([data.finishDate,projectindex,data.taskShortname,nowtaskstatus]);
+                            if(data.finishDate>=nowdate &&data.taskStatus==1){
+                                lasttaskstatus =  0;
+                            }else{
+                                lasttaskstatus=nowtaskstatus;
+                            }
+                        });
+                        seriesArray.push(GetSeries(projectname,lineData,(lasttaskstatus==1||lasttaskstatus==2)?0:(lasttaskstatus==3?1:2)));
+                        seriesArrays.push(seriesArray);
+                    }
+                    //组装Option
+                    initOption(pcount,yAxisData,seriesArrays);
+                }
+            });
+        }
+
+        /**
+         * 组装Echart Option数据
+         * @param pcount 项目数量
+         * @param yAxisData Y轴数据
+         * @param seriesArrays  X轴数据
+         */
+        function initOption(pcount,yAxisDatas,seriesArrays){
+            debugger;
+            var options = new Array();
+            for(var i = 0; i< yAxisDatas.length;i++){
+                var option = {
+                    title: {
+                        text: yAxisDatas[i][0].value,
+                        subtext: "项目经理("+yAxisDatas[i][1].data.mana+"), 负责人("+yAxisDatas[i][1].data.resp+")"
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: '<b>{b0}</b>: {c0}'
+                    },
+                    grid: {
+                        left: '2%',
+                        right: '4%',
+                        bottom: '2%',
+                        containLabel: true,
+                        height:'auto'
+                    },
+                    xAxis:  {
+                        show:true,
+                        position:'top',
+                        type: 'time',
+                        nameGap:300,
+                        minInterval: 3600 * 24 * 1000 * 30,
+                        maxInterval: 3600 * 24 * 1000 * 365,
+                        interval:3600 * 24 * 1000 * 365,
+                        splitLine:{
+                            show:false
+                        }
+                    },
+                    yAxis: {
+                        type: 'category',//坐标轴类型。'value' 数值轴 'category' 类目轴 'time' 时间轴 'log' 对数轴
+                        nameGap:500,//坐标轴名称与轴线之间的距离。
+                        boundaryGap: ['10%', '10%'],
+                        lineHeight:400,
+                        data:[] ,//yAxisDatas[i]
+                        axisLine:{
+                            show:false
+                        },
+                        splitLine:{
+                            show:false
+                        },
+                        axisTick:{
+                            show:false
+                        },
+                        offset:50,
+                        nameTextStyle:{
+                            fontSize:20,
+                            align:'center',
+                            verticalAlign:'middle',
+                            lineHeight:150,
+                            backgroundColor:'red'
+                        }
+                    },
+                    series: seriesArrays[i]
+                };
+                options.push(option);
+            }
+
+            //初始化Echart组件
+            setChart(pcount,options);
+        }
+
+        function setChart(pcount,option){
+            for (var i = 0; i < pcount; i++){
+                var chart = echarts.init(document.getElementById('chart'+i));
+                chart.setOption(option[i], true);
+                chart.on('click', function (params) {
+                    if (params.componentType === 'markPoint') {
+                        // 点击到了 markPoint 上
+                        if (params.seriesIndex === 5) {
+                            // 点击到了 index 为 5 的 series 的 markPoint 上。
+                        }
+                    }
+                    else if (params.componentType === 'series') {
+                        console.log(params);
+                        // if (params.seriesType === 'graph') {
+                        //     if (params.dataType === 'edge') {
+                        //         // 点击到了 graph 的 edge（边）上。
+                        //     }
+                        //     else {
+                        //         // 点击到了 graph 的 node（节点）上。
+                        //     }
+                        // }
+                    }
+                });
+                $(window).resize(chart.resize);
+            }
+        }
     </script>
 </body>
 </html>

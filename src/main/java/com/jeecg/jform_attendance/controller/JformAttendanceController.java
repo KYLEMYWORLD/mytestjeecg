@@ -1,4 +1,5 @@
 package com.jeecg.jform_attendance.controller;
+import com.jeecg.ConstSetBA;
 import com.jeecg.jform_attendance.entity.JformAttendanceEntity;
 import com.jeecg.jform_attendance.service.JformAttendanceServiceI;
 import java.util.ArrayList;
@@ -7,6 +8,8 @@ import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.aspectj.weaver.loadtime.Aj;
+import org.jeecgframework.web.system.pojo.base.TSUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -170,11 +173,32 @@ public class JformAttendanceController extends BaseController {
 		AjaxJson j = new AjaxJson();
 		message = "考勤信息表添加成功";
 		try{
+			List<JformAttendanceEntity> entity = systemService.findHql("from JformAttendanceEntity where empId = ? and attenStatus = ?"
+					,jformAttendance.getEmpId(), ConstSetBA.AttendanceStatus_NotFinish);
+			if(entity!=null && entity.size()>0){
+				if(jformAttendance.getAttenStatus()==ConstSetBA.AttendanceStatus_NotFinish){
+					throw new BusinessException("尚有未结束的考勤记录，请先完善该记录!");
+				}
+				JformAttendanceEntity recent = entity.get(0);
+				if(jformAttendance.getEndDate().getTime()>= recent.getBeginDate().getTime()){
+					throw new BusinessException("尚有未结束的考勤记录，不能添加记录在未结束之后!");
+				}
+				if(jformAttendance.getBeginDate().getTime()>= recent.getBeginDate().getTime()){
+					throw new BusinessException("尚有未结束的考勤记录，不能添加记录在未结束之后!");
+				}
+			}
+			// TODO 检查添加的日期是否有重叠
+			if(jformAttendance.getAfternoonFree()==null){
+				jformAttendance.setAfternoonFree(ConstSetBA.AttendanceStatus_NotFinish);
+			}
+			if(jformAttendance.getMorningFree()==null){
+				jformAttendance.setMorningFree(ConstSetBA.AttendanceStatus_NotFinish);
+			}
+
 			jformAttendanceService.save(jformAttendance);
 			systemService.addLog(message, Globals.Log_Type_INSERT, Globals.Log_Leavel_INFO);
 		}catch(Exception e){
 			e.printStackTrace();
-			message = "考勤信息表添加失败";
 			throw new BusinessException(e.getMessage());
 		}
 		j.setMsg(message);
@@ -206,7 +230,22 @@ public class JformAttendanceController extends BaseController {
 		j.setMsg(message);
 		return j;
 	}
-	
+
+	/**
+	 * 检查是否还有未完成的
+	 * @param username	用户名
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(params = "checkHaveUnfinish")
+	@ResponseBody
+	public AjaxJson checkHaveUnfinish(String username, HttpServletRequest request) {
+		AjaxJson j = new AjaxJson();
+		Long have = systemService.getCountForJdbcParam("select count(*) from jform_attendance t where t.atten_status = ?" +
+				" and t.emp_id = ?",ConstSetBA.AttendanceStatus_NotFinish,username);
+		j.setSuccess(have>0);//如果找到则true 没找到则false
+		return j;
+	}
 
 	/**
 	 * 考勤信息表新增页面跳转

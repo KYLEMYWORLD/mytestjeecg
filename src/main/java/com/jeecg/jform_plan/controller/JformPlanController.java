@@ -13,10 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.jeecg.jform_project.entity.JformProjectEntity;
 import com.jeecg.jform_task.entity.JformTaskEntity;
 import com.jeecg.jform_user_plan.entity.JformUserPlanEntity;
-import jodd.servlet.HttpServletContextMap;
-import org.jeecgframework.codegenerate.extcommon.onetomany.CgformCodeOne2ManyExtCommonGenerate;
-import org.jeecgframework.core.common.service.CommonService;
-import org.jeecgframework.core.common.service.impl.CommonServiceImpl;
 import org.jeecgframework.tag.vo.datatable.SortDirection;
 import org.jeecgframework.web.system.pojo.base.TSUser;
 import org.jeecgframework.web.system.sms.util.TuiSongMsgUtil;
@@ -105,6 +101,14 @@ public class JformPlanController extends BaseController {
         try {
             cq.addOrder("startDate", SortDirection.asc);
             cq.addOrder("finishDate", SortDirection.asc);
+            TSUser user = ResourceUtil.getSessionUser();
+            //非管理员账号需要过滤项目
+            if(!"admin".equals(user.getUserName())){
+                String[] projectId = getProjectId(user.getUserName());
+                if(projectId!=null){
+                    cq.in("projectId",projectId);
+                }
+            }
             //自定义追加查询条件
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
@@ -112,6 +116,14 @@ public class JformPlanController extends BaseController {
         cq.add();
         this.jformPlanService.getDataGridReturn(cq, true);
         TagUtil.treegrid(response, dataGrid);
+    }
+
+    private String[] getProjectId(String username){
+        List<String> projectid = systemService.findHql("select id from JformProjectEntity t where t.projectResponderid like ? ","%"+username+"%");
+        if(projectid!=null && projectid.size()>0){
+            return projectid.toArray(new String[projectid.size()]);
+        }
+        return null;
     }
 
     /**
@@ -139,18 +151,23 @@ public class JformPlanController extends BaseController {
             if(count>0){
                 throw new BusinessException("该任务下还有子任务，不能删除！");
             }
-            if (jformPlan.getPlanLevel() == ConstSetBA.PlanLevel_First) {
+            //如果是分配的任务则恢复分配的状态
+            if(StringUtil.isNotEmpty(jformPlan.getTaskId())){
                 //恢复分配任务的下发状态
                 JformTaskEntity task = systemService.getEntity(JformTaskEntity.class, jformPlan.getTaskId());
                 task.setTaskStatus(ConstSetBA.TaskStatus_Send);
                 systemService.save(task);
+            }
+
+            if (jformPlan.getPlanLevel() == ConstSetBA.PlanLevel_First) {
+
             }else if(jformPlan.getPlanLevel()==ConstSetBA.PlanLevel_Second){
                 //删除二级任务
                 List<JformUserPlanEntity> userPlanEntities = systemService.findHql("from JformUserPlanEntity e where e.taskId = ?",jformPlan.getId());
                 systemService.deleteAllEntitie(userPlanEntities);
             }else if(jformPlan.getPlanLevel() == ConstSetBA.PlanLevel_Third){
                 //删除三级任务
-                if(jformPlan.getUserPlanid()!=null){
+                if(StringUtil.isNotEmpty(jformPlan.getUserPlanid())){
                     systemService.deleteEntityById(JformUserPlanEntity.class,jformPlan.getUserPlanid());
                 }
             }
@@ -222,18 +239,48 @@ public class JformPlanController extends BaseController {
             if (StringUtil.isEmpty(jformPlan.getPlanId())) {
                 jformPlan.setPlanId(null);
             }
-            jformPlanService.save(jformPlan);
-            jformPlan = jformPlanService.get(JformPlanEntity.class,jformPlan.getId());
-            //一级任务将分配任务下发状态变成分配状态
-            if (jformPlan.getPlanLevel() == ConstSetBA.PlanLevel_First) {
-                JformTaskEntity task = systemService.getEntity(JformTaskEntity.class, jformPlan.getTaskId());
+
+            if(StringUtil.isEmpty(jformPlan.getStartDate())){
+                throw new BusinessException("开始时间不能为空!");
+            }else if(StringUtil.isEmpty(jformPlan.getFinishDate())){
+                throw new BusinessException("结束时间不能为空!");
+            }else if(StringUtil.isEmpty(jformPlan.getProjectId())){
+                throw new BusinessException("项目ID不能为空!");
+            }
+
+            if(jformPlan.getPlanLevel()==ConstSetBA.PlanLevel_First){
+                if(StringUtil.isNotEmpty(jformPlan.getPlanId())){
+                    //throw new BusinessException("一级任务不应该有父ID!")
+                    logger.error("一级任务不应该有父ID!");
+                    jformPlan.setPlanId(null);
+                }
+            }else{
+                if(StringUtil.isEmpty(jformPlan.getPlanId())){
+                    throw new BusinessException("二级，三级任务的父任务ID不能为空！");
+                }
+            }
+
+
+            //将分配任务下发状态变成分配状态
+            if(jformPlan.getTaskId()!=null){
+                JformTaskEntity task = systemService.getEntity(JformTaskEntity.class,jformPlan.getTaskId());
                 if (task.getTaskStatus() == ConstSetBA.TaskStatus_Send) {
                     task.setTaskStatus(ConstSetBA.TaskStatus_Assign);
                 } else {
                     throw new BusinessException("该分配任务状态不是下发状态不能进行分配！");
                 }
                 systemService.save(task);
+            }
+
+
+            jformPlanService.save(jformPlan);
+            jformPlan = jformPlanService.get(JformPlanEntity.class,jformPlan.getId());
+
+            //一级任务
+            if (jformPlan.getPlanLevel() == ConstSetBA.PlanLevel_First) {
+
             } else {
+                //二级 三级任务新增，同步个人任务计划
                 JformPlanEntity task = systemService.getEntity(JformPlanEntity.class, jformPlan.getPlanId());
                 jformPlan.setProjectId(task.getProjectId());
                 if(jformPlan.getPlanLevel()==ConstSetBA.PlanLevel_Second){
@@ -262,7 +309,7 @@ public class JformPlanController extends BaseController {
                     jformPlan.setUserPlanid(userPlanEntity.getId());//三级任务才会有userPlanid
                 }
             }
-            jformPlanService.save(jformPlan);
+            jformPlanService.saveOrUpdate(jformPlan);
             systemService.addLog(message, Globals.Log_Type_INSERT, Globals.Log_Leavel_INFO);
         } catch (Exception e) {
             e.printStackTrace();
@@ -541,16 +588,29 @@ public class JformPlanController extends BaseController {
 
     /**
      * 更新个人任务计划的状态为指定的状态
+     * 同时更新自己下级任务为指定状态
      * @param id
      * @param status
      */
     private void UpdateUserPlanStatus(String id,int status){
+
+        //更新三级任务的状态
         StringBuffer sql = new StringBuffer();
         sql.append("update jform_user_plan set");
         sql.append(" plan_status = ? ");
+        if(status==ConstSetBA.PlanStatus_SendDivide){
+            sql.append(", plan_show =" +ConstSetBA.PlanUser_Show);
+        }
         sql.append(" where task_id = ? ");
         sql.append(" or plan_id in ( select a.id from (select id from jform_user_plan  where task_id = ?) a)");
         systemService.executeSql(sql.toString(),status,id,id);
+
+        //更新当前任务下的三级任务的状态
+        sql.setLength(0);
+        sql.append("update jform_plan set");
+        sql.append(" plan_status = ? ");
+        sql.append(" where plan_id = ? ");
+        systemService.executeSql(sql.toString(),status,id);
     }
 
     /**
@@ -574,7 +634,7 @@ public class JformPlanController extends BaseController {
         userPlanEntity.setPlanResponders(planEntity.getPlanResponder());//全部负责人
         userPlanEntity.setPlanResponder(responder);//负责人名称
         userPlanEntity.setPlanResponderid(reponderid);//负责人账号
-
+        userPlanEntity.setPlanShow(ConstSetBA.PlanUser_NotShow);//不展示，下发后再展示
     }
 
     /**
@@ -819,7 +879,7 @@ public class JformPlanController extends BaseController {
             jformPlan = jformPlanService.getEntity(JformPlanEntity.class, jformPlan.getId());
             req.setAttribute("jformPlanPage", jformPlan);
         }
-        return new ModelAndView("com/jeecg/jform_plan/jformPlan-addfirst");
+        return new ModelAndView("com/jeecg/jform_plan/jformPlan-addtask");
     }
 
     /**

@@ -420,6 +420,12 @@
 			<rtexprvalue>true</rtexprvalue>
 			<description>数据字典组编码 或 自定义字典(格式：表名,编码,显示文本)</description>
 		</attribute>
+		<attribute>
+			<name>searchpopdic</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<description>字段需要特殊的查询Popup窗口，和报表的popup替换</description>
+		</attribute>
 		<!-- update-begin-Author:gj_shaojc  Date:20180314 for：TASK #2560 【UI标签扩展】column列表字典属性扩展dictCondition加sql条件  -->
 		<attribute>
 			<name>dictCondition</name>
@@ -489,7 +495,7 @@
   		<!-- update-end-Author:taoYan  Date:20180522 for:船舶风格列属性扩展 -->
   		<attribute>
 			<name>isAjaxDict</name>
-			<rtexprvalue></rtexprvalue>
+			<rtexprvalue>false</rtexprvalue>
 			<description>是否开启ajax方式获取字典信息（默认false,开启为true,不开启为false）</description>
 		</attribute>
 	</tag>

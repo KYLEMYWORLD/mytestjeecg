@@ -1372,14 +1372,24 @@ function viewNotCreateWin(title,url, id,isRestful)
  *   inputnames:对应字典CODE,当前需要回填数据的文本框名称.
  *   pcode:动态报表的code
  */
-function popupClick(pobj,tablefield,inputnames,pcode) {
+function popupClick(pobj,tablefield,inputnames,pcode,param,afterclick) {
+	//debugger;
+	 if(param==undefined || param==null){
+	 	param="";
+	 }
+
+	 if(typeof(param) == "function") {
+		 afterclick = param;
+		 param = "";
+	 }
+
 	 if(inputnames==""||pcode==""){
 		 alert($.i18n.prop('popup.param.error.msg'));
 		 return;
 	 }
 	 if(typeof(windowapi) == 'undefined'){
 		 $.dialog({
-				content: "url:cgReportController.do?popup&id="+pcode,
+				content: "url:cgReportController.do?popup&id="+pcode+param,
 				zIndex: getzIndex(),
 				lock : true,
 				title:$.i18n.prop('common.select'),
@@ -1494,6 +1504,7 @@ function popupClick(pobj,tablefield,inputnames,pcode) {
 						    	}
 				    		}
 				    	}
+						if(afterclick!=undefined && afterclick!=null)afterclick();
 				    	return true;
 				    }
 					
@@ -1503,7 +1514,7 @@ function popupClick(pobj,tablefield,inputnames,pcode) {
 			});
 		}else{
 			$.dialog({
-				content: "url:cgReportController.do?popup&id="+pcode,
+				content: "url:cgReportController.do?popup&id="+pcode+param,
 				zIndex: getzIndex(),
 				lock : true,
 				title:$.i18n.prop('common.select'),
@@ -1611,6 +1622,7 @@ function popupClick(pobj,tablefield,inputnames,pcode) {
 						    	}
 				    		}
 				    	}
+						if(afterclick!=undefined && afterclick!=null)afterclick();
 				    	return true;
 				    }
 					

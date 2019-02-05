@@ -582,7 +582,7 @@ public class LoginController extends BaseController{
 	 */
 	@RequestMapping(params = "hplushome")
 	public ModelAndView hplushome(HttpServletRequest request) {
-		return new ModelAndView("main/keda_home");
+		return new ModelAndView("main/keda_echart");
 	}
 	
 	/**

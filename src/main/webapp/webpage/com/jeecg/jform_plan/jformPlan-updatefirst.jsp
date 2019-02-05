@@ -154,7 +154,7 @@
 							</label>
 						</td>
 						<td class="value">
-									  <input id="finishDate" name="finishDate" type="text" style="width: 150px"  class="Wdate" onClick="WdatePicker()"  ignore="ignore" value='<fmt:formatDate value='${jformPlanPage.finishDate}' type="date" pattern="yyyy-MM-dd"/>'/>
+							<input id="finishDate" name="finishDate" type="text" style="width: 150px"  class="Wdate" onClick="WdatePicker()"  ignore="ignore" value='<fmt:formatDate value='${jformPlanPage.finishDate}' type="date" pattern="yyyy-MM-dd"/>'/>
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">任务完成时间</label>
 						</td>

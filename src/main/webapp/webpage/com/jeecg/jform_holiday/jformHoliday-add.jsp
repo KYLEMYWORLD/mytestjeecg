@@ -7,11 +7,12 @@
   <t:base type="jquery,easyui,tools,DatePicker"></t:base>
   <script type="text/javascript">
   //编写自定义JS代码
+
   </script>
  </head>
  <body>
   <t:formvalid formid="formobj" dialog="true" usePlugin="password" layout="table" action="jformHolidayController.do?doAdd" >
-					<input id="id" name="id" type="hidden" value="${jformHolidayPage.id }"/>
+	  <input id="id" name="id" type="hidden" value="${jformHolidayPage.id }"/>
 		<table style="width: 600px;" cellpadding="0" cellspacing="1" class="formtable">
 				<tr>
 					<td align="right">
@@ -20,7 +21,7 @@
 						</label>
 					</td>
 					<td class="value">
-							   <input id="holiday" name="holiday" type="text" style="width: 150px" class="Wdate" onClick="WdatePicker()"  datatype="*"  ignore="checked" />    
+							   <input id="holiday" readonly name="holiday" type="text" style="width: 150px" class="Wdate" onClick="WdatePicker({minDate:'2019-01-01'})"  datatype="*"  ignore="checked" />
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">节假日</label>
 						</td>
@@ -32,7 +33,7 @@
 						</label>
 					</td>
 					<td class="value">
-							  <t:dictSelect id="times" field="times" type="list"  datatype="/^(-?\d+)(\.\d+)?$/"  typeGroupCode="holidayT"  defaultVal="${jformHolidayPage.times}" hasLabel="false"  title="时长" ></t:dictSelect>
+							  <t:dictSelect id="times" field="times" type="list"  datatype="n"  typeGroupCode="holidayT"  defaultVal="${jformHolidayPage.times}" hasLabel="false"  title="时长" ></t:dictSelect>
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">时长</label>
 						</td>

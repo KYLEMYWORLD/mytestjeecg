@@ -62,6 +62,8 @@ import com.google.gson.Gson;
 public class DataGridTag extends TagSupport {
 	private static Logger log = Logger.getLogger(DataGridTag.class);
 	private final String DATE_FORMATTER = "yyyy-MM-dd";
+	private final String DATE_YEAR_FORMATTER = "yyyy";
+	private final String DATE_MONTH_FORMATTER = "MM";
 	private final String DATETIME_FORMATTER = "yyyy-MM-dd hh:mm:ss";
 	
 	protected String fields = "";// 显示字段
@@ -495,7 +497,7 @@ public class DataGridTag extends TagSupport {
 
 			String style,String downloadName,boolean isAuto,String extendParams,String editor,String defaultVal,String showMode, boolean newColumn,String dictCondition,String filterType,boolean optsMenu
 
-			,boolean isAjaxDict) {
+			,boolean isAjaxDict,String searchpupdic) {
 
 		DataGridColumn dataGridColumn = new DataGridColumn();
 		dataGridColumn.setAlign(align);
@@ -540,6 +542,8 @@ public class DataGridTag extends TagSupport {
 
 		dataGridColumn.setFilterType(filterType);
 		dataGridColumn.setOptsMenu(optsMenu);
+
+		dataGridColumn.setSearchpopdic(searchpupdic);
 
 		dataGridColumn.setAjaxDict(isAjaxDict);
 		columnList.add(dataGridColumn);
@@ -1090,7 +1094,7 @@ public class DataGridTag extends TagSupport {
 					}else{
 						appendLine(sb,"<input  onkeypress=\"EnterPress(event)\" onkeydown=\"EnterPress()\"  type=\"text\" name=\""+column.getField().replaceAll("_","\\.")+"\"  "+extendAttribute(column.getExtend())+" ");
 						if(this.DATE_FORMATTER.equals(column.getFormatter())){
-							appendLine(sb," style=\"width: 160px\" class=\"Wdate\" onClick=\"WdatePicker()\" ");
+							appendLine(sb," style=\"width: 160px\" class=\"Wdate\" onClick=\"WdatePicker({dateFmt:'yyyy-MM-dd'})\" ");
 						}else if(this.DATETIME_FORMATTER.equals(column.getFormatter())){
 							appendLine(sb," style=\"width: 160px\" class=\"Wdate\" onClick=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})\" ");
 						}else{
@@ -1738,6 +1742,8 @@ public class DataGridTag extends TagSupport {
 		getFilterFields(sb);
 
 		appendLine(sb,"</script>");
+
+		// TODO 组装界面的查询表单
 		appendLine(sb,"<table width=\"100%\"   id=\"" + name + "\" toolbar=\"#" + name + "tb\"></table>");
 		appendLine(sb,"<div id=\"" + name + "tb\" style=\"padding:3px; height: auto\">");
 
@@ -1750,9 +1756,8 @@ public class DataGridTag extends TagSupport {
 
 		appendLine(sb,"<input  id=\"_complexSqlbuilder\" name=\"complexSqlbuilder\"   type=\"hidden\" />");
 
-		
+		//表单是 组合查询模式
 		if(hasQueryColum(columnList) && "group".equals(getQueryMode())){
-
 			blink = true;
 
 			String searchColumStyle = toolBarList!=null&&toolBarList.size()!=0?"":"style='border-bottom: 0px'";
@@ -1775,14 +1780,14 @@ public class DataGridTag extends TagSupport {
 
 			appendLine(sb,"<span><img style=\"margin-top:-3px;vertical-align:middle;\" src=\"plug-in/easyui/themes/icons/ti.png\"  title=\"提示：模糊查询通配符: *，多个关键字用半角逗号 ',' 隔开！\" alt=\"提示：模糊查询通配符: *，多个关键字用半角逗号 ',' 隔开！\" /></span>");
 
-			
+			// 根据列的配置信息 配置查询规则
 			getSearchFormInfo(sb);
 			appendLine(sb,"</span>");
-
 			appendLine(sb,"<span>");
+
+			// 查询按钮
 			getSearchButton(sb);
 			appendLine(sb,"</span>");
-
 			appendLine(sb,"</form></div>");
 
 		}else if(hasQueryColum(columnList) && "advanced".equals(getQueryMode())){
@@ -2194,6 +2199,7 @@ public class DataGridTag extends TagSupport {
 
 	/**
 	 * 构建查询form当中的信息
+	 * 构造界面查询框的代码
 	 * @param sb
 	 */
 	private void getSearchFormInfo(StringBuffer sb) {
@@ -2213,15 +2219,14 @@ public class DataGridTag extends TagSupport {
 
 					
 					if("single".equals(col.getQueryMode())){
+						//使用简单的替换replace属性组装
 						if(!StringUtil.isEmpty(col.getReplace())){
 							appendLine(sb,"<select name=\""+col.getField().replaceAll("_","\\.")+"\" WIDTH=\"120\" style=\"width: 120px\"> ");
 							appendLine(sb,StringUtil.replaceAll("<option value =\"\" >{0}</option>", "{0}", MutiLangUtil.getLang("common.please.select")));
 							String[] test = col.getReplace().split(",");
 							String text = "";
 							String value = "";
-							
-							
-							
+
 							for (String string : test) {
 								String lang_key = string.split("_")[0];
 								text = MutiLangUtil.getLang(lang_key);
@@ -2237,7 +2242,9 @@ public class DataGridTag extends TagSupport {
 							}
 							appendLine(sb,"</select>");
 						}else if(!StringUtil.isEmpty(col.getDictionary())){
+							//使用Dictionary 数字字典配置
 
+							//是Popup模式
 							if(col.getDictionary().contains(",")&&col.isPopup()){
 								String[] dic = col.getDictionary().split(",");
 
@@ -2256,72 +2263,91 @@ public class DataGridTag extends TagSupport {
 								}else{
 									appendLine(sb,"<input type=\"text\" name=\""+col.getField().replaceAll("_","\\.")+"\" style=\"width: 120px\" class=\"searchbox-inputtext\" value=\"\" onClick=\"popupClick(this,'"+dic[2].replaceAll("@", ",")+"','"+dic[1].replaceAll("@", ",")+"','"+dic[0]+"');\" /> ");
 								}
-
+							//不是popup模式(查询数据库表替换)
 							}else if(col.getDictionary().contains(",")&&(!col.isPopup())){
-								String[] dic = col.getDictionary().split(",");
-
-								String sql;
-								if(!StringUtil.isEmpty(col.getDictCondition())){
-									sql = "select " + dic[1] + " as field," + dic[2]+ " as text from " + dic[0]+" "+col.getDictCondition();
+								//特殊模式，列使用表数据替换，查询控件使用Popup弹框
+								if(col.getSearchpopdic()!=null && !StringUtil.isEmpty(col.getSearchpopdic())){
+									String[] dic = col.getSearchpopdic().split(",");
+									appendLine(sb,"<input type=\"text\" style=\"display:none\" name=\""+col.getField().replaceAll("_","\\.")+"\"/> ");
+									if(col.getDefaultVal()!=null&&!col.getDefaultVal().trim().equals("")){
+										appendLine(sb,"<input type=\"text\" readonly name=\"cname\" style=\"width: 120px\" class=\"searchbox-inputtext\" value=\"\" onClick=\"popupClick(this,'"+dic[2].replaceAll("@", ",")+"','"+dic[1].replaceAll("@", ",")+"','"+dic[0]+"');\" value=\""+col.getDefaultVal()+"\"/> ");
+									}else{
+										appendLine(sb,"<input type=\"text\" readonly name=\"cname\" style=\"width: 120px\" class=\"searchbox-inputtext\" value=\"\" onClick=\"popupClick(this,'"+dic[2].replaceAll("@", ",")+"','"+dic[1].replaceAll("@", ",")+"','"+dic[0]+"');\" /> ");
+									}
+									appendLine(sb,"<input type=\"button\" value=\"清除\" onclick=\"cNameClear()\"/> ");
+									appendLine(sb,"<script type=\"text/javascript\"> function cNameClear(){ document.getElementsByName('cname')[0].value ='';document.getElementsByName('"
+											+col.getField().replaceAll("_","\\.")+"')[0].value ='';}</script>");
 								}else{
-									sql = "select " + dic[1] + " as field," + dic[2]+ " as text from " + dic[0];
-								}
+									String[] dic = col.getDictionary().split(",");
 
-								systemService = ApplicationContextUtil.getContext().getBean(
-										SystemService.class);
-								List<Map<String, Object>> list = systemService.findForJdbc(sql);
-								
-								
-								String showMode = col.getShowMode();
-								if (null != showMode && "radio".equals(showMode)) {
-									String field = col.getField().replaceAll("_","\\.");
-									appendLine(sb,"<input type=\"hidden\"  name=\""+field+"\" id=\""+field+"_radio\"/>");									
-									for (Map<String, Object> map : list){	//									    
-
-										if(col.getDefaultVal()!=null && col.getDefaultVal().trim().equals(map.get("field"))){
-											appendLine(sb," <input type=\"radio\" name=\""+field+"_radio\" onclick=\"javascrpt:$('#"+field+"_radio').val('"+map.get("field")+"');\" value=\""+map.get("field")+"\" checked=\"checked\" />");
-											appendLine(sb," <script type=\"text/javascript\">");
-											appendLine(sb,"  	$('#"+ field+"_radio').val(\""+map.get("field")+"\");");
-											appendLine(sb," </script>");
-										}else{
-											appendLine(sb," <input type=\"radio\" name=\""+field+"_radio\" onclick=\"javascrpt:$('#"+field+"_radio').val('"+map.get("field")+"');\" value=\""+map.get("field")+"\" />");
-										}	
-
-										appendLine(sb,(String)map.get("text"));
+									String sql;
+									if(!StringUtil.isEmpty(col.getDictCondition())){
+										sql = "select " + dic[1] + " as field," + dic[2]+ " as text from " + dic[0]+" "+col.getDictCondition();
+									}else{
+										sql = "select " + dic[1] + " as field," + dic[2]+ " as text from " + dic[0];
 									}
-								}else if (null != showMode && "checkbox".equals(showMode)) {
-									String field = col.getField().replaceAll("_","\\.");
-									appendLine(sb,"<input type=\"hidden\" name=\""+field+"\" id=\""+field+"_checkbox\" value=\"\" />");
-									for (Map<String, Object> map : list){	//									    
-										if(col.getDefaultVal()!=null && col.getDefaultVal().trim().equals(map.get("field"))){											
-											appendLine(sb," <input type=\"checkbox\" onclick=\"javascript:if(this.checked)$('#"+ field +"_checkbox').val($('#"+ field +"_checkbox').val()+',"+map.get("field")+",');else{$('#"+ field +"_checkbox').val($('#"+ field +"_checkbox').val().replace(',"+map.get("field")+",',''));}\" value=\"" + map.get("field") + "\" name=\"" + field +"_checkbox\" class=\"" + field + "_checkbox\" checked=\"checked\" />");
-											appendLine(sb," <script type=\"text/javascript\">");
-											appendLine(sb,"  	$(\"#"+ field +"_checkbox\").val($(\"#"+ field +"_checkbox\").val()+,"+map.get("field")+",);");
-											appendLine(sb," </script>");											
-										}else{											
-											appendLine(sb," <input type=\"checkbox\" onclick=\"javascript:if(this.checked)$('#"+ field +"_checkbox').val($('#"+ field +"_checkbox').val()+',"+map.get("field")+",');else{$('#"+ field +"_checkbox').val($('#"+ field +"_checkbox').val().replace(',"+map.get("field")+",',''));}\" value=\"" + map.get("field") + "\" name=\"" + field +"_checkbox\" class=\"" + field + "_checkbox\" />");
+
+									systemService = ApplicationContextUtil.getContext().getBean(
+											SystemService.class);
+									List<Map<String, Object>> list = systemService.findForJdbc(sql);
+
+
+									String showMode = col.getShowMode();
+									//如果有配置 表单元素,查询表单中显示样式,默认样式select
+									if (null != showMode && "radio".equals(showMode)) {
+										String field = col.getField().replaceAll("_","\\.");
+										appendLine(sb,"<input type=\"hidden\"  name=\""+field+"\" id=\""+field+"_radio\"/>");
+										for (Map<String, Object> map : list){	//
+
+											if(col.getDefaultVal()!=null && col.getDefaultVal().trim().equals(map.get("field"))){
+												appendLine(sb," <input type=\"radio\" name=\""+field+"_radio\" onclick=\"javascrpt:$('#"+field+"_radio').val('"+map.get("field")+"');\" value=\""+map.get("field")+"\" checked=\"checked\" />");
+												appendLine(sb," <script type=\"text/javascript\">");
+												appendLine(sb,"  	$('#"+ field+"_radio').val(\""+map.get("field")+"\");");
+												appendLine(sb," </script>");
+											}else{
+												appendLine(sb," <input type=\"radio\" name=\""+field+"_radio\" onclick=\"javascrpt:$('#"+field+"_radio').val('"+map.get("field")+"');\" value=\""+map.get("field")+"\" />");
+											}
+
+											appendLine(sb,(String)map.get("text"));
 										}
-										appendLine(sb,(String)map.get("text"));
-									}
-								}else{
-									appendLine(sb,"<select name=\""+col.getField().replaceAll("_","\\.")+"\" WIDTH=\"120\" style=\"width: 120px\"> ");
-									appendLine(sb,StringUtil.replaceAll("<option value =\"\" >{0}</option>", "{0}", MutiLangUtil.getLang("common.please.select")));
-									for (Map<String, Object> map : list){
-
-										if(col.getDefaultVal()!=null&&col.getDefaultVal().trim().equals(map.get("field"))){
-											appendLine(sb," <option value=\""+map.get("field")+"\" selected=\"selected\">");
-										}else{
-											appendLine(sb," <option value=\""+map.get("field")+"\">");
+									}else if (null != showMode && "checkbox".equals(showMode)) {
+										String field = col.getField().replaceAll("_","\\.");
+										appendLine(sb,"<input type=\"hidden\" name=\""+field+"\" id=\""+field+"_checkbox\" value=\"\" />");
+										for (Map<String, Object> map : list){	//
+											if(col.getDefaultVal()!=null && col.getDefaultVal().trim().equals(map.get("field"))){
+												appendLine(sb," <input type=\"checkbox\" onclick=\"javascript:if(this.checked)$('#"+ field +"_checkbox').val($('#"+ field +"_checkbox').val()+',"+map.get("field")+",');else{$('#"+ field +"_checkbox').val($('#"+ field +"_checkbox').val().replace(',"+map.get("field")+",',''));}\" value=\"" + map.get("field") + "\" name=\"" + field +"_checkbox\" class=\"" + field + "_checkbox\" checked=\"checked\" />");
+												appendLine(sb," <script type=\"text/javascript\">");
+												appendLine(sb,"  	$(\"#"+ field +"_checkbox\").val($(\"#"+ field +"_checkbox\").val()+,"+map.get("field")+",);");
+												appendLine(sb," </script>");
+											}else{
+												appendLine(sb," <input type=\"checkbox\" onclick=\"javascript:if(this.checked)$('#"+ field +"_checkbox').val($('#"+ field +"_checkbox').val()+',"+map.get("field")+",');else{$('#"+ field +"_checkbox').val($('#"+ field +"_checkbox').val().replace(',"+map.get("field")+",',''));}\" value=\"" + map.get("field") + "\" name=\"" + field +"_checkbox\" class=\"" + field + "_checkbox\" />");
+											}
+											appendLine(sb,(String)map.get("text"));
 										}
+									}else{
+										//默认select
+										appendLine(sb,"<select name=\""+col.getField().replaceAll("_","\\.")+"\" WIDTH=\"120\" style=\"width: 120px\"> ");
+										//
+										appendLine(sb,StringUtil.replaceAll("<option value =\"\" >{0}</option>", "{0}", MutiLangUtil.getLang("common.please.select")));
 
-	
-										appendLine(sb,(String)map.get("text"));
-										appendLine(sb," </option>");
+										for (Map<String, Object> map : list){
+
+											if(col.getDefaultVal()!=null&&col.getDefaultVal().trim().equals(map.get("field"))){
+												appendLine(sb," <option value=\""+map.get("field")+"\" selected=\"selected\">");
+											}else{
+												appendLine(sb," <option value=\""+map.get("field")+"\">");
+											}
+
+
+											appendLine(sb,(String)map.get("text"));
+											appendLine(sb," </option>");
+										}
+										appendLine(sb,"</select>");
 									}
-									appendLine(sb,"</select>");
 								}
-								
 							}else{
+
+								//系统管理-数字字典模式
 								List<TSType> types = ResourceUtil.getCacheTypes(col.getDictionary().toLowerCase());
 								
 								String showMode = col.getShowMode();
@@ -2376,7 +2402,6 @@ public class DataGridTag extends TagSupport {
 														+ type.getTypecode()
 														+ "\">");
 											}
-
 										
 											appendLine(sb,MutiLangUtil.getLang(type.getTypename()));
 											appendLine(sb," </option>");
@@ -2394,6 +2419,10 @@ public class DataGridTag extends TagSupport {
 								appendLine(sb," style=\"width: 120px\" class=\"Wdate\" onClick=\"WdatePicker()\" ");
 							}else if(this.DATETIME_FORMATTER.equals(col.getFormatter())){
 								appendLine(sb," style=\"width: 160px\" class=\"Wdate\" onClick=\"WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})\" ");
+							}else if(this.DATE_YEAR_FORMATTER.equals(col.getFormatter())){
+								appendLine(sb," style=\"width: 160px\" class=\"Wdate\" onClick=\"WdatePicker({dateFmt:'yyyy'})\" ");
+							}else if(this.DATE_MONTH_FORMATTER.equals(col.getFormatter())){
+								appendLine(sb," style=\"width: 160px\" class=\"Wdate\" onClick=\"WdatePicker({dateFmt:'MM'})\" ");
 							}else{
 								appendLine(sb," style=\"width: 120px\" class=\"inuptxt\" ");
 							}
@@ -3662,6 +3691,7 @@ public class DataGridTag extends TagSupport {
 						appendLine(sb,"<span style=\"display:-moz-inline-box;display:inline-block;\">");
 						appendLine(sb,"<span style=\"vertical-align:middle;display:-moz-inline-box;display:inline-block;width: 80px;text-align:right;text-overflow:ellipsis;-o-text-overflow:ellipsis; overflow: hidden;white-space:nowrap; \" title=\""+col.getTitle()+"\">"+col.getTitle()+"：</span>");
 						if("single".equals(col.getQueryMode())){
+							//使用替换模式 replace
 							if(!StringUtil.isEmpty(col.getReplace())){
 								appendLine(sb,"<select name=\""+col.getField().replaceAll("_","\\.")+"\" WIDTH=\"100\" style=\"width: 104px\"> ");
 								appendLine(sb,StringUtil.replaceAll("<option value =\"\" >{0}</option>", "{0}", MutiLangUtil.getLang("common.please.select")));
@@ -3678,6 +3708,7 @@ public class DataGridTag extends TagSupport {
 									appendLine(sb,"<option value =\""+value+"\">"+text+"</option>");
 								}
 								appendLine(sb,"</select>");
+								//使用字典模式
 							}else if(!StringUtil.isEmpty(col.getDictionary())){
 								if(col.getDictionary().contains(",")){
 									String[] dic = col.getDictionary().split(",");
@@ -3752,8 +3783,7 @@ public class DataGridTag extends TagSupport {
 						if(StringUtil.isNotEmpty(toolBar.getOnclick()))
 						{
 							sb.append("onclick="+toolBar.getOnclick()+"");
-						}
-						else {
+						}else {
 							sb.append("onclick=\""+toolBar.getFunname()+"(");
 							if(!toolBar.getFunname().equals("doSubmit"))
 							{
@@ -3766,14 +3796,12 @@ public class DataGridTag extends TagSupport {
 						appendLine(sb,">");
 						appendLine(sb,"<i class=\"" + toolBar.getIcon() + "\"></i>");
 						appendLine(sb,"<span class=\"bigger-110 no-text-shadow\">"+toolBar.getTitle()+"</span></button>");
-						
 					}else{
 						sb.append("<a href=\"#\" class=\""+btnCls+" " + toolBar.getIcon()+"\" ");
 						if(StringUtil.isNotEmpty(toolBar.getOnclick()))
 						{
 							sb.append("onclick="+toolBar.getOnclick()+"");
-						}
-						else {
+						}else {
 							sb.append("onclick=\""+toolBar.getFunname()+"(");
 							if(!toolBar.getFunname().equals("doSubmit"))
 							{
@@ -3793,8 +3821,7 @@ public class DataGridTag extends TagSupport {
 					if(StringUtil.isNotEmpty(toolBar.getOnclick()))
 					{
 						sb.append("onclick="+toolBar.getOnclick()+"");
-					}
-					else {
+					}else {
 						sb.append("onclick=\""+toolBar.getFunname()+"(");
 						if(!toolBar.getFunname().equals("doSubmit"))
 						{

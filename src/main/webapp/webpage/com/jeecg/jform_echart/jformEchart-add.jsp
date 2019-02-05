@@ -140,10 +140,10 @@
 						</label>
 					</td>
 					<td class="value">
-						<input id="rfinishDate" name="rfinishDate" type="text" style="width: 150px" class="Wdate" onClick="WdatePicker()"  ignore="ignore" />
-						<span class="Validform_checktip"></span>
-						<label class="Validform_label" style="display: none;">实际完成时间</label>
-					</td>
+							   <input id="rfinishDate" name="rfinishDate" type="text" style="width: 150px" class="Wdate" onClick="WdatePicker()"  ignore="ignore" />    
+							<span class="Validform_checktip"></span>
+							<label class="Validform_label" style="display: none;">实际完成时间</label>
+						</td>
 					</tr>
 				
 				

@@ -1,17 +1,27 @@
 package com.jeecg.jform_user_plan.controller;
 
 import com.jeecg.ConstSetBA;
+import com.jeecg.jform_assess.entity.JformAssessEntity;
 import com.jeecg.jform_echart.entity.JformEchartEntity;
 import com.jeecg.jform_plan.entity.JformPlanEntity;
+import com.jeecg.jform_project.entity.JformProjectEntity;
 import com.jeecg.jform_user_plan.entity.JformUserPlanEntity;
 import com.jeecg.jform_user_plan.service.JformUserPlanServiceI;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sun.xml.internal.bind.v2.TODO;
+import org.hibernate.*;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
+import org.hibernate.transform.ResultTransformer;
 import org.jeecgframework.tag.vo.datatable.SortDirection;
 import org.jeecgframework.web.system.pojo.base.TSUser;
 import org.slf4j.Logger;
@@ -126,6 +136,19 @@ public class JformUserPlanController extends BaseController {
         TagUtil.treegrid(response, dataGrid);
     }
 
+    private String[] getProjectId(String username) {
+        String sql = "select id from jform_project where project_managerid like CONCAT('%',?,'%') ";
+        List<Map<String,Object>> projectid = systemService.findForJdbc(sql, username);
+        if (projectid != null && projectid.size() > 0) {
+            List<String> ids = new ArrayList<>();
+            for(Map<String,Object> entity:projectid){
+                ids.add(entity.get("id").toString());
+            }
+            return ids.toArray(new String[projectid.size()]);
+        }
+        return null;
+    }
+
     /**
      * 个人任务反馈状态过滤
      */
@@ -146,12 +169,12 @@ public class JformUserPlanController extends BaseController {
     @RequestMapping(params = "feedbackdatagrid")
     public void feedbackdatagrid(JformUserPlanEntity jformUserPlan, HttpServletRequest request, HttpServletResponse response, DataGrid dataGrid) {
         CriteriaQuery cq = new CriteriaQuery(JformUserPlanEntity.class, dataGrid);
-		if(StringUtil.isEmpty(jformUserPlan.getId())){
-			cq.isNull("planId");
-		}else{
-			cq.eq("planId", jformUserPlan.getId());
-			jformUserPlan.setId(null);
-		}
+//		if(StringUtil.isEmpty(jformUserPlan.getId())){
+//			cq.isNull("planId");
+//		}else{
+//			cq.eq("planId", jformUserPlan.getId());
+//			jformUserPlan.setId(null);
+//		}
         //查询条件组装器
         org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, jformUserPlan, request.getParameterMap());
         try {
@@ -160,6 +183,12 @@ public class JformUserPlanController extends BaseController {
             cq.addOrder("finishDate", SortDirection.asc);
             cq.in("planLevel", levelFilter);
             cq.in("planStatus", planStatusFilter);
+            TSUser user = ResourceUtil.getSessionUser();
+            String[] projectid = getProjectId(user.getUserName());
+            if (projectid != null) {
+                cq.add(Restrictions.or(Restrictions.in("projectId", projectid)
+                        ,Restrictions.eq("planResponderid",user.getUserName())));
+            }
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
@@ -167,6 +196,7 @@ public class JformUserPlanController extends BaseController {
         this.jformUserPlanService.getDataGridReturn(cq, true);
         TagUtil.datagrid(response, dataGrid);
     }
+
 
     /**
      * 删除个人计划安排
@@ -191,10 +221,18 @@ public class JformUserPlanController extends BaseController {
                 throw new BusinessException("二级任务只能由项目经理删除！");
             }
 
+            if (!jformUserPlan.getPlanResponderid().equals(ResourceUtil.getSessionUser().getUserName())) {
+                throw new BusinessException("非当前任务负责人不能进行该操作！");
+            }
+
             if (jformUserPlan.getPlanLevel() == ConstSetBA.PlanLevel_Third) {
                 //三级任务
-                List<JformPlanEntity> entity = systemService.findHql("from JformPlanEntity e where e.userPlanid = ?", jformUserPlan.getId());
-                systemService.deleteAllEntitie(entity);
+                long count = systemService.getCountForJdbcParam("select count(1) from jform_user_plan t where t.plan_id = ?", jformUserPlan.getPlanId());
+                if (count <= 1) {
+                    throw new BusinessException("只有一个三级任务不能进行删除！");
+                }
+                JformPlanEntity planEntity = systemService.getEntity(JformPlanEntity.class, jformUserPlan.getTaskId());
+                systemService.delete(planEntity);
             }
 
             jformUserPlanService.delete(jformUserPlan);
@@ -220,17 +258,17 @@ public class JformUserPlanController extends BaseController {
         String message = null;
         AjaxJson j = new AjaxJson();
         message = "个人计划安排删除成功";
-        try {
-            for (String id : ids.split(",")) {
-                JformUserPlanEntity jformUserPlan = systemService.getEntity(JformUserPlanEntity.class, id);
-                jformUserPlanService.delete(jformUserPlan);
-                systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            message = "个人计划安排删除失败";
-            throw new BusinessException(e.getMessage());
-        }
+//        try {
+//            for (String id : ids.split(",")) {
+//                JformUserPlanEntity jformUserPlan = systemService.getEntity(JformUserPlanEntity.class, id);
+//                jformUserPlanService.delete(jformUserPlan);
+//                systemService.addLog(message, Globals.Log_Type_DEL, Globals.Log_Leavel_INFO);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            message = "个人计划安排删除失败";
+//            throw new BusinessException(e.getMessage());
+//        }
         j.setMsg(message);
         return j;
     }
@@ -256,10 +294,15 @@ public class JformUserPlanController extends BaseController {
             if (jformUserPlan.getPlanLevel() == ConstSetBA.PlanLevel_Third) {
                 //三级任务 同步到项目计划中
                 JformUserPlanEntity seconPlan = jformUserPlanService.get(JformUserPlanEntity.class, jformUserPlan.getPlanId());
+
+                if (!seconPlan.getPlanResponderid().equals(ResourceUtil.getSessionUser().getUserName())) {
+                    throw new BusinessException("不是当前二级任务的负责人，不能进行细分！");
+                }
                 jformUserPlan.setProjectId(seconPlan.getProjectId());
                 jformUserPlan.setPlanStatus(ConstSetBA.PlanStatus_Draft);//草稿
                 jformUserPlan.setPlanIssucc(ConstSetBA.PlanIsSuccess_NO);//未完成
                 jformUserPlan.setPlanIsalert(ConstSetBA.PlanIsAlert_NO);//未预警
+                jformUserPlan.setPlanShow(ConstSetBA.PlanUser_Show);
                 JformPlanEntity entity = new JformPlanEntity();
                 entity.setPlanId(seconPlan.getTaskId());
                 entity.setUserPlanid(jformUserPlan.getId());
@@ -276,6 +319,7 @@ public class JformUserPlanController extends BaseController {
                 jformUserPlan.setPlanStatus(ConstSetBA.PlanStatus_Execution);
                 jformUserPlan.setPlanIsalert(ConstSetBA.PlanIsAlert_NO);
                 jformUserPlan.setPlanIssucc(ConstSetBA.PlanIsSuccess_NO);
+                jformUserPlan.setPlanShow(ConstSetBA.PlanUser_Show);
                 jformUserPlanService.save(jformUserPlan);
             }
 
@@ -331,6 +375,10 @@ public class JformUserPlanController extends BaseController {
             MyBeanUtils.copyBeanNotNull2Bean(jformUserPlan, t);
 
             if (t.getPlanLevel() == ConstSetBA.PlanLevel_Third) {
+                if (!t.getPlanResponderid().equals(ResourceUtil.getSessionUser().getUserName())) {
+                    throw new BusinessException("非任务负责人，不能进行更新！");
+                }
+
                 //同时更新工作任务计划里面的信息
                 StringBuffer sql = new StringBuffer();
                 sql.append("update jform_plan t set");
@@ -372,11 +420,18 @@ public class JformUserPlanController extends BaseController {
         try {
             if (t.getPlanLevel() == ConstSetBA.PlanLevel_First) {
                 throw new BusinessException("一级任务不能手动完成！");
-
             }
             if (t.getPlanLevel() == ConstSetBA.PlanLevel_Second) {
                 throw new BusinessException("二级任务不能手动完成！");
             }
+            //不是当前任务的负责人 而且又不是项目的项目经理 则不能操作
+            if (!t.getPlanResponderid().equals(ResourceUtil.getSessionUser().getUserName())) {
+                JformProjectEntity projectEntity = systemService.getEntity(JformProjectEntity.class, t.getProjectId());
+                if (projectEntity!=null && !projectEntity.getProjectManagerid().contains(ResourceUtil.getSessionUser().getUserName())) {
+                    throw new BusinessException("不是" + projectEntity.getProjectName() + "项目的项目经理，不能进行操作！");
+                }
+            }
+
             jformUserPlan.setPlanStatus(ConstSetBA.PlanStatus_Finish);
             MyBeanUtils.copyBeanNotNull2Bean(jformUserPlan, t);
 
@@ -386,17 +441,21 @@ public class JformUserPlanController extends BaseController {
                 t.setPlanIssucc(ConstSetBA.PlanIsSuccess_YES);
             }
 
-            //同时更新工作任务计划里面的信息
-            StringBuffer sql = new StringBuffer();
-            sql.append("update jform_plan t set");
-            sql.append(" t.rfinish_date = ? ,");
-            sql.append(" t.plan_issucc = ? ,");
-            sql.append(" t.plan_status = ? ,");
-            sql.append(" t.plan_latemsg = ? ");
-            sql.append(" where t.userplan_id = ?");
-            systemService.executeSql(sql.toString(), t.getRealfinishDate(), t.getPlanIssucc(), t.getPlanStatus(), t.getPlanLatemsg(), t.getId());
+            //三等级的 任务才需要去更新工作任务中的数据
+            if(t.getPlanLevel() == ConstSetBA.PlanLevel_Third){
+                //同时更新工作任务计划里面的信息
+                StringBuffer sql = new StringBuffer();
+                sql.append("update jform_plan t set");
+                sql.append(" t.rfinish_date = ? ,");
+                sql.append(" t.plan_issucc = ? ,");
+                sql.append(" t.plan_status = ? ,");
+                sql.append(" t.plan_latemsg = ? ");
+                sql.append(" where t.userplan_id = ?");
+                systemService.executeSql(sql.toString(), t.getRealfinishDate(), t.getPlanIssucc(), t.getPlanStatus(), t.getPlanLatemsg(), t.getId());
+            }
 
             jformUserPlanService.saveOrUpdate(t);
+            doAddAssessByPlan(t);//完成任务的同时新增考勤评估信息
             systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);
 
             if (!StringUtil.isEmpty(t.getPlanId())) {
@@ -468,38 +527,36 @@ public class JformUserPlanController extends BaseController {
                 }
             }
         } catch (Exception e) {
+
             e.printStackTrace();
-            message = "个人计划安排更新失败";
             throw new BusinessException(e.getMessage());
         }
         j.setMsg(message);
         return j;
     }
 
+    public void doAddAssessByPlan(JformUserPlanEntity t ){
+        JformAssessEntity entity = new JformAssessEntity();
+        entity.setPlanLevel(t.getPlanLevel());
+        entity.setId(t.getId());
+        entity.setPlanName(t.getPlanName());
+        entity.setProjectId(t.getProjectId());
+        entity.setStartDate(t.getStartDate());
+        entity.setFinishDate(t.getFinishDate());
+        entity.setRfinishDate(t.getRealfinishDate());
+        entity.setResponderId(t.getPlanResponderid());
+        entity.setPlanIssucc(t.getPlanIssucc());
+        entity.setAssessStatus(ConstSetBA.AssessStatus_NotDone);//未评估
+        java.math.BigDecimal systemscore = BigDecimal.ZERO;
 
-    /**
-     * 自定义按钮-[添加任务]业务
-     *
-     * @param jformUserPlan
-     * @param request
-     * @return
-     */
-    @RequestMapping(params = "doAdduserplan")
-    @ResponseBody
-    public AjaxJson doAdduserplan(JformUserPlanEntity jformUserPlan, HttpServletRequest request) {
-        String message = null;
-        AjaxJson j = new AjaxJson();
-        message = "添加任务成功";
-        JformUserPlanEntity t = jformUserPlanService.get(JformUserPlanEntity.class, jformUserPlan.getId());
-        try {
-            jformUserPlanService.doAdduserplanBus(t);
-            systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);
-        } catch (Exception e) {
-            e.printStackTrace();
-            message = "添加任务失败";
-        }
-        j.setMsg(message);
-        return j;
+        //计算进度分数
+        int days = getDateBetwwen(entity.getFinishDate(),entity.getRfinishDate());
+        systemscore = BigDecimal.valueOf(100-(days * 20));
+
+        systemscore.multiply(new BigDecimal(0.3));
+        systemscore.setScale(2);//保留两位小数
+        entity.setSystemScore(systemscore);
+        systemService.saveOrUpdate(entity);
     }
 
     /**
@@ -524,6 +581,10 @@ public class JformUserPlanController extends BaseController {
                 throw new BusinessException("当前任务不是二级任务不能进行细分完成！");
             }
 
+            if (!t.getPlanResponderid().equals(ResourceUtil.getSessionUser().getUserName())) {
+                throw new BusinessException("非当前任务负责人不能进行该操作！");
+            }
+
             long thridCount = systemService.getCountForJdbcParam("select count(1) from jform_user_plan t where t.plan_id = ?", t.getId());
             if (thridCount <= 0) {
                 throw new BusinessException("请先细分当前二级任务后再进行操作！");
@@ -545,22 +606,19 @@ public class JformUserPlanController extends BaseController {
             }
 
             t.setPlanStatus(ConstSetBA.PlanStatus_SendDivideFinish);
-
-            // TODO 二级任务下面的三级任务状态也更新为细分完成
-            StringBuffer sql = new StringBuffer();
-            sql.append("update jform_user_plan t set");
-            sql.append(" t.plan_status = ?");
-            sql.append(" where t.plan_id = ?");
-            systemService.executeSql(sql.toString(), ConstSetBA.PlanStatus_SendDivideFinish, t.getId());
-
+            //二级任务下面的三级任务状态也更新为细分完成
             jformUserPlanService.doDividefinishBus(t);
             systemService.addLog(message, Globals.Log_Type_UPDATE, Globals.Log_Leavel_INFO);
         } catch (Exception e) {
             e.printStackTrace();
-            message = "细分完成失败";
+            throw new BusinessException(e.getMessage());
         }
         j.setMsg(message);
         return j;
+    }
+
+    private int getDateBetwwen(Date finishDate ,Date rfinishDate){
+        return (int)((finishDate.getTime()-rfinishDate.getTime())/(3600*1000*24));
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.jeecg.jform_test.entity;
+package com.jeecg.jform_assessanaly.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -20,18 +20,45 @@ import org.jeecgframework.poi.excel.annotation.Excel;
 
 /**   
  * @Title: Entity
- * @Description: 测试表
+ * @Description: 绩效统计
  * @author onlineGenerator
- * @date 2019-01-20 12:13:27
+ * @date 2019-01-29 14:19:02
  * @version V1.0   
  *
  */
 @Entity
-@Table(name = "jform_test", schema = "")
+@Table(name = "jform_assessanaly", schema = "")
 @SuppressWarnings("serial")
-public class JformTestEntity implements java.io.Serializable {
+public class JformAssessanalyEntity implements java.io.Serializable {
 	/**主键*/
 	private java.lang.String id;
+	/**用户名称*/
+	@Excel(name="用户名称",width=15)
+	private java.lang.String empId;
+	/**统计年份*/
+	@Excel(name="统计年份",width=15)
+	private java.lang.Integer analyYear;
+	/**统计月份*/
+	@Excel(name="统计月份",width=15)
+	private java.lang.Integer analyMonth;
+	/**任务总量*/
+	@Excel(name="任务总量",width=15)
+	private java.lang.Integer totalCount;
+	/**任务总评分*/
+	@Excel(name="任务总评分",width=15)
+	private java.math.BigDecimal totalScore;
+	/**计划安排数*/
+	@Excel(name="计划安排数",width=15)
+	private java.lang.Integer planCount;
+	/**计划总评分*/
+	@Excel(name="计划总评分",width=15)
+	private java.math.BigDecimal planScore;
+	/**个人任务数*/
+	@Excel(name="个人任务数",width=15)
+	private java.lang.Integer personCount;
+	/**个人总评分 */
+	@Excel(name="个人总评分 ",width=15)
+	private java.math.BigDecimal personScore;
 	/**创建人名称*/
 	private java.lang.String createName;
 	/**创建人登录名称*/
@@ -50,9 +77,6 @@ public class JformTestEntity implements java.io.Serializable {
 	private java.lang.String sysCompanyCode;
 	/**流程状态*/
 	private java.lang.String bpmStatus;
-	/**用户ID*/
-	@Excel(name="用户ID",width=15)
-	private java.lang.String userid;
 	
 	/**
 	 *方法: 取得java.lang.String
@@ -73,6 +97,159 @@ public class JformTestEntity implements java.io.Serializable {
 	 */
 	public void setId(java.lang.String id){
 		this.id = id;
+	}
+	/**
+	 *方法: 取得java.lang.String
+	 *@return: java.lang.String  用户名称
+	 */
+
+	@Column(name ="EMP_ID",nullable=true,length=32)
+	public java.lang.String getEmpId(){
+		return this.empId;
+	}
+
+	/**
+	 *方法: 设置java.lang.String
+	 *@param: java.lang.String  用户名称
+	 */
+	public void setEmpId(java.lang.String empId){
+		this.empId = empId;
+	}
+	/**
+	 *方法: 取得java.lang.Integer
+	 *@return: java.lang.Integer  统计年份
+	 */
+
+	@Column(name ="ANALY_YEAR",nullable=true,length=32)
+	public java.lang.Integer getAnalyYear(){
+		return this.analyYear;
+	}
+
+	/**
+	 *方法: 设置java.lang.Integer
+	 *@param: java.lang.Integer  统计年份
+	 */
+	public void setAnalyYear(java.lang.Integer analyYear){
+		this.analyYear = analyYear;
+	}
+	/**
+	 *方法: 取得java.lang.Integer
+	 *@return: java.lang.Integer  统计月份
+	 */
+
+	@Column(name ="ANALY_MONTH",nullable=true,length=32)
+	public java.lang.Integer getAnalyMonth(){
+		return this.analyMonth;
+	}
+
+	/**
+	 *方法: 设置java.lang.Integer
+	 *@param: java.lang.Integer  统计月份
+	 */
+	public void setAnalyMonth(java.lang.Integer analyMonth){
+		this.analyMonth = analyMonth;
+	}
+	/**
+	 *方法: 取得java.lang.Integer
+	 *@return: java.lang.Integer  任务总量
+	 */
+
+	@Column(name ="TOTAL_COUNT",nullable=true,length=32)
+	public java.lang.Integer getTotalCount(){
+		return this.totalCount;
+	}
+
+	/**
+	 *方法: 设置java.lang.Integer
+	 *@param: java.lang.Integer  任务总量
+	 */
+	public void setTotalCount(java.lang.Integer totalCount){
+		this.totalCount = totalCount;
+	}
+	/**
+	 *方法: 取得java.math.BigDecimal
+	 *@return: java.math.BigDecimal  任务总评分
+	 */
+
+	@Column(name ="TOTAL_SCORE",nullable=true,scale=2,length=32)
+	public java.math.BigDecimal getTotalScore(){
+		return this.totalScore;
+	}
+
+	/**
+	 *方法: 设置java.math.BigDecimal
+	 *@param: java.math.BigDecimal  任务总评分
+	 */
+	public void setTotalScore(java.math.BigDecimal totalScore){
+		this.totalScore = totalScore;
+	}
+	/**
+	 *方法: 取得java.lang.Integer
+	 *@return: java.lang.Integer  计划安排数
+	 */
+
+	@Column(name ="PLAN_COUNT",nullable=true,length=32)
+	public java.lang.Integer getPlanCount(){
+		return this.planCount;
+	}
+
+	/**
+	 *方法: 设置java.lang.Integer
+	 *@param: java.lang.Integer  计划安排数
+	 */
+	public void setPlanCount(java.lang.Integer planCount){
+		this.planCount = planCount;
+	}
+	/**
+	 *方法: 取得java.math.BigDecimal
+	 *@return: java.math.BigDecimal  计划总评分
+	 */
+
+	@Column(name ="PLAN_SCORE",nullable=true,scale=2,length=32)
+	public java.math.BigDecimal getPlanScore(){
+		return this.planScore;
+	}
+
+	/**
+	 *方法: 设置java.math.BigDecimal
+	 *@param: java.math.BigDecimal  计划总评分
+	 */
+	public void setPlanScore(java.math.BigDecimal planScore){
+		this.planScore = planScore;
+	}
+	/**
+	 *方法: 取得java.lang.Integer
+	 *@return: java.lang.Integer  个人任务数
+	 */
+
+	@Column(name ="PERSON_COUNT",nullable=true,length=32)
+	public java.lang.Integer getPersonCount(){
+		return this.personCount;
+	}
+
+	/**
+	 *方法: 设置java.lang.Integer
+	 *@param: java.lang.Integer  个人任务数
+	 */
+	public void setPersonCount(java.lang.Integer personCount){
+		this.personCount = personCount;
+	}
+	/**
+	 *方法: 取得java.math.BigDecimal
+	 *@return: java.math.BigDecimal  个人总评分 
+	 */
+
+	@Column(name ="PERSON_SCORE",nullable=true,scale=2,length=32)
+	public java.math.BigDecimal getPersonScore(){
+		return this.personScore;
+	}
+
+	/**
+	 *方法: 设置java.math.BigDecimal
+	 *@param: java.math.BigDecimal  个人总评分 
+	 */
+	public void setPersonScore(java.math.BigDecimal personScore){
+		this.personScore = personScore;
 	}
 	/**
 	 *方法: 取得java.lang.String
@@ -226,22 +403,5 @@ public class JformTestEntity implements java.io.Serializable {
 	 */
 	public void setBpmStatus(java.lang.String bpmStatus){
 		this.bpmStatus = bpmStatus;
-	}
-	/**
-	 *方法: 取得java.lang.String
-	 *@return: java.lang.String  用户ID
-	 */
-
-	@Column(name ="USERID",nullable=false,length=500)
-	public java.lang.String getUserid(){
-		return this.userid;
-	}
-
-	/**
-	 *方法: 设置java.lang.String
-	 *@param: java.lang.String  用户ID
-	 */
-	public void setUserid(java.lang.String userid){
-		this.userid = userid;
 	}
 }

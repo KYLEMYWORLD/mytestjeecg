@@ -5,6 +5,15 @@ package com.jeecg;
  */
 public final class ConstSetBA {
 
+    //Calendar
+    public final static int Cal_FirstDay = 1;//第一天
+    public final static int Cal_LastMonth = -1;//计算上个月
+    public final static int Cal_NextMonth = 1;//计算下个月
+
+    public final static int One = 1;
+    //是否判断
+    public final static int YesNo_No = 0;//否
+    public final static int YesNo_Yes = 1;//是
 
     //项目状态
     public final static int ProjectStatus_Unactivate = 0;//项目未激活
@@ -37,6 +46,10 @@ public final class ConstSetBA {
     public final static int PlanStatus_Execution = 5;//执行中
     public final static int PlanStatus_Finish = 6;//完成
 
+    //个人任务是否查看
+    public final static int PlanUser_NotShow= 0;//不展示
+    public final static int PlanUser_Show =1;//展示
+
     //完成状态
     public final static int PlanIsSuccess_NO = 0;//未完成
     public final static int PlanIsSuccess_YES = 1;//正常完成
@@ -45,6 +58,12 @@ public final class ConstSetBA {
     //预警状态
     public final static int PlanIsAlert_NO = 1;//正常
     public final static int PlanIsAlert_YES = 2;//预警
+
+    //节假日类型
+    public final static int HolidayType_Morning = 1;//上半天
+    public final static int HolidayType_Afternoon = 2;//下半天
+    public final static int HolidayType_WholeDay = 3;//全天
+
 
     //个人考勤调整类型
     public final static int AttendanceType_GoOut = 1;//出差
@@ -55,4 +74,8 @@ public final class ConstSetBA {
     public final static int AttendanceStatus_NotFinish = 0;//未结束
     public final static int AttendanceStatus_Finish =1;//已结束
 
+
+    //绩效考勤
+    public final static int AssessStatus_NotDone = 0;//为评估
+    public final static int AssessStatus_Done = 1;//已评估
 }

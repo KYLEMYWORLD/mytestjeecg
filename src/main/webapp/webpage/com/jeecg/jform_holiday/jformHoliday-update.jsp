@@ -32,7 +32,7 @@
 							</label>
 						</td>
 						<td class="value">
-									<t:dictSelect id="times" field="times" type="list"  datatype="/^(-?\d+)(\.\d+)?$/"  typeGroupCode="holidayT"   defaultVal="${jformHolidayPage.times}" hasLabel="false"  title="时长" ></t:dictSelect>
+									<t:dictSelect id="times" field="times" type="list"  datatype="n"  typeGroupCode="holidayT"   defaultVal="${jformHolidayPage.times}" hasLabel="false"  title="时长" ></t:dictSelect>
 							<span class="Validform_checktip"></span>
 							<label class="Validform_label" style="display: none;">时长</label>
 						</td>

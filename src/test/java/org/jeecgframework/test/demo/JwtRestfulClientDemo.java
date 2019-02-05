@@ -58,7 +58,7 @@ public class JwtRestfulClientDemo {
 	
 	
 	public static void main(String[] args) {
-		String token = getToken("interfaceuser","123456");
+		String token = getToken("echart","123456");
 		System.out.println(" token : "+ token);
 //		String token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJhZG1pbiIsInN1YiI6ImFkbWluIiwiaWF0IjoxNTExODU5NjM2fQ.Emfe8VZKA_L33jaW8ZUtVFVDEin83Np_d3gKlPIZryE";
 		

@@ -109,7 +109,6 @@
  </body>
 <script type="text/javascript">
 	function onRealFinishDateSelect() {
-		debugger;
 		var realfinishDate = document.getElementById("realfinishDate").value;
 		var finishDate = document.getElementById("finishDate").value;
 		if(realfinishDate > finishDate){

@@ -41,7 +41,7 @@ td input {
 </style>
 <script>
 function saveObj() {
-	debugger;
+	//debugger;
 	var groupId = $("#id").val();
 	var roleName = $("#roleName").val();
 	var roleCode = $("#roleCode").val();

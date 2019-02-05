@@ -1,4 +1,5 @@
 package com.jeecg.jform_holiday.service.impl;
+import com.jeecg.ConstSetBA;
 import com.jeecg.jform_holiday.service.JformHolidayServiceI;
 import com.sun.star.util.DateTime;
 import org.jeecgframework.core.common.service.impl.CommonServiceImpl;
@@ -49,6 +50,10 @@ public class JformHolidayServiceImpl extends CommonServiceImpl implements JformH
 		calendar.setTime(new Date());
 		calendar.set(Calendar.MONTH,0);
 		calendar.set(Calendar.DAY_OF_MONTH,1);
+		calendar.set(Calendar.HOUR_OF_DAY,0);
+		calendar.set(Calendar.MINUTE,0);
+		calendar.set(Calendar.SECOND,0);
+		calendar.set(Calendar.MILLISECOND,0);
 		int year = calendar.get(Calendar.YEAR);
 		List<JformHolidayEntity> jformHolidayEntityList = findHql("from JformHolidayEntity e where e.holiday > ?", calendar.getTime());
 		if(jformHolidayEntityList!=null && jformHolidayEntityList.size()>0){
@@ -64,7 +69,7 @@ public class JformHolidayServiceImpl extends CommonServiceImpl implements JformH
 				//System.out.printf("星期天：%tF%n", calendar);
 				JformHolidayEntity entity = new JformHolidayEntity();
 				entity.setHoliday(calendar.getTime());
-				entity.setTimes(1.0);
+				entity.setTimes(ConstSetBA.HolidayType_WholeDay);//周日 全天
 				saveOrUpdate(entity);
 			}
 			calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
@@ -72,7 +77,7 @@ public class JformHolidayServiceImpl extends CommonServiceImpl implements JformH
 				//System.out.printf("星期六：%tF%n", calendar);
 				JformHolidayEntity entity = new JformHolidayEntity();
 				entity.setHoliday(calendar.getTime());
-				entity.setTimes(0.5);
+				entity.setTimes(ConstSetBA.HolidayType_Afternoon);//周六 下午
 				saveOrUpdate(entity);
 			}
 		}

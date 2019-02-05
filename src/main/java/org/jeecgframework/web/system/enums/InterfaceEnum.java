@@ -19,7 +19,11 @@ public enum InterfaceEnum {
 	jeecgdemo_get("jeecgdemo_get", "jeecgDemo单条数据查询", "/rest/jeecgListDemoController/{id}", "GET", 2),
 	jeecgdemo_add("jeecgdemo_add", "jeecgDemo添加", "/rest/jeecgListDemoController", "POST", 3),
 	jeecgdemo_edit("jeecgdemo_edit", "jeecgDemo编辑", "/rest/jeecgListDemoController", "PUT", 4),
-	jeecgdemo_delete("jeecgdemo_delete", "jeecgDemo删除", "/rest/jeecgListDemoController/{id}", "DELETE", 5)
+	jeecgdemo_delete("jeecgdemo_delete", "jeecgDemo删除", "/rest/jeecgListDemoController/{id}", "DELETE", 5),
+
+	jformechart_projectlist("jformechart_projectlist","看板项目列表","/rest/jformEchartController/list","GET",1),
+	jformechart_projectcount("jformechart_projectcount","看板项目列表","/rest/jformEchartController/GetProjectCount","GET",2),
+	jformechart_projectechart("jformechart_projectechart","看板项目列表","/rest/jformEchartController/GetProjectEchart","GET",3)
 	;
 	/**
      * 接口编码

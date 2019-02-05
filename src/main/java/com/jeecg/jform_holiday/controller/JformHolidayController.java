@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.jeecgframework.tag.vo.datatable.SortDirection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,8 +67,6 @@ public class JformHolidayController extends BaseController {
 	private JformHolidayServiceI jformHolidayService;
 	@Autowired
 	private SystemService systemService;
-	
-
 
 	/**
 	 * 休息日信息表列表 页面跳转
@@ -94,6 +93,7 @@ public class JformHolidayController extends BaseController {
 		org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil.installHql(cq, jformHoliday, request.getParameterMap());
 		try{
 		//自定义追加查询条件
+			cq.addOrder("holiday", SortDirection.asc);
 		}catch (Exception e) {
 			throw new BusinessException(e.getMessage());
 		}
@@ -170,6 +170,10 @@ public class JformHolidayController extends BaseController {
 		AjaxJson j = new AjaxJson();
 		message = "休息日信息表添加成功";
 		try{
+			long count = systemService.getCountForJdbcParam("select count(1) from jform_holiday t where t.holiday = ?",jformHoliday.getHoliday());
+			if(count>0){
+				throw new BusinessException("已经存在该节假日的信息！");
+			}
 			jformHolidayService.save(jformHoliday);
 			systemService.addLog(message, Globals.Log_Type_INSERT, Globals.Log_Leavel_INFO);
 		}catch(Exception e){

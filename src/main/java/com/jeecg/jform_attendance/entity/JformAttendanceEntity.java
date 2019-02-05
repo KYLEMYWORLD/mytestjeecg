@@ -52,9 +52,16 @@ public class JformAttendanceEntity implements java.io.Serializable {
 	/**考勤状态*/
 	@Excel(name="考勤状态",width = 15)
 	private java.lang.Integer attenStatus;
+
+	@Excel(name="上午不请")
+	private java.lang.Integer morningFree;
+
+	@Excel(name="下午不请")
+	private java.lang.Integer afternoonFree;
 	/**备注*/
 	@Excel(name="备注",width=15)
 	private java.lang.String memo;
+
 	/**创建人名称*/
 	private java.lang.String createName;
 	/**创建人登录名称*/
@@ -212,6 +219,32 @@ public class JformAttendanceEntity implements java.io.Serializable {
 	 */
 	public void setAttenStatus(java.lang.Integer attenStatus){
 		this.attenStatus = attenStatus;
+	}
+
+	@Column(name ="AFTERNOON_FREE",nullable=false,length=1)
+	public java.lang.Integer getAfternoonFree(){
+		return this.afternoonFree;
+	}
+
+	/**
+	 *方法: 设置java.lang.Integer
+	 *@param: java.lang.Integer  下半天不请
+	 */
+	public void setAfternoonFree(java.lang.Integer afternoonFree){
+		this.afternoonFree = afternoonFree;
+	}
+
+	@Column(name ="MORNING_FREE",nullable=false,length=1)
+	public java.lang.Integer getMorningFree(){
+		return this.morningFree;
+	}
+
+	/**
+	 *方法: 设置java.lang.Integer
+	 *@param: java.lang.Integer  上半天不请
+	 */
+	public void setMorningFree(java.lang.Integer morningFree){
+		this.morningFree = morningFree;
 	}
 	/**
 	 *方法: 取得java.lang.String
@@ -383,4 +416,5 @@ public class JformAttendanceEntity implements java.io.Serializable {
 	public void setBpmStatus(java.lang.String bpmStatus){
 		this.bpmStatus = bpmStatus;
 	}
+
 }

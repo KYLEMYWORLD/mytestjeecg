@@ -359,6 +359,20 @@ public class StringUtil {
 	}
 
 	/**
+	 * 判断是否是空字符串 null和"" 都返回 true
+	 *
+	 * @author Robin Chang
+	 * @param s
+	 * @return
+	 */
+	public static boolean isEmpty(Object s) {
+		if (s != null && !s.equals("")) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
 	 * 转化为String时过滤空
 	 * @param o
 	 * @return

@@ -46,6 +46,7 @@ public class DataGridColumnTag extends TagSupport {
 	protected String funname="openwindow";//自定义函数名称
 	protected String arg;//自定义链接传入参数字段
 	protected String dictionary;	//数据字典组编码
+	protected String searchpopdic;	//数据字典组编码
 	protected boolean popup=false;	//是否启用popup模式选择 默认不启用
 	protected String extend; //扩展属性
 	protected String style; //Td的CSS
@@ -98,7 +99,7 @@ public class DataGridColumnTag extends TagSupport {
 		Tag t = findAncestorWithClass(this, DataGridTag.class);
 		DataGridTag parent = (DataGridTag) t;
 
-		parent.setColumn(title,field,width,showLen,rowspan,colspan,align,sortable,checkbox,formatter,formatterjs,hidden,replace,treefield,image,imageSize,query,url,funname,arg,queryMode, dictionary,popup,frozenColumn,extend,style,downloadName,autocomplete,extendParams,editor,defaultVal,showMode,newColumn,dictCondition,filterType,optsMenu,isAjaxDict);
+		parent.setColumn(title,field,width,showLen,rowspan,colspan,align,sortable,checkbox,formatter,formatterjs,hidden,replace,treefield,image,imageSize,query,url,funname,arg,queryMode, dictionary,popup,frozenColumn,extend,style,downloadName,autocomplete,extendParams,editor,defaultVal,showMode,newColumn,dictCondition,filterType,optsMenu,isAjaxDict,searchpopdic);
 
 		return EVAL_PAGE;
 	}
@@ -291,5 +292,12 @@ public class DataGridColumnTag extends TagSupport {
 	public boolean getIsAjaxDict() {
 		return isAjaxDict;
 	}
-	
+
+	public String getSearchpopdic() {
+		return searchpopdic;
+	}
+
+	public void setSearchpopdic(String searchpopdic) {
+		this.searchpopdic = searchpopdic;
+	}
 }

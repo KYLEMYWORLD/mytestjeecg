@@ -24,12 +24,12 @@
    <t:dgCol title="更新日期"  field="updateDate"  formatter="yyyy-MM-dd"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="流程状态"  field="bpmStatus"  hidden="true"  queryMode="single"  dictionary="bpm_status"  width="120"></t:dgCol>
    <t:dgCol title="操作" field="opt" width="100"></t:dgCol>
-   <t:dgDelOpt exp="projectStatus#eq#0" title="删除" url="jformProjectController.do?doDel&id={id}" urlclass="ace_button"  urlfont="fa-trash-o" operationCode="delete"/>
-   <t:dgToolBar title="添加项目" icon="icon-add" url="jformProjectController.do?goAdd" funname="add" id="add"></t:dgToolBar>
-	<t:dgToolBar title="编辑项目" icon="icon-edit" url="jformProjectController.do?goUpdate" funname="update" id="update"></t:dgToolBar>
-   <t:dgToolBar title="查看" icon="icon-search" url="jformProjectController.do?goUpdate" funname="detail" id="detail"></t:dgToolBar>
-   <t:dgToolBar title="导出" icon="icon-putout" funname="ExportXls" id="export"></t:dgToolBar>
-   <t:dgToolBar title="激活" icon="icon-edit"  url="jformProjectController.do?doActivate" funname="doActivate" id="activate" ></t:dgToolBar>
+   <t:dgDelOpt id="delete" exp="projectStatus#eq#0" title="删除" url="jformProjectController.do?doDel&id={id}" urlclass="ace_button"  urlfont="fa-trash-o" operationCode="delete"/>
+   <t:dgToolBar id="add" title="添加项目" icon="icon-add" url="jformProjectController.do?goAdd" funname="add"></t:dgToolBar>
+	<t:dgToolBar id="update" title="编辑项目" icon="icon-edit" url="jformProjectController.do?goUpdate" funname="update"></t:dgToolBar>
+   <t:dgToolBar id="detail" title="查看" icon="icon-search" url="jformProjectController.do?goUpdate" funname="detail"></t:dgToolBar>
+   <t:dgToolBar id="export" title="导出" icon="icon-putout" funname="ExportXls"></t:dgToolBar>
+   <t:dgToolBar id="activate" title="激活" icon="icon-edit"  url="jformProjectController.do?doActivate" funname="doActivate"></t:dgToolBar>
   </t:datagrid>
   </div>
  </div>

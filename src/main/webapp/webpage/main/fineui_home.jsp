@@ -223,8 +223,7 @@
     </div>
 
 </div>
-			<div class="row">
-
+            <div class="row">
                 <div class="col-sm-5">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">

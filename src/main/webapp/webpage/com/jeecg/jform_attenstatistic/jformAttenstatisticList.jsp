@@ -11,21 +11,9 @@
    <t:dgCol title="出差天数"  field="gooutDays"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="请假天数"  field="leaveDays"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="调休天数"  field="offworkDays"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="统计年份"  field="dateMouth"  query="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="统计年份"  field="dateYear"  formatter="yyyy-MM-dd"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="创建人名称"  field="createName"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="创建人登录名称"  field="createBy"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="创建日期"  field="createDate"  formatter="yyyy-MM-dd"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="更新人名称"  field="updateName"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="更新人登录名称"  field="updateBy"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="更新日期"  field="updateDate"  formatter="yyyy-MM-dd"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="所属部门"  field="sysOrgCode"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="所属公司"  field="sysCompanyCode"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="流程状态"  field="bpmStatus"  queryMode="single"  dictionary="bpm_status"  width="120"></t:dgCol>
+   <t:dgCol title="统计月份"  field="dateMouth"  query="true" formatter="MM"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="统计年份"  field="dateYear" query="true"  formatter="yyyy"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="操作" field="opt" width="100"></t:dgCol>
-   <t:dgDelOpt title="删除" url="jformAttenstatisticController.do?doDel&id={id}" urlclass="ace_button"  urlfont="fa-trash-o"/>
-   <t:dgToolBar title="录入" icon="icon-add" url="jformAttenstatisticController.do?goAdd" funname="add" id="add"></t:dgToolBar>
-   <t:dgToolBar title="编辑" icon="icon-edit" url="jformAttenstatisticController.do?goUpdate" funname="update" id="update"></t:dgToolBar>
    <t:dgToolBar title="查看" icon="icon-search" url="jformAttenstatisticController.do?goUpdate" funname="detail" id="detail"></t:dgToolBar>
    <t:dgToolBar title="导出" icon="icon-putout" funname="ExportXls" id="export"></t:dgToolBar>
    <t:dgToolBar title="重新计算" icon="icon-edit"  url="jformAttenstatisticController.do?doRecount" funname="doRecount" id="Recount"  ></t:dgToolBar>
@@ -41,7 +29,7 @@
 function doRecount(title,url,gridname){
 	 var rowData = $('#'+gridname).datagrid('getSelected');
  		if (!rowData) {
-	 		tip('请选择重新计算项目');
+	 		tip('请选择重新计算人员');
 	 		return;
  	    }
  	 url = url+"&id="+rowData['id'];
@@ -73,5 +61,4 @@ function ExportXls() {
 function ExportXlsByT() {
 	JeecgExcelExport("jformAttenstatisticController.do?exportXlsByT","jformAttenstatisticList");
 }
-
  </script>

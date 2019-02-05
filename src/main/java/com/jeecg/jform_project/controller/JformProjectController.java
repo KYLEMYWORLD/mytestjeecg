@@ -101,10 +101,25 @@ public class JformProjectController extends BaseController {
 		this.jformProjectService.getDataGridReturn(cq, true);
 		TagUtil.datagrid(response, dataGrid);
 	}
-	
+
+	/**
+	 * 获取项目名称
+	 * 
+	 * @return
+	 */
+	@RequestMapping(params = "getProjectName")
+	@ResponseBody
+	public AjaxJson getProjectName(JformProjectEntity jformProject, HttpServletRequest request) {
+		String message = null;
+		AjaxJson j = new AjaxJson();
+		jformProject = systemService.getEntity(JformProjectEntity.class, jformProject.getId());
+		j.setMsg(jformProject.getProjectName());
+		return j;
+	}
+
 	/**
 	 * 删除项目信息表
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping(params = "doDel")

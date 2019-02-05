@@ -5,8 +5,8 @@
   <div region="center" style="padding:0px;border:0px">
   <t:datagrid name="jformUserPlanList" checkbox="false" pagination="true" treegrid="true" treeField="planName" fitColumns="true" title="个人计划安排" sortName="createDate" actionUrl="jformUserPlanController.do?datagrid" idField="id" fit="true" queryMode="group">
    <t:dgCol title="id"  field="id"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="项目名称"  field="projectId"  queryMode="single" query="true"  width="120"  dictionary="jform_project,id,project_name"></t:dgCol>
    <t:dgCol title="任务名称"  query="true" field="planName"  queryMode="single"  width="120"></t:dgCol>
+   <t:dgCol title="项目名称"  field="projectId"  queryMode="single" query="true"  width="120"  dictionary="jform_project,id,project_name"   searchpopdic="project_select,projectId@cname,id@project_name"></t:dgCol>
    <t:dgCol title="任务等级"  query="true"  field="planLevel"  queryMode="single" dictionary="userPlanT"  width="65"></t:dgCol>
    <t:dgCol title="任务顺序"  field="planOrder"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="任务父ID" hidden="true"  field="planId"  queryMode="single"  width="120"></t:dgCol>
@@ -24,22 +24,13 @@
    <t:dgCol title="预警状态"  hidden="true"  field="planIsalert"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="预警原因"  hidden="true"  field="planAlertmsg"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="分配任务ID"  field="taskId"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="创建人名称"  field="createName"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="创建人登录名称"  field="createBy"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="更新人登录名称"  field="updateBy"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="更新人名称"  field="updateName"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="创建日期"  field="createDate"  formatter="yyyy-MM-dd"  hidden="true"  queryMode="group"  width="120"></t:dgCol>
-   <t:dgCol title="更新日期"  field="updateDate"  formatter="yyyy-MM-dd"  hidden="true"  queryMode="group"  width="120"></t:dgCol>
-   <t:dgCol title="所属部门"  field="sysOrgCode"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="所属公司"  field="sysCompanyCode"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
-   <t:dgCol title="流程状态"  field="bpmStatus"  hidden="true"  queryMode="single"  width="120"></t:dgCol>
    <t:dgCol title="操作" field="opt" width="100"></t:dgCol>
-   <t:dgDelOpt title="删除" exp="planLevel#eq#3,4" url="jformUserPlanController.do?doDel&id={id}" urlclass="ace_button"  urlfont="fa-trash-o"/>
+   <t:dgDelOpt title="删除" exp="planLevel#eq#3,4&&planStatus#eq#0,1,2" url="jformUserPlanController.do?doDel&id={id}" urlclass="ace_button"  urlfont="fa-trash-o"/>
    <t:dgFunOpt title="细分完成"  exp="planLevel#eq#2&&planStatus#eq#1" funname="doDividefinish(id)" urlclass="ace_button" urlfont="fa-wrench" />
    <t:dgToolBar title="细分任务" icon="icon-add"  url="jformUserPlanController.do?goAdd" funname="doDivideAdd" id="adduserplan"  ></t:dgToolBar>
-   <t:dgToolBar title="添加任务" icon="icon-add" url="jformUserPlanController.do?goAdd" funname="doAdduserplan" id="add"></t:dgToolBar>
+   <t:dgToolBar title="添加个人任务" icon="icon-add" url="jformUserPlanController.do?goAdd" funname="doAdduserplan" id="add"></t:dgToolBar>
    <t:dgToolBar title="编辑" icon="icon-edit" url="jformUserPlanController.do?goUpdate" funname="beforeUpdatetree" width="100%" height="100%" id="updatetree"></t:dgToolBar>
-   <t:dgToolBar title="查看" icon="icon-search" url="jformUserPlanController.do?goUpdate" funname="detailtree" width="100%" height="100%" id="detailtree"></t:dgToolBar>
+   <t:dgToolBar title="查看" icon="icon-search" url="jformUserPlanController.do?goUpdate" funname="detailtree" width="640" height="450" id="detailtree"></t:dgToolBar>
    <t:dgToolBar title="导出" icon="icon-putout" funname="ExportXls" id="export"></t:dgToolBar>
 
   </t:datagrid>

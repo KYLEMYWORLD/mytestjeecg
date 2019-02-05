@@ -1,5 +1,6 @@
 package com.jeecg.jform_attenstatistic.entity;
 
+import io.swagger.models.auth.In;
 import org.hibernate.annotations.GenericGenerator;
 import org.jeecgframework.poi.excel.annotation.Excel;
 
@@ -38,11 +39,11 @@ public class JformAttenstatisticEntity implements java.io.Serializable {
 	@Excel(name="调休天数",width=15)
 	private Double offworkDays;
 	/**统计年份*/
-	@Excel(name="统计年份",width=15)
+	@Excel(name="统计月份",width=15)
 	private Integer dateMouth;
 	/**统计年份*/
-	@Excel(name="统计年份",width=15,format = "yyyy-MM-dd")
-	private Date dateYear;
+	@Excel(name="统计年份",width=15)
+	private Integer dateYear;
 	/**创建人名称*/
 	private String createName;
 	/**创建人登录名称*/
@@ -207,7 +208,7 @@ public class JformAttenstatisticEntity implements java.io.Serializable {
 	 */
 
 	@Column(name ="DATE_YEAR",nullable=false,length=32)
-	public Date getDateYear(){
+	public Integer getDateYear(){
 		return this.dateYear;
 	}
 
@@ -215,7 +216,7 @@ public class JformAttenstatisticEntity implements java.io.Serializable {
 	 *方法: 设置java.util.Date
 	 *@param: java.util.Date  统计年份
 	 */
-	public void setDateYear(Date dateYear){
+	public void setDateYear(Integer dateYear){
 		this.dateYear = dateYear;
 	}
 	/**

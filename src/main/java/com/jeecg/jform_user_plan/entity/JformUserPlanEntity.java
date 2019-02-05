@@ -83,8 +83,10 @@ public class JformUserPlanEntity implements java.io.Serializable {
 	private java.lang.String planAlertmsg;
 	/**项目ID*/
 	private java.lang.String projectId;
-	/**分配任务ID*/
+	/**保存的是和jform_plan关联的id*/
 	private java.lang.String taskId;
+	/**是否显示*/
+	private java.lang.Integer planShow;
 	/**创建人名称*/
 	private java.lang.String createName;
 	/**创建人登录名称*/
@@ -361,6 +363,19 @@ public class JformUserPlanEntity implements java.io.Serializable {
 	 */
 	public void setPlanIsalert(java.lang.Integer planIsalert){
 		this.planIsalert = planIsalert;
+	}
+
+	@Column(name ="PLAN_SHOW",nullable=true,length=10)
+	public java.lang.Integer getPlanShow(){
+		return this.planShow;
+	}
+
+	/**
+	 *方法: 设置java.lang.Integer
+	 *@param: java.lang.Integer  预警状态
+	 */
+	public void setPlanShow(java.lang.Integer planShow){
+		this.planShow = planShow;
 	}
 	/**
 	 *方法: 取得java.lang.String

@@ -237,8 +237,8 @@ public class CriteriaQuery {
 	/**
 	 * 创建外键表关联对象
 	 * 
-	 * @param name外键表实体名
-	 * @param value引用名
+	 * @param name 外键表实体名
+	 * @param value 引用名
 	 */
 	public void createAlias(String name, String value) {
 		if(!alias.contains(name)){
@@ -272,13 +272,12 @@ public class CriteriaQuery {
 
 	/**
 	 * 设置条件之间and关系
-	 * 
+	 * @param c
 	 * @param query
-	 * @param source
-	 * @param dest
+	 * @param souce
+	 * @return
 	 *            hql:(this_.0 like ? or this_.1 like ?) 表示法:cq.add(cq.or(cq, 0,
 	 *            1));
-	 * @return
 	 */
 	public Criterion and(Criterion c, CriteriaQuery query, int souce) {
 		return Restrictions.and(c, query.getCriterionList().getParas(souce));
@@ -330,8 +329,8 @@ public class CriteriaQuery {
 	 * 设置Or查询
 	 * 
 	 * @param query
-	 * @param source条件1
-	 * @param dest条件2
+	 * @param source 条件1
+	 * @param dest 条件2
 	 * @return
 	 */
 	public Criterion or(CriteriaQuery query, int source, int dest) {
@@ -341,10 +340,10 @@ public class CriteriaQuery {
 
 	/**
 	 * 设置or(Criterion c, CriteriaQuery query, int source)（或）查询条件
-	 * 
-	 * @param keyname
-	 * @param keyvalue1
-	 * @param keyvalue2
+	 * @param c
+	 * @param query
+	 * @param source
+	 * @return
 	 */
 	public Criterion or(Criterion c, CriteriaQuery query, int source) {
 		return Restrictions.or(c, query.getCriterionList().getParas(source));
@@ -352,15 +351,13 @@ public class CriteriaQuery {
 
 	/**
 	 * 设置or(Criterion c1, Criterion c2)（或）查询条件
-	 * 
-	 * @param keyname
-	 * @param keyvalue1
-	 * @param keyvalue2
-	 *            两个条件或查询： Restrictions.or(Restrictions.in("username",list1),
-	 *            Restrictions.idEq(1)); 三个或多个条件查询:（使用嵌套方式）
-	 *            criteria.add(Restrictions
-	 *            .or(Restrictions.in("username",list1),
-	 *            Restrictions.or(Restrictions.idEq(3), Restrictions.idEq(4))));
+	 * @param c1
+	 * @param c2
+	 * 	 *            两个条件或查询： Restrictions.or(Restrictions.in("username",list1),
+	 * 	 *            Restrictions.idEq(1)); 三个或多个条件查询:（使用嵌套方式）
+	 * 	 *            criteria.add(Restrictions
+	 * 	 *            .or(Restrictions.in("username",list1),
+	 * 	 *            Restrictions.or(Restrictions.idEq(3), Restrictions.idEq(4))));
 	 */
 	public void or(Criterion c1, Criterion c2) {
 		this.detachedCriteria.add(Restrictions.or(c1, c2));
